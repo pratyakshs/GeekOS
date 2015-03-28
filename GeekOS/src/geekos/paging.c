@@ -151,10 +151,10 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
      uint_t i,j;
      pde_t * PageDir=Alloc_Page();
      memset(PageDir, '\0', 4096);
-
+     
      if(numPages%NUM_PAGE_TABLE_ENTRIES!=0)
      {
-        Print("Check... \n");
+        
         numPdEnt++;
      }
 
@@ -201,7 +201,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
                 addr=((ulong_t) i) << 10;
                 addr=addr | ((ulong_t) j);
                 entry.pageBaseAddr = addr;
-//                Print("Address is %x \n", entry.pageBaseAddr);
+                //Print("Address is %x \n", entry.pageBaseAddr);
         /* Install the PDE in index i of the page directory */
                 PageTable[j] = entry;
             }
@@ -210,10 +210,10 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
 
     /*Turn on paging*/
     Enable_Paging(PageDir);
-    Print("Check 1...\n");
+    
     /* Install page fault handler */
     Install_Interrupt_Handler(14, Page_Fault_Handler);
-    Print("Check 2...\n");
+    
 
 
 }

@@ -1,4 +1,4 @@
-cscope 15 $HOME/Desktop/OS/os_project/opt/GeekOS/src/geekos               0000382946
+cscope 15 $HOME/Desktop/OS/os_project/OSLab/GeekOS/src/geekos               0000384335
 	@alarm.c
 
 10 
@@ -15501,109 +15501,109 @@ boÙInfo
 	`In™_IÁ”ru±s
 (0);
 
-111 
+112 
 	`In™_SMP
 ();
 
-112 
+113 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_A
 ,
 
-114 
+115 
 	`In™_ScheduËr
 (0, (*)
 KERN_STACK
 );
 
-115 
+116 
 	`In™_T¿ps
 ();
 
-116 
+117 
 	`In™_Loÿl_APIC
 (0);
 
-117 
+118 
 	`In™_Tim”
 ();
 
-119 
+120 
 	`In™_Keybßrd
 ();
 
-120 
+121 
 	`In™_DMA
 ();
 
-122 
+123 
 	`In™_IDE
 ();
 
-123 
+124 
 	`In™_PFAT
 ();
 
-124 
+125 
 	`In™_GFS2
 ();
 
-125 
+126 
 	`In™_GOSFS
 ();
 
-126 
+127 
 	`In™_CFS
 ();
 
-127 
+128 
 	`In™_AÏrm
 ();
 
-129 
+130 
 	`R–—£_SMP
 ();
 
-132 
+133 
 	`In™_N‘wÜk_Deviûs
 ();
 
-133 
+134 
 	`In™_ARP_PrÙocÞ
 ();
 
-134 
+135 
 	`In™_IP
 ();
 
-135 
+136 
 	`In™_Routšg
 ();
 
-136 
+137 
 	`In™_Sock‘s
 ();
 
-137 
+138 
 	`In™_RIP
 ();
 
-141 
+142 
 	`In™_Sound_Deviûs
 ();
 
-144 
+145 
 	`MouÁ_RoÙ_Fžesy¡em
 ();
 
-146 
+147 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_A
 , "initialize…age file.");
 
-148 
+149 
 	`S‘_Cu¼’t_A‰r
 (
 	`ATTRIB
@@ -15615,11 +15615,11 @@ GREEN
 BRIGHT
 ));
 
-149 
+150 
 	`Pršt
 ("Welcomeo GeekOS!\n");
 
-150 
+151 
 	`S‘_Cu¼’t_A‰r
 (
 	`ATTRIB
@@ -15629,29 +15629,29 @@ BLACK
 GRAY
 ));
 
-152 
+153 
 	`TODO_P
 (
 PROJECT_SOUND
 , "play startup sound");
 
-154 
+155 
 	`S·wn_In™_Proûss
 ();
 
-157 
+158 
 	`H¬dw¬e_Shutdown
 ();
 
-160 
+161 
 	}
 }
 
-164 
+165 
 	$MouÁ_RoÙ_Fžesy¡em
 () {
 
-165 ià(
+166 ià(
 	`MouÁ
 (
 ROOT_DEVICE
@@ -15659,43 +15659,43 @@ ROOT_DEVICE
 ROOT_PREFIX
 , "pfat") != 0)
 
-166 
+167 
 	`Pršt
 ("FažedØmouÁ /" 
 ROOT_PREFIX
  " filesystem\n");
 
-168 
+169 
 	`Pršt
 ("MouÁed /" 
 ROOT_PREFIX
  " filesystem!\n");
 
-170 
+171 
 	}
 }
 
-177 
+178 
 	$S·wn_In™_Proûss
 () {
 
-178 
+179 
 rc
 ;
 
-179 
+180 
 K”Ãl_Th»ad
  *
 š™Proûss
 ;
 
-182 
+183 
 	`Pršt
 ("S·wnšg in™…roûs (%s)\n", 
 INIT_PROGRAM
 );
 
-183 
+184 
 rc
  = 
 	`S·wn_FÜeground
@@ -15705,17 +15705,17 @@ INIT_PROGRAM
 š™Proûss
 );
 
-185 ià(
+186 ià(
 rc
  != 0) {
 
-186 
+187 
 	`Pršt
 ("FažedØ¥awÀš™…roûss:ƒ¼Ü codð%d\n", 
 rc
 );
 
-189 
+190 
 ex™Code
  = 
 	`Još
@@ -15723,13 +15723,13 @@ ex™Code
 š™Proûss
 );
 
-190 
+191 
 	`Pršt
 ("In™…roûs ex™ed w™h cod%d\n", 
 ex™Code
 );
 
-192 
+193 
 	}
 }
 
@@ -17638,90 +17638,346 @@ boÙInfo
 ) {
 
 149 
-	`TODO_P
-(
-PROJECT_VIRTUAL_MEMORY_A
-,
+ulÚg_t
+ 
+numPages
+ = 
+boÙInfo
+->
+memSizeKB
+ >> 2;
+
+150 
+ulÚg_t
+ 
+numPdEÁ
+ = 
+numPages
+/
+NUM_PAGE_TABLE_ENTRIES
+;
 
 151 
+ušt_t
+ 
+i
+,
+j
+;
+
+152 
+pde_t
+ * 
+PageDœ
+=
+	`AÎoc_Page
+();
+
+153 
+	`mem£t
+(
+PageDœ
+, '\0', 4096);
+
+155 if(
+numPages
+%
+NUM_PAGE_TABLE_ENTRIES
+!=0)
+
+157 
+	`Pršt
+("Check... \n");
+
+158 
+numPdEÁ
+++;
+
+161 
+	`Pršt
+("Initializing Virtual Memory... \n");
+
+163 
+i
+=0;i<
+numPdEÁ
+;i++){
+
+164 
+pde_t
+ 
+’Œy
+ = {0};
+
+165 
+±e_t
+ *
+·geTabË
+;
+
+167 
+·geTabË
+ = 
+	`AÎoc_Page
+();
+
+168 
+	`mem£t
+(
+·geTabË
+, '\0', 4096);
+
+171 
+’Œy
+.
+´e£Á
+ = 1;
+
+172 
+’Œy
+.
+·geTabËBa£Addr
+ = ((
+ulÚg_t
+è
+·geTabË
+) >> 12;
+
+173 
+’Œy
+.
+æags
+ = 
+VM_USER
+ | 
+VM_WRITE
+;
+
+176 
+PageDœ
+[
+i
+] = 
+’Œy
+;
+
+179 
+i
+=
+numPdEÁ
+;i<
+NUM_PAGE_DIR_ENTRIES
+;i++){
+
+181 
+pde_t
+ 
+’Œy
+ = {0};
+
+182 
+PageDœ
+[
+i
+] = 
+’Œy
+;
+
+186 
+i
+=0;i<
+numPdEÁ
+;i++){
+
+187 
+±e_t
+ *
+PageTabË
+ = (±e_ˆ*è(
+PageDœ
+[
+i
+].
+·geTabËBa£Addr
+ << 12);
+
+189 
+j
+=0;j<
+NUM_PAGE_TABLE_ENTRIES
+;j++){
+
+191 if(
+numPages
+%
+NUM_PAGE_TABLE_ENTRIES
+!=0 && 
+i
+==
+numPdEÁ
+-1 && 
+j
+==(numPages%NUM_PAGE_TABLE_ENTRIES)){
+
+196 
+±e_t
+ 
+’Œy
+ = {0};
+
+197 
+ulÚg_t
+ 
+addr
+;
+
+199 
+’Œy
+.
+´e£Á
+ = 1;
+
+200 
+’Œy
+.
+æags
+ = 
+VM_USER
+ | 
+VM_WRITE
+;
+
+201 
+addr
+=((
+ulÚg_t
+è
+i
+) << 10;
+
+202 
+addr
+÷dd¸| ((
+ulÚg_t
+è
+j
+);
+
+203 
+’Œy
+.
+·geBa£Addr
+ = 
+addr
+;
+
+206 
+PageTabË
+[
+j
+] = 
+’Œy
+;
+
+212 
+	`EÇbË_Pagšg
+(
+PageDœ
+);
+
+213 
+	`Pršt
+("Check 1...\n");
+
+215 
+	`In¡®l_IÁ”ru±_HªdËr
+(14, 
+Page_FauÉ_HªdËr
+);
+
+216 
+	`Pršt
+("Check 2...\n");
+
+219 
 	}
 }
 
-153 
+221 
 	$In™_SecÚd¬y_VM
 () {
 
-154 
+222 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_A
 , "enable…aging on secondary cores");
 
-155 
+223 
 	}
 }
 
-162 
+230 
 	$In™_Pagšg
 () {
 
-163 
+231 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_B
 ,
 
-165 
+233 
 	}
 }
 
-173 
+241 
 	$Fšd_S·û_On_Pagšg_Fže
 () {
 
-174 
+242 
 	`KASSERT
 (!
 	`IÁ”ru±s_EÇbËd
 ());
 
-175 
+243 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_B
 , "Find free…age in…aging file");
 
-176  
+244  
 EUNSUPPORTED
 ;
 
-177 
+245 
 	}
 }
 
-184 
+252 
 	$F»e_S·û_On_Pagšg_Fže
 (
 ·gefžeIndex
 ) {
 
-185 
+253 
 	`KASSERT
 (!
 	`IÁ”ru±s_EÇbËd
 ());
 
-186 
+254 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_B
 , "Free…age in…aging file");
 
-187 
+255 
 	}
 }
 
-197 
+265 
 	$Wr™e_To_Pagšg_Fže
 (*
 ·ddr
@@ -17733,7 +17989,7 @@ vaddr
 ·gefžeIndex
 ) {
 
-198 
+266 
 Page
  *
 ·ge
@@ -17745,7 +18001,7 @@ ulÚg_t
 ·ddr
 );
 
-199 
+267 
 	`KASSERT
 (!(
 ·ge
@@ -17755,17 +18011,17 @@ ulÚg_t
 PAGE_PAGEABLE
 ));
 
-200 
+268 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_B
 , "Write…age datao…aging file");
 
-201 
+269 
 	}
 }
 
-212 
+280 
 	$R—d_From_Pagšg_Fže
 (*
 ·ddr
@@ -17777,7 +18033,7 @@ vaddr
 ·gefžeIndex
 ) {
 
-213 
+281 
 Page
  *
 ·ge
@@ -17789,7 +18045,7 @@ ulÚg_t
 ·ddr
 );
 
-214 
+282 
 	`KASSERT
 (!(
 ·ge
@@ -17799,17 +18055,17 @@ ulÚg_t
 PAGE_PAGEABLE
 ));
 
-215 
+283 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_B
 , "Read…age data from…aging file");
 
-216 
+284 
 	}
 }
 
-219 *
+287 *
 	$Mm­_Im¶
 (*
 ±r
@@ -17823,21 +18079,21 @@ PROJECT_VIRTUAL_MEMORY_B
 fd
 ) {
 
-220 
+288 
 	`TODO_P
 (
 PROJECT_MMAP
 , "Mmap setup mapping");
 
-221  
+289  
 NULL
 ;
 
-222 
+290 
 	}
 }
 
-224 
+292 
 boÞ
  
 	$Is_Mm­ed_Page
@@ -17851,21 +18107,21 @@ ulÚg_t
 vaddr
 ) {
 
-225 
+293 
 	`TODO_P
 (
 PROJECT_MMAP
 ,
 
-227  
+295  
 çl£
 ;
 
-228 
+296 
 	}
 }
 
-230 
+298 
 	$Wr™e_Out_Mm­ed_Page
 (
 U£r_CÚ‹xt
@@ -17877,17 +18133,17 @@ ulÚg_t
 vaddr
 ) {
 
-231 
+299 
 	`TODO_P
 (
 PROJECT_MMAP
 , "Mmap write back dirty mmap'd…age");
 
-232 
+300 
 	}
 }
 
-234 
+302 
 	$Munm­_Im¶
 (
 ulÚg_t
@@ -17895,13 +18151,13 @@ ulÚg_t
 ±r
 ) {
 
-235 
+303 
 	`TODO_P
 (
 PROJECT_MMAP
 , "unmapphe…ages");
 
-236 
+304 
 	}
 }
 

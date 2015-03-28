@@ -251,9 +251,9 @@ Enable_Paging:
 	mov	cr3, eax
 	mov	eax, cr3
 	mov	cr3, eax
-	mov	ebx, cr0
+	mov	ebx, cr2
 	or	ebx, 0x80000000
-	mov	cr0, ebx
+	mov	cr2, ebx
 	ret
 
 
