@@ -147,13 +147,18 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
      *   null pointer references
      */
      ulong_t numPages = bootInfo->memSizeKB >> 2;
-     ulong_t numPdEnt = bootInfo->memSizeKB/NUM_PAGE_TABLE_ENTRIES;
-     int i;
-     int j;
+     ulong_t numPdEnt = numPages/NUM_PAGE_TABLE_ENTRIES;
+     uint_t i,j;
      pde_t * PageDir=Alloc_Page();
      memset(PageDir, '\0', 4096);
 
-     
+     if(numPages%NUM_PAGE_TABLE_ENTRIES!=0)
+     {
+        Print("Check... \n");
+        numPdEnt++;
+     }
+
+     Print("Initializing Virtual Memory... \n");
      /*Install  page directory entries*/
      for(i=0;i<numPdEnt;i++){
         pde_t entry = {0};
@@ -164,7 +169,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
 
     /* Create a page directory entry pointing to this page table */
         entry.present = 1;
-        entry.pageTableBaseAddr = ((ulong_t) pageTable)) >> 12;
+        entry.pageTableBaseAddr = ((ulong_t) pageTable) >> 12;
         entry.flags = VM_USER | VM_WRITE;
 
     /* Install the PDE in index i of the page directory */
@@ -173,7 +178,8 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
 
     for(i=numPdEnt;i<NUM_PAGE_DIR_ENTRIES;i++){
     /* present bit is set to 0 */
-    PageDir[i] = {0};
+    pde_t entry = {0};
+    PageDir[i] = entry;
     }
 
     /*Install  page table entries*/
@@ -188,14 +194,14 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
             else{
 
                 pte_t entry = {0};
-                int addr;
+                ulong_t addr;
         /* Create a page table entry pointing to  physical memory frame*/
                 entry.present = 1;
                 entry.flags = VM_USER | VM_WRITE;
-                addr=i << 10;
-                addr=addr | j;
+                addr=((ulong_t) i) << 10;
+                addr=addr | ((ulong_t) j);
                 entry.pageBaseAddr = addr;
-
+//                Print("Address is %x \n", entry.pageBaseAddr);
         /* Install the PDE in index i of the page directory */
                 PageTable[j] = entry;
             }
@@ -204,9 +210,10 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
 
     /*Turn on paging*/
     Enable_Paging(PageDir);
-
+    Print("Check 1...\n");
     /* Install page fault handler */
     Install_Interrupt_Handler(14, Page_Fault_Handler);
+    Print("Check 2...\n");
 
 
 }
