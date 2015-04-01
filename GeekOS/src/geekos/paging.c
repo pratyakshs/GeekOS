@@ -147,6 +147,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
      *   null pointer references
      */
      ulong_t numPages = bootInfo->memSizeKB >> 2;
+     Print("Num pages = %lu\n", numPages);
      ulong_t numPdEnt = numPages/NUM_PAGE_TABLE_ENTRIES;
      uint_t i,j;
      pde_t * PageDir=Alloc_Page();

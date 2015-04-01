@@ -108,7 +108,7 @@ void Main(struct Boot_Info *bootInfo) {
 
     lockKernel();
     Init_Interrupts(0);
-    //Init_VM(bootInfo);
+    Init_VM(bootInfo);
     Init_SMP();
     TODO_P(PROJECT_VIRTUAL_MEMORY_A,
            "initialize virtual memory page tables.");
