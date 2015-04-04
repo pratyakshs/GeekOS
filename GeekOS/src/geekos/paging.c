@@ -289,8 +289,22 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
  * is called, to ensure that the paging file is available.
  */
  void Init_Paging(void) {
- 	TODO_P(PROJECT_VIRTUAL_MEMORY_B,
- 		"Initialize paging file data structures");
+ 	// list of free pages in pagefile
+    int i;
+    for(i = 0; i < PF_SIZE; i++) {
+        struct FreeList_Node * fln = 0;
+        fln = Malloc(sizeof(struct FreeList_Node));
+        Add_To_Back_Of_PF_FreePages(&g_PF_FreeList, fln);
+    }
+    
+    // initialize the mapping (empty)
+    memset(PF_Map, -1, sizeof(ulong_t) * 33504);
+
+    // open the block device for paging file
+    Open_Block_Device("ide1",&pdev);
+
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_B,
+    //  "Initialize paging file data structures");
  }
 
 /**
@@ -300,9 +314,19 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
  *   the paging file, or -1 if the paging file is full
  */
  int Find_Space_On_Paging_File(void) {
- 	KASSERT(!Interrupts_Enabled());
- 	TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Find free page in paging file");
- 	return EUNSUPPORTED;
+    KASSERT(!Interrupts_Enabled());
+
+    struct FreeList_Node * free_node;
+    if (!Is_PF_FreePages_Empty(&g_PF_FreeList)) {
+        free_node = Get_Front_Of_PF_FreePages(&g_PF_FreeList); 
+        // KASSERT(??)
+        Remove_From_Front_Of_PF_FreePages(&g_PF_FreeList);
+        return free_node->index;
+    }
+    else 
+        return -1;
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Find free page in paging file");
+    // return EUNSUPPORTED;
  }
 
 /**
@@ -326,7 +350,16 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
  void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
  	struct Page *page = Get_Page((ulong_t) paddr);
     KASSERT(!(page->flags & PAGE_PAGEABLE));    /* Page must be locked! */
- 	TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Write page data to paging file");
+
+    int i;
+    for(i = 0; i < 8; i++) {
+        Block_Write(pdev, 8 * pagefileIndex + i, (void*)page + 512 * i);
+    }
+
+    extern struct Page *g_pageList;
+    ulong_t index = page - g_pageList;
+    PF_Map[index] = pagefileIndex;
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Write page data to paging file");
  }
 
 /**

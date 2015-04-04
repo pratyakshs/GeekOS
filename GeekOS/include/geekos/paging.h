@@ -143,4 +143,24 @@ void Write_Out_Mmaped_Page(struct User_Context *context, ulong_t vaddr);
 
 extern const pde_t *Kernel_Page_Dir(void);
 
+struct FreeList_Node {
+    int index;
+    DEFINE_LINK(PF_FreePages, FreeList_Node);
+};
+
+DEFINE_LIST(PF_FreePages, FreeList_Node);
+IMPLEMENT_LIST(PF_FreePages, FreeList_Node);
+
+static struct PF_FreePages g_PF_FreeList;
+
+// in multiple of 4 KB
+#define PF_SIZE 1024 * 1024
+
+/* PF_Map[i] is position in PageFile
+ * of page i in physical memory
+ */
+ulong_t PF_Map[33504];
+
+struct Block_Device * pdev;
+
 #endif
