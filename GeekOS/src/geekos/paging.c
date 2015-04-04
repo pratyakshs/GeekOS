@@ -152,7 +152,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
      //ulong_t numPages = 1024*1024;
      Print("Num pages = %lu\n", numPages);
      ulong_t numPdEnt = numPages/NUM_PAGE_TABLE_ENTRIES;
-     uint_t i,j;
+     
      PageDir=Alloc_Page();
      memset(PageDir, '\0', 4096);
      
@@ -164,6 +164,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
 
      Print("Initializing Virtual Memory... \n");
      /*Install  page directory entries*/
+     uint_t i,j;
      for(i=0;i<numPdEnt;i++){
      	pde_t entry = {0};
      	pte_t *pageTable;
@@ -201,7 +202,7 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
     /* Install the PDE in index i of the page directory */
      	
 
-     	for(j=0;j<=512;j++){
+     	for(j=0;j<256;j++){
             /*Case when number of pages in memory is not a multiple of NUM_PAGE_TABLE_ENTRIES*/
      		
      			pte_t entry = {0};
@@ -217,7 +218,22 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
      			pageTable[j] = entry;
      		
      	}
-
+     	for(j=512;j<768;j++){
+            /*Case when number of pages in memory is not a multiple of NUM_PAGE_TABLE_ENTRIES*/
+     		
+     			pte_t entry = {0};
+     			ulong_t addr;
+        /* Create a page table entry pointing to  physical memory frame*/
+     			entry.present = 1;
+     			entry.flags =  VM_WRITE;
+     			addr=1019 << 10;
+     			addr=addr | ((ulong_t) j);
+     			entry.pageBaseAddr = addr;
+                //Print("Address is %x \n", entry.pageBaseAddr);
+        /* Install the PDE in index i of the page directory */
+     			pageTable[j] = entry;
+     		
+     	}
      	PageDir[1019] = entry;
      //Map APIC and IO APIC
 

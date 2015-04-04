@@ -26,6 +26,8 @@
 struct Page;
 struct User_Context;
 
+
+
 #define NUM_PAGE_TABLE_ENTRIES	1024
 #define NUM_PAGE_DIR_ENTRIES	1024
 
@@ -45,6 +47,10 @@ struct User_Context;
 #define VM_EXEC    0            /* Memory can be executed (ignored for x86) */
 
 
+#define USER_VM_START 0x80000000+4096
+#define KERNEL_SPACE_END 0x80000000  
+#define USER_VM_END 0xffffffff
+#define USER_VM_SIZE 0x80000000 - 4096
 /*
  * Page directory entry datatype.
  * If marked as present, it specifies the physical address
@@ -60,6 +66,8 @@ typedef struct {
     uint_t kernelInfo:3;
     uint_t pageTableBaseAddr:20;
 } pde_t;
+
+
 
 /*
  * Page table entry datatype.
