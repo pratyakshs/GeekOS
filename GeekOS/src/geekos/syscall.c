@@ -31,7 +31,7 @@
 #include <geekos/kassert.h>
 #include <geekos/io.h> 
 #include <geekos/irq.h> 
-
+#include <geekos/bget.h>
 #include <geekos/sys_net.h>
 #include <geekos/pipe.h>
 #include <geekos/mem.h>
@@ -126,6 +126,14 @@ static int Sys_ShutDown(struct Interrupt_State *state) {
 
 static Spin_Lock_t sprintLock;
 
+
+static int Sys_Sbrk(struct Interrupt_State *state)
+{
+    ///ebx contains size of type ulong_t
+    bpool((void *)CURRENT_THREAD->userContext->end, state->ebx);
+    CURRENT_THREAD->userContext->end=CURRENT_THREAD->userContext->end+state->ebx;
+    return 1;
+}
 
 /*
  * Print a string to the console.
@@ -1121,7 +1129,8 @@ const Syscall g_syscallTable[] = {
     Sys_SymLink,
     Sys_OpenCount,
     Sys_TotalCount,
-    Sys_Get_NewTOD
+    Sys_Get_NewTOD,
+    Sys_Sbrk
 };
 
 /*

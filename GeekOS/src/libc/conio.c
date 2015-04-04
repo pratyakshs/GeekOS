@@ -28,6 +28,9 @@ DEF_SYSCALL(Get_Cursor, SYS_GETCURSOR, int, (int *row, int *col),
             int *arg1 = col;
             , SYSCALL_REGS_2)
 
+DEF_SYSCALL(sbrk, SYS_SBRK, int, (ulong_t size),
+            ulong_t arg0 = size;
+            , SYSCALL_REGS_1)
 
 int Put_Cursor(int row, int col) {
     char command[40];

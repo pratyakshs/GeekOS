@@ -32,6 +32,7 @@ int TotalCount(void);
 int Set_Attr(int attr);
 int Get_Cursor(int *row, int *col);
 int Put_Cursor(int row, int col);
+int sbrk(ulong_t size);
 #endif
 
 void Echo(bool enable);
