@@ -196,8 +196,9 @@
      //   "Destroy User_Context data structure after process exits");
      if(context == NULL) 
      {
+      Print("Null Context error!\n");
       return;
-  }
+    }
 
   Free_Segment_Descriptor(context->ldtDescriptor);
   Set_PDBR(g_kernel_pde);
@@ -237,7 +238,7 @@ int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
       page_entry=(pte_t*) Alloc_Page();
       if(page_entry==NULL)
       {
-       Print("can not allocate page in Alloc_User_Page/n");
+       Print("can not allocate page in Alloc_Pages_User/n");
        return -1;
    }
    memset(page_entry,0,PAGE_SIZE);
@@ -260,7 +261,7 @@ for(i=0;i<(num_pages<(NUM_PAGE_TABLE_ENTRIES - page_index)? num_pages : (NUM_PAG
    page_addr=Alloc_Pageable_Page(page_entry, Round_Down_To_Page(startAddress));
    if(page_addr==NULL)
    {
-    Print("can not allocate page in Alloc_User_Page/n");
+    Print("can not allocate page in Alloc_Pages_User/n");
     return -1;
 }
 *((uint_t*)page_entry)=0;
@@ -318,37 +319,37 @@ else
 
 bool Copy_Pages_User(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte_num)
 {
- uint_t phy_start;
- uint_t temp_len;
+ uint_t phyMemStart;
+ uint_t temp_length;
  int page_nums;
  struct Page * page;
 
 
  if(Round_Down_To_Page(dest_user+byte_num) == Round_Down_To_Page(dest_user)) 
  {
-  temp_len=byte_num;
+  temp_length=byte_num;
   page_nums=1;
 }
 else 
 {
-  temp_len=Round_Up_To_Page(dest_user)-dest_user;
-  byte_num-=temp_len;
+  temp_length=Round_Up_To_Page(dest_user)-dest_user;
+  byte_num-=temp_length;
   page_nums=0;
 }
 
-phy_start=lin_to_phyaddr(page_dir, dest_user);
-if(phy_start==0) 
+phyMemStart=lin_to_phyaddr(page_dir, dest_user);
+if(phyMemStart==0) 
 {
   Print("Error! Linear to physical memory transformation not possible.\n");
   return false;
 }
-page = Get_Page(phy_start);
+page = Get_Page(phyMemStart);
 
 Disable_Interrupts();
 page->flags &= ~ PAGE_PAGEABLE;
 Enable_Interrupts();
 
-memcpy((char *)phy_start, src, temp_len);
+memcpy((char *)phyMemStart, src, temp_length);
 page->flags |= PAGE_PAGEABLE;
 
 if(page_nums == 1) 
@@ -358,26 +359,26 @@ if(page_nums == 1)
 
 
 
-dest_user+=temp_len;
-src+=temp_len;
+dest_user+=temp_length;
+src+=temp_length;
 
 
 while(dest_user!=Round_Down_To_Page(dest_user + byte_num)) 
 {
 
-  phy_start=lin_to_phyaddr(page_dir,dest_user);
-  if(phy_start == 0) 
+  phyMemStart=lin_to_phyaddr(page_dir,dest_user);
+  if(phyMemStart == 0) 
   {
     Print("Error! Linear to physical memory transformation not possible.\n");
     return false;
 }
-page = Get_Page(phy_start);
+page = Get_Page(phyMemStart);
 
 Disable_Interrupts();
 page->flags &= ~ PAGE_PAGEABLE;
 Enable_Interrupts();
 
-memcpy((char*)phy_start, src, PAGE_SIZE);
+memcpy((char*)phyMemStart, src, PAGE_SIZE);
 page->flags |= PAGE_PAGEABLE;
 
 dest_user+=PAGE_SIZE;
@@ -386,8 +387,8 @@ src+=PAGE_SIZE;
 }
 
  //Spillover to final page
-phy_start = lin_to_phyaddr(page_dir, dest_user);
-if(phy_start==0) 
+phyMemStart = lin_to_phyaddr(page_dir, dest_user);
+if(phyMemStart==0) 
 {
    Print("Error! Linear to physical memory transformation not possible.\n"); 
    return false;
@@ -397,7 +398,7 @@ Disable_Interrupts();
 page->flags &= ~ PAGE_PAGEABLE;
 Enable_Interrupts();
 
-memcpy((char*)phy_start, src, byte_num);
+memcpy((char*)phyMemStart, src, byte_num);
 page->flags |= PAGE_PAGEABLE;
 return true;
 }
@@ -433,14 +434,14 @@ return true;
      * - Fill in initial stack pointer, argument block address,
      *   and code entry point fields in User_Context
      */
-     int i;
+     int i,res;
      ulong_t maxva = 0;
      unsigned numArgs;
-     ulong_t argBlockSize;
-     ulong_t size, argBlockAddr;
+     
+     ulong_t size, argBlockAddr, arg_size, argBlockSize;
      struct User_Context *userContext = 0;
      pde_t* pageDirectory;
-
+     uint_t args_num,stack_addr,arg_addr;
     /* Find maximum virtual address */
      for (i = 0; i < exeFormat->numSegments; ++i) {
         struct Exe_Segment *segment = &exeFormat->segmentList[i];
@@ -450,8 +451,7 @@ return true;
             maxva = topva;
     }
 
-    /* Determine size required for argument block */
-    Get_Argument_Block_Size(command, &numArgs, &argBlockSize);
+    
 
     /*
      * Now we can determine the size of the memory block needed
@@ -472,31 +472,17 @@ return true;
         if (userContext == 0)
             return -1;
         pageDirectory=userContext->pageDir;
-
-
-
-        int res;
-        uint_t startAddress=0;
-        uint_t sizeInMemory=0;
-        uint_t offsetInFile=0;
-        uint_t lengthInFile=0;
-        uint_t args_num,stack_addr,arg_addr;
-        ulong_t arg_size;
+        
         for(i=0; i<exeFormat->numSegments; i++)
         {
-          startAddress = exeFormat->segmentList[i].startAddress;
-          sizeInMemory = exeFormat->segmentList[i].sizeInMemory;
-
-          offsetInFile = exeFormat->segmentList[i].offsetInFile;
-          lengthInFile = exeFormat->segmentList[i].lengthInFile;
-
-          res=Alloc_User_Page(pageDirectory,startAddress+USER_VM_START,sizeInMemory);
+          
+          res=Alloc_Pages_User(pageDirectory,exeFormat->segmentList[i].startAddress+USER_VM_START,exeFormat->segmentList[i].sizeInMemory);
           if(res!=0)
           {
             Print("Page cant be allocated for copying the segment\n");
             return -1;
         }
-        res=Copy_User_Page(pageDirectory,startAddress+USER_VM_START,exeFileData+offsetInFile,lengthInFile);
+        res=Copy_Pages_User(pageDirectory,exeFormat->segmentList[i].startAddress+USER_VM_START,exeFileData+exeFormat->segmentList[i].offsetInFile,exeFormat->segmentList[i].lengthInFile);
         if(res!=true)
         {
             Print("Segment Copy Failed\n");
@@ -511,50 +497,47 @@ return true;
     Get_Argument_Block_Size(command, &args_num, &arg_size);
     if(arg_size > PAGE_SIZE)
     {
-      Print("Argument Block too big for one PAGE_SIZE/n");
+      Print("Argument Block is too big/n");
       return -1;
   }
 
   arg_addr=Round_Down_To_Page(USER_VM_LEN-arg_size);
-  char* block_buffer=Malloc(arg_size);
+  char* block_buf=Malloc(arg_size);
   KASSERT(block_buffer!=NULL);
   Format_Argument_Block(block_buffer,args_num,arg_addr,command);
 
-  res=Alloc_User_Page(pageDirectory, arg_addr+USER_VM_START, arg_size);
+  res=Alloc_Pages_User(pageDirectory, arg_addr+USER_VM_START, arg_size);
   if(res!=0)
   {
       return -1;
   }
-  res=Copy_User_Page(pageDirectory, arg_addr+USER_VM_START, block_buffer,arg_size);
+  res=Copy_Pages_User(pageDirectory, arg_addr+USER_VM_START, block_buffer,arg_size);
   if(res!=true)
   {
       return -1;
   }
 
-  Free(block_buffer);
+  Free(block_buf);
 
 
   stack_addr=USER_VM_LEN-Round_Up_To_Page(arg_size)-DEFAULT_STACK_SIZE;
-  res=Alloc_User_Page(pageDirectory,stack_addr+USER_VM_START,DEFAULT_STACK_SIZE);
+  res=Alloc_Pages_User(pageDirectory,stack_addr+USER_VM_START,DEFAULT_STACK_SIZE);
   if(res!=0)
   {
       return -1;
   }
 
 
-  uContext->entryAddr = exeFormat->entryAddr;
+
 
   uContext->argBlockAddr = arg_addr;
-  uContext->size = USER_VM_LEN;
   uContext->stackPointerAddr = arg_addr;
+    uContext->entryAddr = exeFormat->entryAddr;
+  uContext->size = USER_VM_LEN;
+  
   *pUserContext=uContext;
 
   return 0;
-
-
-
-
-
 
 }
 
@@ -581,12 +564,13 @@ return true;
      * interrupts are disabled; because no other process can run,
      * the page is guaranteed not to be stolen.
      */
+     void* user_address=(void*)(USER_VM_START)+srcInUser;
      struct User_Context* userContext=g_currentThread->userContext;
-     void* user_addr=(void*)(USER_VM_START)+srcInUser;
+     
 
      if((srcInUser+numBytes) < userContext->size)
      {
-      memcpy(destInKernel, user_addr, numBytes);
+      memcpy(destInKernel, user_address, numBytes);
       return true;
   }
   return false;
@@ -605,12 +589,12 @@ return true;
      * - Also, make sure the memory is mapped into the user
      *   address space with write permission enabled
      */
+     
+     void* user_address = (void*)(USER_VM_START) + destInUser;
      struct User_Context* userContext=g_currentThread->userContext;
-     void* user_addr = (void*)(USER_VM_START) + destInUser;
-
      if((destInUser+numBytes) < userContext->size)
      {
-      memcpy(user_addr, srcInKernel ,numBytes);
+      memcpy(user_address, srcInKernel ,numBytes);
       return true;
   }
   return false;
@@ -654,7 +638,7 @@ return true;
      */
      if(userContext == 0)
      {
-      Print("the userContext is NULL!/n");
+      Print("Null User Context/n");
       return;
     }
     Set_PDBR(userContext->pageDir);
