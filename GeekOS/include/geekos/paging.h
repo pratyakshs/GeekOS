@@ -67,7 +67,7 @@ typedef struct {
     uint_t pageTableBaseAddr:20;
 } pde_t;
 
-
+pde_t * PageDir;                /*Pointer to kernel page directory*/
 
 /*
  * Page table entry datatype.

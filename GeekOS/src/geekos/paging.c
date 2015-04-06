@@ -49,7 +49,7 @@
  * flag to indicate if debugging paging code
  */
  int debugFaults = 0;
- pde_t * PageDir;                /*Pointer to kernel page directory*/
+
 #define Debug(args...) if (debugFaults) Print(args)
 
 

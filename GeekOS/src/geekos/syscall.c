@@ -38,8 +38,6 @@
 
 extern Spin_Lock_t kthreadLock;
 
-
-
 static inline int Calc_Ticks_Per_MS(int milliseconds) {
     float ticks = TICKS_PER_MS * milliseconds;
     float trunc = (float)ticks;
