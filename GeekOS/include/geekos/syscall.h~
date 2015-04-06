@@ -123,6 +123,7 @@ enum {
     SYS_LINK,                   /* hard link two files */
     SYS_SYMLINK,                /* Symbloic link two files */
     SYS_OPENCOUNT,		/* Display Total no Read Sys call made*/
+    SYS_TOTALCOUNT,             /* Display Total no of Sys call made*/
     SYS_GETNEWTOD,               /* New Get Time of Day */
 };
 
@@ -156,5 +157,8 @@ retType name params {							\
     __asm__ __volatile__ (SYSCALL : "=a" (rc) :"a" (sysNum) regs);	\
     return (retType) rc;						\
 }
+
+static inline int Calc_Ticks_Per_MS(int milliseconds);
+
 
 #endif /* GEEKOS_SYSCALL_H */

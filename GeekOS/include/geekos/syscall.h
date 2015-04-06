@@ -125,6 +125,7 @@ enum {
     SYS_OPENCOUNT,		/* Display Total no Read Sys call made*/
     SYS_TOTALCOUNT,             /* Display Total no of Sys call made*/
     SYS_GETNEWTOD,               /* New Get Time of Day */
+    SYS_SBRK,
 };
 
 /*
