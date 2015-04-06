@@ -301,7 +301,8 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
     memset(PF_Map, -1, sizeof(ulong_t) * 33504);
 
     // open the block device for paging file
-    Open_Block_Device("ide1",&pdev);
+    // Open_Block_Device("ide1",&pdev);
+    pdev = Get_Paging_Device()->dev;
 
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B,
     //  "Initialize paging file data structures");
