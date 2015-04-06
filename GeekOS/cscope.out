@@ -1,4 +1,4 @@
-cscope 15 $HOME/Pictures/project3/OSLab/GeekOS               0001075258
+cscope 15 $HOME/Pictures/project3/OSLab/GeekOS               0001075278
 	@build/libc/errno.c
 
 1 c⁄° *
@@ -11161,6 +11161,12 @@ uöt_t
 	tpde_t
 ;
 
+70 
+pde_t
+ * 
+	gPageDú
+;
+
 78 
 uöt_t
  
@@ -14262,6 +14268,12 @@ ul⁄g_t
 [
 MAX_PROC_NAME_SZB
 ];
+
+107 
+ul⁄g_t
+ 
+	míd
+;
 
 109 
 m≠≥dRegi⁄_t
@@ -60761,12 +60773,6 @@ SECTOR_SIZE
 	gdebugFau…s
  = 0;
 
-52 
-pde_t
- * 
-	gPageDú
-;
-
 53 
 	#Debug
 (
@@ -73721,7 +73727,7 @@ Spö_Lock_t
 kthªadLock
 ;
 
-43 
+41 
 ölöe
  
 	$CÆc_Ticks_Pî_MS
@@ -73729,7 +73735,7 @@ kthªadLock
 mûli£c⁄ds
 ) {
 
-44 
+42 
 ticks
  = 
 TICKS_PER_MS
@@ -73737,23 +73743,23 @@ TICKS_PER_MS
 mûli£c⁄ds
 ;
 
-45 
+43 
 åunc
  = ()
 ticks
 ;
 
-46  (((
+44  (((
 ticks
  - 
 åunc
 ) > 0) ?Årunc + 1 :Årunc);
 
-47 
+45 
 	}
 }
 
-56 
+54 
 	$C›y_U£r_Såög
 (
 ul⁄g_t
@@ -73765,29 +73771,29 @@ uaddr
 maxLí
 ,
 
-57 **
+55 **
 pSå
 ) {
 
-58 
+56 
 rc
  = 0;
 
-59 *
+57 *
 °r
 ;
 
-62 i‡(
+60 i‡(
 Àn
  > 
 maxLí
 )
 
-63  
+61  
 EINVALID
 ;
 
-66 
+64 
 °r
  = (*)
 	`MÆloc
@@ -73795,21 +73801,21 @@ EINVALID
 Àn
  + 1);
 
-67 i‡(
+65 i‡(
 °r
  == 0) {
 
-68 
+66 
 rc
  = 
 ENOMEM
 ;
 
-69 
+67 
 d⁄e
 ;
 
-73 i‡(!
+71 i‡(!
 	`C›y_From_U£r
 (
 °r
@@ -73819,47 +73825,47 @@ uaddr
 Àn
 )) {
 
-74 
+72 
 rc
  = 
 EINVALID
 ;
 
-75 
+73 
 	`Fªe
 (
 °r
 );
 
-76 
+74 
 d⁄e
 ;
 
-78 
+76 
 °r
 [
 Àn
 ] = '\0';
 
-81 *
+79 *
 pSå
  = 
 °r
 ;
 
-83 
+81 
 d⁄e
 :
 
-84  
+82  
 rc
 ;
 
-85 
+83 
 	}
 }
 
-97 
+95 
 Sys_NuŒ
 (
 I¡îru±_Sèã
@@ -73871,7 +73877,7 @@ __©åibuã__
 unu£d
 ))) {
 
-109 
+107 
 	$Sys_Exô
 (
 I¡îru±_Sèã
@@ -73879,7 +73885,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-110 
+108 
 	`Exô
 (
 °©e
@@ -73887,15 +73893,15 @@ I¡îru±_Sèã
 ebx
 );
 
-112 
+110 
 	}
 }
 
-119 
+117 
 H¨dw¨e_Shutdown
 ();
 
-120 
+118 
 	$Sys_ShutDown
 (
 I¡îru±_Sèã
@@ -73903,25 +73909,25 @@ I¡îru±_Sèã
 °©e
 ) {
 
-121 
+119 
 	`Pröt
 ("------------------- THE END ------------------\n");
 
-122 
+120 
 	`H¨dw¨e_Shutdown
 ();
 
-125 
+123 
 	}
 }
 
-127 
+125 
 Spö_Lock_t
  
 	g•rötLock
 ;
 
-130 
+128 
 	$Sys_Sbrk
 (
 I¡îru±_Sèã
@@ -73929,7 +73935,7 @@ I¡îru±_Sèã
 °©e
 )
 
-133 
+131 
 	`bpoﬁ
 ((*)
 CURRENT_THREAD
@@ -73943,7 +73949,7 @@ u£rC⁄ãxt
 ebx
 );
 
-134 
+132 
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -73955,11 +73961,11 @@ u£rC⁄ãxt
 ebx
 ;
 
-136 
+134 
 	}
 }
 
-145 
+143 
 	$Sys_PrötSåög
 (
 I¡îru±_Sèã
@@ -73967,11 +73973,11 @@ I¡îru±_Sèã
 °©e
 ) {
 
-146 
+144 
 rc
  = 0;
 
-147 
+145 
 uöt_t
  
 Àngth
@@ -73981,25 +73987,25 @@ uöt_t
 ecx
 ;
 
-148 *
+146 *
 buf
  = 0;
 
-150 
+148 
 	`Spö_Lock
 (&
 •rötLock
 );
 
-151 i‡(
+149 i‡(
 Àngth
  > 0) {
 
-153 i‡((
+151 i‡((
 rc
  =
 
-154 
+152 
 	`C›y_U£r_Såög
 (
 °©e
@@ -74011,27 +74017,27 @@ ebx
 buf
 )) != 0)
 
-155 
+153 
 d⁄e
 ;
 
-162 i‡(!
+160 i‡(!
 buf
 [0]) {
 
-163 
+161 
 	`Dump_I¡îru±_Sèã
 (
 °©e
 );
 
-164 
+162 
 	`KASSERT0
 (
 buf
 [0],
 
-169 
+167 
 	`Put_Buf
 (
 buf
@@ -74039,35 +74045,35 @@ buf
 Àngth
 );
 
-172 
+170 
 d⁄e
 :
 
-173 i‡(
+171 i‡(
 buf
  != 0)
 
-174 
+172 
 	`Fªe
 (
 buf
 );
 
-175 
+173 
 	`Spö_U∆ock
 (&
 •rötLock
 );
 
-176  
+174  
 rc
 ;
 
-177 
+175 
 	}
 }
 
-187 
+185 
 	$Sys_GëKey
 (
 I¡îru±_Sèã
@@ -74075,15 +74081,15 @@ I¡îru±_Sèã
 °©e
 ) {
 
-189  
+187  
 	`Waô_F‹_Key
 ();
 
-190 
+188 
 	}
 }
 
-198 
+196 
 	$Sys_SëAâr
 (
 I¡îru±_Sèã
@@ -74091,7 +74097,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-199 
+197 
 	`Së_Cuºít_Aâr
 ((
 uch¨_t
@@ -74101,11 +74107,11 @@ uch¨_t
 ebx
 );
 
-201 
+199 
 	}
 }
 
-210 
+208 
 	$Sys_GëCurs‹
 (
 I¡îru±_Sèã
@@ -74113,13 +74119,13 @@ I¡îru±_Sèã
 °©e
 ) {
 
-211 
+209 
 row
 , 
 cﬁ
 ;
 
-212 
+210 
 	`Gë_Curs‹
 (&
 row
@@ -74127,7 +74133,7 @@ row
 cﬁ
 );
 
-213 i‡(!
+211 i‡(!
 	`C›y_To_U£r
 (
 °©e
@@ -74137,7 +74143,7 @@ ebx
 row
 , ()) ||
 
-214 !
+212 !
 	`C›y_To_U£r
 (
 °©e
@@ -74147,11 +74153,11 @@ ecx
 cﬁ
 , ()))
 
-217 
+215 
 	}
 }
 
-226 
+224 
 	$Sys_PutCurs‹
 (
 I¡îru±_Sèã
@@ -74159,7 +74165,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-227  
+225  
 	`Put_Curs‹
 (
 °©e
@@ -74169,11 +74175,11 @@ ebx
 ecx
 ) ? 0 : -1;
 
-228 
+226 
 	}
 }
 
-240 
+238 
 	$Sys_S∑wn
 (
 I¡îru±_Sèã
@@ -74181,29 +74187,29 @@ I¡îru±_Sèã
 °©e
 ) {
 
-241 
+239 
 rc
 ;
 
-242 *
+240 *
 ¥ogøm
  = 0;
 
-243 *
+241 *
 comm™d
  = 0;
 
-244 
+242 
 Kî√l_Thªad
  *
 ¥o˚ss
 ;
 
-247 i‡((
+245 i‡((
 rc
  =
 
-248 
+246 
 	`C›y_U£r_Såög
 (
 °©e
@@ -74215,11 +74221,11 @@ ecx
 VFS_MAX_PATH_LEN
 ,
 
-249 &
+247 &
 ¥ogøm
 )) != 0 ||
 
-250 (
+248 (
 rc
  = 
 	`C›y_U£r_Såög
@@ -74233,15 +74239,15 @@ esi
 comm™d
 )) != 0)
 
-251 
+249 
 d⁄e
 ;
 
-253 
+251 
 	`E«bÀ_I¡îru±s
 ();
 
-260 
+258 
 rc
  = 
 	`S∑wn
@@ -74257,17 +74263,17 @@ comm™d
 edi
 );
 
-262 i‡(
+260 i‡(
 rc
  == 0) {
 
-263 
+261 
 	`KASSERT
 (
 ¥o˚ss
  != 0);
 
-264 
+262 
 rc
  = 
 ¥o˚ss
@@ -74275,43 +74281,43 @@ rc
 pid
 ;
 
-267 
+265 
 	`DißbÀ_I¡îru±s
 ();
 
-269 
+267 
 d⁄e
 :
 
-270 i‡(
+268 i‡(
 ¥ogøm
+ != 0)
+
+269 
+	`Fªe
+(
+¥ogøm
+);
+
+270 i‡(
+comm™d
  != 0)
 
 271 
 	`Fªe
 (
-¥ogøm
-);
-
-272 i‡(
-comm™d
- != 0)
-
-273 
-	`Fªe
-(
 comm™d
 );
 
-275  
+273  
 rc
 ;
 
-276 
+274 
 	}
 }
 
-285 
+283 
 	$Sys_Waô
 (
 I¡îru±_Sèã
@@ -74319,11 +74325,11 @@ I¡îru±_Sèã
 °©e
 ) {
 
-286 
+284 
 exôCode
 ;
 
-287 
+285 
 Kî√l_Thªad
  *
 kthªad
@@ -74335,29 +74341,29 @@ kthªad
 ebx
 , 0);
 
-288 i‡(
+286 i‡(
 kthªad
  == 0) {
 
-290  
+288  
 EINVALID
 ;
 
-293 i‡(
+291 i‡(
 kthªad
 ->
 dëached
 ) {
 
-295  
+293  
 EINVALID
 ;
 
-297 
+295 
 	`E«bÀ_I¡îru±s
 ();
 
-298 
+296 
 exôCode
  = 
 	`Joö
@@ -74365,19 +74371,19 @@ exôCode
 kthªad
 );
 
-299 
+297 
 	`DißbÀ_I¡îru±s
 ();
 
-301  
+299  
 exôCode
 ;
 
-302 
+300 
 	}
 }
 
-310 
+308 
 	$Sys_GëPID
 (
 I¡îru±_Sèã
@@ -74385,29 +74391,29 @@ I¡îru±_Sèã
 °©e
 ) {
 
-311  
+309  
 CURRENT_THREAD
 ->
 pid
 ;
 
-312 
+310 
 	}
 }
 
-315 
+313 
 AŒ_Thªad_Li°
  
 s_ÆlThªadLi°
 ;
 
-316 
+314 
 Thªad_Queue
  
 s_runQueue
 ;
 
-329 
+327 
 	$Sys_PS
 (
 I¡îru±_Sèã
@@ -74415,17 +74421,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-330 
+328 
 	`TODO_P
 (
 PROJECT_BACKGROUND_JOBS
 , "Sys_PS system call");
 
-332 
+330 
 	}
 }
 
-342 
+340 
 	$Sys_Kûl
 (
 I¡îru±_Sèã
@@ -74433,17 +74439,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-343 
+341 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Sys_Kill system call");
 
-345 
+343 
 	}
 }
 
-354 
+352 
 	$Sys_Sig«l
 (
 I¡îru±_Sèã
@@ -74451,17 +74457,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-355 
+353 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Sys_Signal system call");
 
-357 
+355 
 	}
 }
 
-370 
+368 
 	$Sys_RegDñivî
 (
 I¡îru±_Sèã
@@ -74469,17 +74475,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-372 
+370 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Sys_RegDeliver system call");
 
-373 
+371 
 	}
 }
 
-382 
+380 
 	$Sys_Rëu∫Sig«l
 (
 I¡îru±_Sèã
@@ -74487,21 +74493,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-383 
+381 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Sys_ReturnSignal system call");
 
-384  
+382  
 EUNSUPPORTED
 ;
 
-385 
+383 
 	}
 }
 
-393 
+391 
 	$Sys_WaôNoPID
 (
 I¡îru±_Sèã
@@ -74509,21 +74515,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-394 
+392 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Sys_WaitNoPID system call");
 
-395  
+393  
 EUNSUPPORTED
 ;
 
-396 
+394 
 	}
 }
 
-405 
+403 
 	$Sys_SëSchedulögPﬁicy
 (
 I¡îru±_Sèã
@@ -74531,17 +74537,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-406 
+404 
 	`TODO_P
 (
 PROJECT_SCHEDULING
 , "SetSchedulingPolicy system call");
 
-408 
+406 
 	}
 }
 
-417 
+415 
 Sys_GëTimeOfDay
 (
 I¡îru±_Sèã
@@ -74549,17 +74555,17 @@ I¡îru±_Sèã
 °©e
 
 
-418 
+416 
 __©åibuã__
  ((
 unu£d
 ))) {
 
-419  
+417  
 	gg_numTicks
 ;
 
-432 
+430 
 	$Sys_Mou¡
 (
 I¡îru±_Sèã
@@ -74567,37 +74573,37 @@ I¡îru±_Sèã
 °©e
 ) {
 
-433 
+431 
 rc
  = 0;
 
-434 
+432 
 VFS_Mou¡_Reque°
  *
 ¨gs
  = 0;
 
-437 i‡((
+435 i‡((
 ¨gs
  =
 
-438 (
+436 (
 VFS_Mou¡_Reque°
  *)
 	`MÆloc
 ((VFS_Mount_Request)))
 
-440 
+438 
 rc
  = 
 ENOMEM
 ;
 
-441 
+439 
 d⁄e
 ;
 
-445 i‡(!
+443 i‡(!
 	`C›y_From_U£r
 (
 ¨gs
@@ -74609,45 +74615,45 @@ ebx
 VFS_Mou¡_Reque°
 ))) {
 
-446 
+444 
 rc
  = 
 EINVALID
 ;
 
-447 
+445 
 d⁄e
 ;
 
-455 
+453 
 	`TODO_P
 (
 PROJECT_FS
 , "Mount system call");
 
-457 
+455 
 d⁄e
 :
 
-458 i‡(
+456 i‡(
 ¨gs
  != 0)
 
-459 
+457 
 	`Fªe
 (
 ¨gs
 );
 
-460  
+458  
 rc
 ;
 
-461 
+459 
 	}
 }
 
-463 
+461 
 	$gë_∑th_‰om_ªgi°îs
 (
 uöt_t
@@ -74659,15 +74665,15 @@ addr
 pP©h
 ) {
 
-464 i‡(
+462 i‡(
 Àngth
  > 1024) {
 
-465  
+463  
 ENAMETOOLONG
 ;
 
-467 *
+465 *
 pP©h
  = 
 	`MÆloc
@@ -74675,15 +74681,15 @@ pP©h
 Àngth
  + 1);
 
-468 i‡(!*
+466 i‡(!*
 pP©h
 ) {
 
-469  
+467  
 ENOMEM
 ;
 
-471 i‡(!
+469 i‡(!
 	`C›y_From_U£r
 (*
 pP©h
@@ -74693,45 +74699,45 @@ addr
 Àngth
 )) {
 
-472 
+470 
 	`Fªe
 (*
 pP©h
 );
 
-473  
+471  
 EINVALID
 ;
 
-475 (*
+473 (*
 pP©h
 )[
 Àngth
 ] = '\0';
 
-477 
+475 
 	}
 }
 
-479 
+477 
 	$√xt_des¸ùt‹
 () {
 
-480 
+478 
 des¸ùt‹
 ;
 
-481 
+479 
 des¸ùt‹
  = 0;
 
-482 
+480 
 des¸ùt‹
  < 
 USER_MAX_FILES
  &&
 
-483 
+481 
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -74741,29 +74747,29 @@ fûe_des¸ùt‹_èbÀ
 des¸ùt‹
 ] != 0;
 
-484 
+482 
 des¸ùt‹
 ++);
 
-485 i‡(
+483 i‡(
 des¸ùt‹
  =
 USER_MAX_FILES
 ) {
 
-486  
+484  
 EMFILE
 ;
 
-488  
+486  
 des¸ùt‹
 ;
 
-489 
+487 
 	}
 }
 
-491 
+489 
 	$add_fûe_to_des¸ùt‹_èbÀ
 (
 Fûe
@@ -74771,17 +74777,17 @@ Fûe
 fûe
 ) {
 
-492 
+490 
 des¸ùt‹
  = 
 	`√xt_des¸ùt‹
 ();
 
-493 i‡(
+491 i‡(
 des¸ùt‹
  >= 0) {
 
-494 
+492 
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -74793,15 +74799,15 @@ des¸ùt‹
 fûe
 ;
 
-496  
+494  
 des¸ùt‹
 ;
 
-497 
+495 
 	}
 }
 
-509 
+507 
 	$Sys_O≥n
 (
 I¡îru±_Sèã
@@ -74809,27 +74815,27 @@ I¡îru±_Sèã
 °©e
 ) {
 
-510 *
+508 *
 ∑th
 ;
 
-511 
+509 
 Fûe
  *
 fûe
 ;
 
-512 
+510 
 rc
  = 0;
 
-515 
+513 
 CURRENT_THREAD
 ->
 ›í_cou¡
 ++;
 
-517 
+515 
 rc
  = 
 	`gë_∑th_‰om_ªgi°îs
@@ -74843,33 +74849,33 @@ ecx
 ∑th
 );
 
-518 i‡(
+516 i‡(
 rc
  != 0) {
 
-519  
+517  
 rc
 ;
 
-522 
+520 
 rc
  = 
 	`√xt_des¸ùt‹
 ();
 
-523 i‡(
+521 i‡(
 rc
  < 0) {
 
-524  
+522  
 rc
 ;
 
-527 
+525 
 	`E«bÀ_I¡îru±s
 ();
 
-528 
+526 
 rc
  = 
 	`O≥n
@@ -74883,35 +74889,35 @@ edx
 fûe
 );
 
-529 
+527 
 	`DißbÀ_I¡îru±s
 ();
 
-530 
+528 
 	`Fªe
 (
 ∑th
 );
 
-532 i‡(
+530 i‡(
 rc
  >= 0) {
 
-533  
+531  
 	`add_fûe_to_des¸ùt‹_èbÀ
 (
 fûe
 );
 
-535  
+533  
 rc
 ;
 
-537 
+535 
 	}
 }
 
-548 
+546 
 	$Sys_O≥nDúe˘‹y
 (
 I¡îru±_Sèã
@@ -74919,21 +74925,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-549 
+547 
 	`TODO_P
 (
 PROJECT_FS
 , "Open directory system call");
 
-550  
+548  
 EUNSUPPORTED
 ;
 
-551 
+549 
 	}
 }
 
-559 
+557 
 	$Sys_Clo£
 (
 I¡îru±_Sèã
@@ -74941,7 +74947,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-561 i‡(
+559 i‡(
 °©e
 ->
 ebx
@@ -74949,7 +74955,7 @@ ebx
 USER_MAX_FILES
 ) {
 
-562 
+560 
 	`Pröt
 ("u«bÀÅÿ˛o£ fd index %d, ouào‡ønge.\n", 
 °©e
@@ -74957,11 +74963,11 @@ USER_MAX_FILES
 ebx
 );
 
-563  
+561  
 EINVALID
 ;
 
-565 i‡(
+563 i‡(
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -74973,11 +74979,11 @@ fûe_des¸ùt‹_èbÀ
 ebx
 ]) {
 
-566 
+564 
 	`E«bÀ_I¡îru±s
 ();
 
-567 
+565 
 	`Clo£
 (
 CURRENT_THREAD
@@ -74991,11 +74997,11 @@ fûe_des¸ùt‹_èbÀ
 ebx
 ]);
 
-568 
+566 
 	`DißbÀ_I¡îru±s
 ();
 
-569 
+567 
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -75007,7 +75013,7 @@ fûe_des¸ùt‹_èbÀ
 ebx
 ] = 0;
 
-572 
+570 
 	`Pröt
 ("u«bÀÅÿ˛o£ fd index %d,ÇŸhögÅhîe.\n", 
 °©e
@@ -75015,15 +75021,15 @@ ebx
 ebx
 );
 
-573  
+571  
 ENOTFOUND
 ;
 
-575 
+573 
 	}
 }
 
-586 
+584 
 	$Sys_Dñëe
 (
 I¡îru±_Sèã
@@ -75031,21 +75037,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-587 
+585 
 	`TODO_P
 (
 PROJECT_FS
 , "Delete system call");
 
-588  
+586  
 EUNSUPPORTED
 ;
 
-589 
+587 
 	}
 }
 
-601 
+599 
 	$Sys_Ríame
 (
 I¡îru±_Sèã
@@ -75053,21 +75059,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-602 
+600 
 	`TODO_P
 (
 PROJECT_FS
 , "Rename system call");
 
-603  
+601  
 EUNSUPPORTED
 ;
 
-604 
+602 
 	}
 }
 
-616 
+614 
 	$Sys_Lök
 (
 I¡îru±_Sèã
@@ -75075,21 +75081,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-617 
+615 
 	`TODO_P
 (
 PROJECT_FS
 , "Link system call");
 
-618  
+616  
 EUNSUPPORTED
 ;
 
-619 
+617 
 	}
 }
 
-631 
+629 
 	$Sys_SymLök
 (
 I¡îru±_Sèã
@@ -75097,21 +75103,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-632 
+630 
 	`TODO_P
 (
 PROJECT_FS
 , "Link system call");
 
-633  
+631  
 EUNSUPPORTED
 ;
 
-634 
+632 
 	}
 }
 
-646 
+644 
 	$Sys_Ród
 (
 I¡îru±_Sèã
@@ -75119,11 +75125,11 @@ I¡îru±_Sèã
 °©e
 ) {
 
-647 
+645 
 byãs_ªad
  = 0;
 
-650 i‡(
+648 i‡(
 °©e
 ->
 ebx
@@ -75131,11 +75137,11 @@ ebx
 USER_MAX_FILES
 ) {
 
-651  
+649  
 EINVALID
 ;
 
-653 i‡(
+651 i‡(
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -75147,7 +75153,7 @@ fûe_des¸ùt‹_èbÀ
 ebx
 ]) {
 
-654 *
+652 *
 d©a_buf„r
  = 
 	`MÆloc
@@ -75157,23 +75163,23 @@ d©a_buf„r
 edx
 );
 
-655 i‡(!
+653 i‡(!
 d©a_buf„r
 ) {
 
-656  
+654  
 ENOMEM
 ;
 
-658 
+656 
 	`E«bÀ_I¡îru±s
 ();
 
-659 
+657 
 byãs_ªad
  =
 
-660 
+658 
 	`Ród
 (
 CURRENT_THREAD
@@ -75181,7 +75187,7 @@ CURRENT_THREAD
 u£rC⁄ãxt
 ->
 
-661 
+659 
 fûe_des¸ùt‹_èbÀ
 [
 °©e
@@ -75193,11 +75199,11 @@ d©a_buf„r
 edx
 );
 
-662 
+660 
 	`DißbÀ_I¡îru±s
 ();
 
-663 i‡(!
+661 i‡(!
 	`C›y_To_U£r
 (
 °©e
@@ -75209,35 +75215,35 @@ d©a_buf„r
 edx
 )) {
 
-664 
+662 
 	`Fªe
 (
 d©a_buf„r
 );
 
-665  
+663  
 EINVALID
 ;
 
-667 
+665 
 	`Fªe
 (
 d©a_buf„r
 );
 
-668  
+666  
 byãs_ªad
 ;
 
-670  
+668  
 ENOTFOUND
 ;
 
-672 
+670 
 	}
 }
 
-681 
+679 
 	$Sys_RódE¡ry
 (
 I¡îru±_Sèã
@@ -75245,21 +75251,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-682 
+680 
 	`TODO_P
 (
 PROJECT_FS
 , "ReadEntry system call");
 
-683  
+681  
 EUNSUPPORTED
 ;
 
-684 
+682 
 	}
 }
 
-696 
+694 
 	$Sys_Wrôe
 (
 I¡îru±_Sèã
@@ -75267,11 +75273,11 @@ I¡îru±_Sèã
 °©e
 ) {
 
-697 
+695 
 byãs_wrôãn
  = 0;
 
-699 i‡(
+697 i‡(
 °©e
 ->
 ebx
@@ -75279,11 +75285,11 @@ ebx
 USER_MAX_FILES
 ) {
 
-700  
+698  
 EINVALID
 ;
 
-702 i‡(
+700 i‡(
 CURRENT_THREAD
 ->
 u£rC⁄ãxt
@@ -75295,7 +75301,7 @@ fûe_des¸ùt‹_èbÀ
 ebx
 ]) {
 
-703 *
+701 *
 d©a_buf„r
  = 
 	`MÆloc
@@ -75305,15 +75311,15 @@ d©a_buf„r
 edx
 );
 
-704 i‡(!
+702 i‡(!
 d©a_buf„r
 ) {
 
-705  
+703  
 ENOMEM
 ;
 
-707 i‡(!
+705 i‡(!
 	`C›y_From_U£r
 (
 d©a_buf„r
@@ -75325,25 +75331,25 @@ ecx
 edx
 )) {
 
-708 
+706 
 	`Fªe
 (
 d©a_buf„r
 );
 
-709  
+707  
 EINVALID
 ;
 
-711 
+709 
 	`E«bÀ_I¡îru±s
 ();
 
-712 
+710 
 byãs_wrôãn
  =
 
-713 
+711 
 	`Wrôe
 (
 CURRENT_THREAD
@@ -75351,7 +75357,7 @@ CURRENT_THREAD
 u£rC⁄ãxt
 ->
 
-714 
+712 
 fûe_des¸ùt‹_èbÀ
 [
 °©e
@@ -75363,29 +75369,29 @@ d©a_buf„r
 edx
 );
 
-715 
+713 
 	`Fªe
 (
 d©a_buf„r
 );
 
-716 
+714 
 	`DißbÀ_I¡îru±s
 ();
 
-717  
+715  
 byãs_wrôãn
 ;
 
-719  
+717  
 ENOTFOUND
 ;
 
-721 
+719 
 	}
 }
 
-732 
+730 
 	$Sys_Sèt
 (
 I¡îru±_Sèã
@@ -75393,21 +75399,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-733 
+731 
 	`TODO_P
 (
 PROJECT_FS
 , "Stat system call");
 
-734  
+732  
 EUNSUPPORTED
 ;
 
-735 
+733 
 	}
 }
 
-745 
+743 
 	$Sys_FSèt
 (
 I¡îru±_Sèã
@@ -75415,21 +75421,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-746 
+744 
 	`TODO_P
 (
 PROJECT_FS
 , "FStat system call");
 
-747  
+745  
 EUNSUPPORTED
 ;
 
-748 
+746 
 	}
 }
 
-758 
+756 
 	$Sys_Sìk
 (
 I¡îru±_Sèã
@@ -75437,21 +75443,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-759 
+757 
 	`TODO_P
 (
 PROJECT_FS
 , "Seek system call");
 
-760  
+758  
 EUNSUPPORTED
 ;
 
-761 
+759 
 	}
 }
 
-771 
+769 
 	$Sys_Cª©eDú
 (
 I¡îru±_Sèã
@@ -75459,21 +75465,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-772 
+770 
 	`TODO_P
 (
 PROJECT_FS
 , "CreateDir system call");
 
-773  
+771  
 EUNSUPPORTED
 ;
 
-774 
+772 
 	}
 }
 
-781 
+779 
 	$Sys_Sync
 (
 I¡îru±_Sèã
@@ -75481,21 +75487,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-782 
+780 
 	`TODO_P
 (
 PROJECT_FS
 , "Sync system call");
 
-783  
+781  
 EUNSUPPORTED
 ;
 
-784 
+782 
 	}
 }
 
-796 
+794 
 	$Sys_F‹m©
 (
 I¡îru±_Sèã
@@ -75503,21 +75509,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-797 
+795 
 rc
  = 0;
 
-798 *
+796 *
 dev«me
  = 0, *
 f°y≥
  = 0;
 
-800 i‡((
+798 i‡((
 rc
  =
 
-801 
+799 
 	`C›y_U£r_Såög
 (
 °©e
@@ -75529,15 +75535,15 @@ ecx
 BLOCKDEV_MAX_NAME_LEN
 ,
 
-802 &
+800 &
 dev«me
 )) != 0 ||
 
-803 (
+801 (
 rc
  =
 
-804 
+802 
 	`C›y_U£r_Såög
 (
 °©e
@@ -75549,19 +75555,19 @@ esi
 VFS_MAX_FS_NAME_LEN
 ,
 
-805 &
+803 &
 f°y≥
 )) != 0)
 
-806 
+804 
 d⁄e
 ;
 
-808 
+806 
 	`E«bÀ_I¡îru±s
 ();
 
-809 
+807 
 rc
  = 
 	`F‹m©
@@ -75571,55 +75577,55 @@ dev«me
 f°y≥
 );
 
-810 
+808 
 	`DißbÀ_I¡îru±s
 ();
 
-812 
+810 
 d⁄e
 :
 
-813 i‡(
+811 i‡(
 dev«me
+ != 0)
+
+812 
+	`Fªe
+(
+dev«me
+);
+
+813 i‡(
+f°y≥
  != 0)
 
 814 
 	`Fªe
 (
-dev«me
-);
-
-815 i‡(
-f°y≥
- != 0)
-
-816 
-	`Fªe
-(
 f°y≥
 );
 
-817  
+815  
 rc
 ;
 
-818 
+816 
 	}
 }
 
-832 
+830 
 	$Sys_IO_Unblock
 (
 ∑øm
 ) {
 
-836 
+834 
 Thªad_Queue
  * 
 ToWakeUp
  = 0;
 
-837 
+835 
 	`Enqueue_Thªad
 (
 ToWakeUp
@@ -75629,13 +75635,13 @@ IOWaôQueue
 hód
 );
 
-838 
+836 
 	`Wake_Up
 (
 ToWakeUp
 );
 
-839 
+837 
 	`Remove_Thªad
 (
 IOWaôQueue
@@ -75643,7 +75649,7 @@ IOWaôQueue
 hód
 );
 
-841 
+839 
 g_√edRescheduÀ
 [
 	`Gë_CPU_ID
@@ -75651,11 +75657,11 @@ g_√edRescheduÀ
 åue
 ;
 
-842 
+840 
 	}
 }
 
-844 
+842 
 	$Sys_RódBlock
 (
 I¡îru±_Sèã
@@ -75663,7 +75669,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-846 
+844 
 blocknum
  = 
 °©e
@@ -75671,7 +75677,7 @@ blocknum
 edi
 ;
 
-847 
+845 
 waôF‹
  = 
 	`gë_time
@@ -75679,7 +75685,7 @@ waôF‹
 blocknum
 );
 
-848 
+846 
 id
  = 
 	`Sèπ_Timî
@@ -75691,7 +75697,7 @@ waôF‹
 Sys_IO_Unblock
 );
 
-849 
+847 
 Kî√l_Thªad
  *
 cuºít
@@ -75699,7 +75705,7 @@ cuºít
 CURRENT_THREAD
 ;
 
-851 
+849 
 	`Enqueue_Thªad
 (
 IOWaôQueue
@@ -75707,19 +75713,19 @@ IOWaôQueue
 cuºít
 );
 
-852 
+850 
 	`ScheduÀ
 ();
 
-853  
+851  
 EUNSUPPORTED
 ;
 
-854 
+852 
 	}
 }
 
-870 
+868 
 	$Sys_WrôeBlock
 (
 I¡îru±_Sèã
@@ -75727,21 +75733,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-871 
+869 
 	`TODO_P
 (
 PROJECT_FS
 , "WriteBlock system call");
 
-872  
+870  
 EUNSUPPORTED
 ;
 
-873 
+871 
 	}
 }
 
-876 
+874 
 	$Sys_GëUid
 (
 I¡îru±_Sèã
@@ -75749,21 +75755,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-877 
+875 
 	`TODO_P
 (
 PROJECT_USER
 , "Sys_GetUid system call");
 
-878  
+876  
 EUNSUPPORTED
 ;
 
-879 
+877 
 	}
 }
 
-881 
+879 
 	$Sys_SëSëUid
 (
 I¡îru±_Sèã
@@ -75771,21 +75777,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-882 
+880 
 	`TODO_P
 (
 PROJECT_USER
 , "Sys_SetSetUid system call");
 
-883  
+881  
 EUNSUPPORTED
 ;
 
-884 
+882 
 	}
 }
 
-886 
+884 
 	$Sys_SëEf„˘iveUid
 (
 I¡îru±_Sèã
@@ -75793,21 +75799,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-887 
+885 
 	`TODO_P
 (
 PROJECT_USER
 , "Sys_SetEffectiveUid system call");
 
-888  
+886  
 EUNSUPPORTED
 ;
 
-889 
+887 
 	}
 }
 
-891 
+889 
 	$Sys_SëA˛
 (
 I¡îru±_Sèã
@@ -75815,27 +75821,27 @@ I¡îru±_Sèã
 °©e
 ) {
 
-892 
+890 
 	`TODO_P
 (
 PROJECT_USER
 , "Sys_SetAcl system call");
 
-893  
+891  
 EUNSUPPORTED
 ;
 
-894 
+892 
 	}
 }
 
-896 
+894 
 SB16_Pœy_Fûe
 (c⁄° *
 fûíame
 );
 
-897 
+895 
 	$Sys_PœySoundFûe
 (
 I¡îru±_Sèã
@@ -75843,17 +75849,17 @@ I¡îru±_Sèã
 °©e
 ) {
 
-898 
+896 
 	`TODO_P
 (
 PROJECT_SOUND
 , "PlaySoundFile system call");
 
-900 
+898 
 	}
 }
 
-908 
+906 
 	$Sys_Pùe
 (
 I¡îru±_Sèã
@@ -75861,21 +75867,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-909 
+907 
 	`TODO_P
 (
 PROJECT_PIPE
 , "Pipe system call");
 
-910  
+908  
 EUNSUPPORTED
 ;
 
-911 
+909 
 	}
 }
 
-915 
+913 
 	$Sys_F‹k
 (
 I¡îru±_Sèã
@@ -75883,21 +75889,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-916 
+914 
 	`TODO_P
 (
 PROJECT_FORK
 , "Fork system call");
 
-917  
+915  
 EUNSUPPORTED
 ;
 
-918 
+916 
 	}
 }
 
-929 
+927 
 	$Sys_Exe˛
 (
 I¡îru±_Sèã
@@ -75905,21 +75911,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-930 
+928 
 	`TODO_P
 (
 PROJECT_FORK
 , "Execl system call");
 
-931  
+929  
 EUNSUPPORTED
 ;
 
-932 
+930 
 	}
 }
 
-940 
+938 
 	$Sys_Dügno°ic
 (
 I¡îru±_Sèã
@@ -75927,27 +75933,27 @@ I¡îru±_Sèã
 °©e
 ) {
 
-941 ()
+939 ()
 °©e
 ;
 
-942 
+940 
 	`E«bÀ_I¡îru±s
 ();
 
-943 
+941 
 	`Dump_Blockdev_Sèts
 ();
 
-944 
+942 
 	`DißbÀ_I¡îru±s
 ();
 
-946 
+944 
 	}
 }
 
-957 
+955 
 	$Sys_Disk_Pr›îtõs
 (
 I¡îru±_Sèã
@@ -75955,21 +75961,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-958 *
+956 *
 ∑th
 ;
 
-959 
+957 
 block_size
 , 
 blocks_≥r_disk
 ;
 
-960 
+958 
 rc
 ;
 
-961 
+959 
 	`C›y_U£r_Såög
 (
 °©e
@@ -75981,11 +75987,11 @@ ecx
 ∑th
 );
 
-962 
+960 
 	`E«bÀ_I¡îru±s
 ();
 
-963 
+961 
 rc
  = 
 	`Disk_Pr›îtõs
@@ -75997,11 +76003,11 @@ block_size
 blocks_≥r_disk
 );
 
-964 i‡(
+962 i‡(
 rc
  == 0) {
 
-965 
+963 
 	`C›y_To_U£r
 (
 °©e
@@ -76011,7 +76017,7 @@ edx
 block_size
 , ());
 
-966 
+964 
 	`C›y_To_U£r
 (
 °©e
@@ -76021,15 +76027,15 @@ esi
 blocks_≥r_disk
 , ());
 
-968 
+966 
 	`DißbÀ_I¡îru±s
 ();
 
-970 
+968 
 	}
 }
 
-979 
+977 
 	$Sys_Limô
 (
 I¡îru±_Sèã
@@ -76037,21 +76043,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-980 
+978 
 	`TODO_P
 (
 PROJECT_LIMIT
 , "Limit system call");
 
-981  
+979  
 EUNSUPPORTED
 ;
 
-982 
+980 
 	}
 }
 
-984 
+982 
 	$Sys_Së_Afföôy
 (
 I¡îru±_Sèã
@@ -76059,15 +76065,15 @@ I¡îru±_Sèã
 °©e
 ) {
 
-985  
+983  
 EUNSUPPORTED
 ;
 
-986 
+984 
 	}
 }
 
-988 
+986 
 	$Sys_Gë_Afföôy
 (
 I¡îru±_Sèã
@@ -76075,15 +76081,15 @@ I¡îru±_Sèã
 °©e
 ) {
 
-989  
+987  
 EUNSUPPORTED
 ;
 
-990 
+988 
 	}
 }
 
-1000 
+998 
 	$Sys_Cl⁄e
 (
 I¡îru±_Sèã
@@ -76091,21 +76097,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1001 
+999 
 	`TODO_P
 (
 PROJECT_CLONE
 , "Clone system call");
 
-1002  
+1000  
 EUNSUPPORTED
 ;
 
-1003 
+1001 
 	}
 }
 
-1005 
+1003 
 	$Sys_Mm≠
 (
 I¡îru±_Sèã
@@ -76113,21 +76119,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1006 
+1004 
 	`TODO_P
 (
 PROJECT_MMAP
 , "Mmap system call");
 
-1007  
+1005  
 EUNSUPPORTED
 ;
 
-1008 
+1006 
 	}
 }
 
-1010 
+1008 
 	$Sys_Munm≠
 (
 I¡îru±_Sèã
@@ -76135,25 +76141,25 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1011 
+1009 
 	`Munm≠_Im∂
 (*);
 
-1013 
+1011 
 	`TODO_P
 (
 PROJECT_MMAP
 , "Munmap system call");
 
-1014  
+1012  
 EUNSUPPORTED
 ;
 
-1015 
+1013 
 	}
 }
 
-1017 
+1015 
 	$Sys_Aœrm
 (
 I¡îru±_Sèã
@@ -76161,21 +76167,21 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1018 
+1016 
 	`TODO_P
 (
 PROJECT_SIGNALS
 , "Alarm");
 
-1019  
+1017  
 EUNSUPPORTED
 ;
 
-1020 
+1018 
 	}
 }
 
-1021 
+1019 
 	$Sys_O≥nCou¡
 (
 I¡îru±_Sèã
@@ -76183,7 +76189,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1022 
+1020 
 	`Pröt
 ("Pro˚s†madê%òO≥¿FûêSy†CÆls\n",
 CURRENT_THREAD
@@ -76191,15 +76197,15 @@ CURRENT_THREAD
 ›í_cou¡
 );
 
-1023  
+1021  
 EUNSUPPORTED
 ;
 
-1024 
+1022 
 	}
 }
 
-1026 
+1024 
 	$Sys_TŸÆCou¡
 (
 I¡îru±_Sèã
@@ -76207,7 +76213,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1027 
+1025 
 	`Pröt
 ("Pro˚s†madê%òSy†CÆls\n",
 CURRENT_THREAD
@@ -76215,15 +76221,15 @@ CURRENT_THREAD
 tŸÆ_cou¡
 );
 
-1028  
+1026  
 EUNSUPPORTED
 ;
 
-1029 
+1027 
 	}
 }
 
-1031 
+1029 
 	$Sys_Gë_NewTOD
 (
 I¡îru±_Sèã
@@ -76231,7 +76237,7 @@ I¡îru±_Sèã
 °©e
 ) {
 
-1032 
+1030 
 	`C›y_To_U£r
 (
 °©e
@@ -76241,345 +76247,345 @@ ebx
 g_numTicks
 , ());
 
-1034 
+1032 
 	}
 }
 
-1041 c⁄° 
+1039 c⁄° 
 SysˇŒ
  
 	gg_sysˇŒTabÀ
 [] = {
 
-1042 
+1040 
 Sys_NuŒ
 ,
 
-1043 
+1041 
 Sys_Exô
 ,
 
-1044 
+1042 
 Sys_PrötSåög
 ,
 
-1045 
+1043 
 Sys_GëKey
 ,
 
-1046 
+1044 
 Sys_SëAâr
 ,
 
-1047 
+1045 
 Sys_GëCurs‹
 ,
 
-1048 
+1046 
 Sys_PutCurs‹
 ,
 
-1049 
+1047 
 Sys_S∑wn
 ,
 
-1050 
+1048 
 Sys_Waô
 ,
 
-1051 
+1049 
 Sys_GëPID
 ,
 
-1052 
+1050 
 Sys_Kûl
 ,
 
-1053 
+1051 
 Sys_PS
 ,
 
-1054 
+1052 
 Sys_Sig«l
 ,
 
-1055 
+1053 
 Sys_RegDñivî
 ,
 
-1056 
+1054 
 Sys_Rëu∫Sig«l
 ,
 
-1057 
+1055 
 Sys_WaôNoPID
 ,
 
-1059 
+1057 
 Sys_SëSchedulögPﬁicy
 ,
 
-1060 
+1058 
 Sys_GëTimeOfDay
 ,
 
-1061 
+1059 
 Sys_O≥n_Sem≠h‹e
 ,
 
-1062 
+1060 
 Sys_P
 ,
 
-1063 
+1061 
 Sys_V
 ,
 
-1064 
+1062 
 Sys_Clo£_Sem≠h‹e
 ,
 
-1066 
+1064 
 Sys_Mou¡
 ,
 
-1067 
+1065 
 Sys_O≥n
 ,
 
-1068 
+1066 
 Sys_O≥nDúe˘‹y
 ,
 
-1069 
+1067 
 Sys_Clo£
 ,
 
-1070 
+1068 
 Sys_Dñëe
 ,
 
-1071 
+1069 
 Sys_Ród
 ,
 
-1072 
+1070 
 Sys_RódE¡ry
 ,
 
-1073 
+1071 
 Sys_Wrôe
 ,
 
-1074 
+1072 
 Sys_Sèt
 ,
 
-1075 
+1073 
 Sys_FSèt
 ,
 
-1076 
+1074 
 Sys_Sìk
 ,
 
-1077 
+1075 
 Sys_Cª©eDú
 ,
 
-1078 
+1076 
 Sys_Sync
 ,
 
-1079 
+1077 
 Sys_F‹m©
 ,
 
-1080 
+1078 
 Sys_ShutDown
 ,
 
-1081 
+1079 
 Sys_RódBlock
 ,
 
-1082 
+1080 
 Sys_WrôeBlock
 ,
 
-1084 
+1082 
 Sys_EthPackëSíd
 ,
 
-1085 
+1083 
 Sys_EthPackëRe˚ive
 ,
 
-1086 
+1084 
 Sys_AΩ
 ,
 
-1087 
+1085 
 Sys_RouãAdd
 ,
 
-1088 
+1086 
 Sys_RouãDñ
 ,
 
-1089 
+1087 
 Sys_RouãGë
 ,
 
-1090 
+1088 
 Sys_IPC⁄figuª
 ,
 
-1091 
+1089 
 Sys_IPGë
 ,
 
-1092 
+1090 
 Sys_IPSíd
 ,
 
-1094 
+1092 
 Sys_Sockë
 ,
 
-1095 
+1093 
 Sys_Böd
 ,
 
-1096 
+1094 
 Sys_Li°í
 ,
 
-1097 
+1095 
 Sys_Ac˚±
 ,
 
-1098 
+1096 
 Sys_C⁄√˘
 ,
 
-1099 
+1097 
 Sys_Síd
 ,
 
-1100 
+1098 
 Sys_Re˚ive
 ,
 
-1101 
+1099 
 Sys_SídTo
 ,
 
-1102 
+1100 
 Sys_Re˚iveFrom
 ,
 
-1103 
+1101 
 Sys_Clo£Sockë
 ,
 
-1105 
+1103 
 Sys_Limô
 ,
 
-1106 
+1104 
 Sys_GëUid
 ,
 
-1107 
+1105 
 Sys_SëSëUid
 ,
 
-1108 
+1106 
 Sys_SëEf„˘iveUid
 ,
 
-1109 
+1107 
 Sys_SëA˛
 ,
 
-1111 
+1109 
 Sys_PœySoundFûe
 ,
 
-1113 
+1111 
 Sys_Pùe
 ,
 
-1114 
+1112 
 Sys_F‹k
 ,
 
-1115 
+1113 
 Sys_Exe˛
 ,
 
-1117 
+1115 
 Sys_Dügno°ic
 ,
 
-1118 
+1116 
 Sys_Disk_Pr›îtõs
 ,
 
-1120 
+1118 
 Sys_Së_Afföôy
 ,
 
-1121 
+1119 
 Sys_Gë_Afföôy
 ,
 
-1122 
+1120 
 Sys_Cl⁄e
 ,
 
-1124 
+1122 
 Sys_Mm≠
 ,
 
-1125 
+1123 
 Sys_Munm≠
 ,
 
-1126 
+1124 
 Sys_Aœrm
 ,
 
-1127 
+1125 
 Sys_Ríame
 ,
 
-1128 
+1126 
 Sys_Lök
 ,
 
-1129 
+1127 
 Sys_SymLök
 ,
 
-1130 
+1128 
 Sys_O≥nCou¡
 ,
 
-1131 
+1129 
 Sys_TŸÆCou¡
 ,
 
-1132 
+1130 
 Sys_Gë_NewTOD
 ,
 
-1133 
+1131 
 Sys_Sbrk
 
 
-1139 c⁄° 
+1137 c⁄° 
 	gg_numSysˇŒs
  = (
 g_sysˇŒTabÀ

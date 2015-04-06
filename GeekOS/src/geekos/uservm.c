@@ -25,12 +25,16 @@
 #include <geekos/vfs.h>
 #include <geekos/user.h>
 #include <geekos/projects.h>
+#include <geekos/gdt.h>
 
+#define DEFAULT_USER_STACK_SIZE 8192
 
- extern Spin_Lock_t kthreadLock;
+extern Spin_Lock_t kthreadLock;
 
- int userDebug = 0;
+int userDebug = 0;
 #define Debug(args...) if (userDebug) Print("uservm: " args)
+
+pde_t * UserPageDir;
 
 /* ----------------------------------------------------------------------
  * Private functions
@@ -42,7 +46,7 @@
     struct User_Context *context;
     int index;
     uint_t i,j;       
-    pde_t * UserPageDir;
+    
     ulong_t kernel_pages;
     ulong_t kernel_PDEntries;
     ulong_t context_size;
@@ -56,7 +60,7 @@
           size / PAGE_SIZE);
 
 
-    
+    UserPageDir = (pde_t*) Alloc_Page();
     
 
     for(i=0; i<kernel_PDEntries; i++) {
@@ -115,7 +119,7 @@
     context = (struct User_Context *)Malloc(sizeof(*context));
     if (context != 0) {
         memset(context, 0, sizeof(struct User_Context));
-        context->memory=USER_VM_START+4096;
+        context->memory=(char*)(USER_VM_START+4096);
         //context->memory = Malloc(size);
     }
     Enable_Interrupts();
@@ -179,6 +183,58 @@
  * Public functions
  * ---------------------------------------------------------------------- */
 
+bool Free_Pages_User_Process(pde_t * page_dir)
+{
+ pde_t * pdir;
+ //KASSERT(!Interrupts_Enabled());
+ //Enable_Interrupts();
+ bool flag;
+ flag=Begin_Int_Atomic();
+
+ //mydebug
+ //Print("shut down the interrupt/n");
+
+ if(page_dir==NULL)
+ {
+  return true;
+ }
+ for(pdir=page_dir+NUM_PAGE_DIR_ENTRIES/2; pdir < page_dir+NUM_PAGE_DIR_ENTRIES; pdir++) 
+ {
+  pte_t * ptable;
+  pte_t * ptable_first;
+  if(!pdir->present) 
+  {
+   continue;
+  }
+  ptable_first=(pte_t*) (pdir->pageTableBaseAddr << 12);
+  for(ptable=ptable_first; ptable<ptable_first+NUM_PAGE_TABLE_ENTRIES; ptable++) 
+  {
+   if(ptable->present)
+   {
+    Free_Page( (void*) (ptable->pageBaseAddr << 12));
+   } 
+   else if(ptable->kernelInfo==KINFO_PAGE_ON_DISK) 
+   {
+    //Disable_Interrupts();
+    
+    //当页在pagefile上时，pte_t结构中的pageBaseAddr指示了页在pagefile中的位置
+    Free_Space_On_Paging_File(ptable->pageBaseAddr);
+    //Enable_Interrupts();
+    
+   }
+  }
+  Free_Page(ptable_first);
+ }
+ //Disable_Interrupts();
+ Free_Page(page_dir);
+
+ End_Int_Atomic(flag);
+ //mydebug 
+ //Print("here open the interrupt/n");
+ return true;
+}
+
+
 /*
  * Destroy a User_Context object, including all memory
  * and other resources allocated within it.
@@ -201,7 +257,7 @@
     }
 
   Free_Segment_Descriptor(context->ldtDescriptor);
-  Set_PDBR(g_kernel_pde);
+  Set_PDBR(UserPageDir);
   if(context->pageDir!=NULL)
   {
       Free_Pages_User_Process(context->pageDir);
@@ -252,7 +308,7 @@ pagedir_entry++;
 page_entry+=page_index;
 page_index = 0;
 
-int i;
+uint_t i;
 uint_t first_page_addr=0;
 for(i=0;i<(num_pages<(NUM_PAGE_TABLE_ENTRIES - page_index)? num_pages : (NUM_PAGE_TABLE_ENTRIES - page_index));i++)
 {
@@ -451,7 +507,9 @@ return true;
             maxva = topva;
     }
 
-    
+    /* Determine size required for argument block */
+    Get_Argument_Block_Size(command, &numArgs, &argBlockSize);
+
 
     /*
      * Now we can determine the size of the memory block needed
@@ -494,24 +552,29 @@ return true;
 
 
 /* Determine size required for argument block */ 
-    Get_Argument_Block_Size(command, &args_num, &arg_size);
+    //Get_Argument_Block_Size(command, &args_num, &arg_size);
+    
+    arg_size = argBlockSize;
+    args_num = numArgs;
+
     if(arg_size > PAGE_SIZE)
     {
       Print("Argument Block is too big/n");
       return -1;
-  }
-
+    }
+  
+  ulong_t USER_VM_LEN = size;
   arg_addr=Round_Down_To_Page(USER_VM_LEN-arg_size);
   char* block_buf=Malloc(arg_size);
-  KASSERT(block_buffer!=NULL);
-  Format_Argument_Block(block_buffer,args_num,arg_addr,command);
+  KASSERT(block_buf!=NULL);
+  Format_Argument_Block(block_buf,args_num,arg_addr,command);
 
   res=Alloc_Pages_User(pageDirectory, arg_addr+USER_VM_START, arg_size);
   if(res!=0)
   {
       return -1;
   }
-  res=Copy_Pages_User(pageDirectory, arg_addr+USER_VM_START, block_buffer,arg_size);
+  res=Copy_Pages_User(pageDirectory, arg_addr+USER_VM_START, block_buf,arg_size);
   if(res!=true)
   {
       return -1;
@@ -520,8 +583,8 @@ return true;
   Free(block_buf);
 
 
-  stack_addr=USER_VM_LEN-Round_Up_To_Page(arg_size)-DEFAULT_STACK_SIZE;
-  res=Alloc_Pages_User(pageDirectory,stack_addr+USER_VM_START,DEFAULT_STACK_SIZE);
+  stack_addr=USER_VM_LEN-Round_Up_To_Page(arg_size)-DEFAULT_USER_STACK_SIZE;
+  res=Alloc_Pages_User(pageDirectory,stack_addr+USER_VM_START,DEFAULT_USER_STACK_SIZE);
   if(res!=0)
   {
       return -1;
@@ -530,12 +593,12 @@ return true;
 
 
 
-  uContext->argBlockAddr = arg_addr;
-  uContext->stackPointerAddr = arg_addr;
-    uContext->entryAddr = exeFormat->entryAddr;
-  uContext->size = USER_VM_LEN;
+  userContext->argBlockAddr = arg_addr;
+  userContext->stackPointerAddr = arg_addr;
+  userContext->entryAddr = exeFormat->entryAddr;
+  userContext->size = USER_VM_LEN;
   
-  *pUserContext=uContext;
+  *pUserContext=userContext;
 
   return 0;
 
@@ -565,7 +628,7 @@ return true;
      * the page is guaranteed not to be stolen.
      */
      void* user_address=(void*)(USER_VM_START)+srcInUser;
-     struct User_Context* userContext=g_currentThread->userContext;
+     struct User_Context* userContext=CURRENT_THREAD->userContext;
      
 
      if((srcInUser+numBytes) < userContext->size)
@@ -591,7 +654,7 @@ return true;
      */
      
      void* user_address = (void*)(USER_VM_START) + destInUser;
-     struct User_Context* userContext=g_currentThread->userContext;
+     struct User_Context* userContext=CURRENT_THREAD->userContext;
      if((destInUser+numBytes) < userContext->size)
      {
       memcpy(user_address, srcInKernel ,numBytes);
@@ -625,7 +688,10 @@ return true;
      * the page is guaranteed not to be stolen.
      */
      TODO_P(PROJECT_VIRTUAL_MEMORY_A, "Copy user data to kernel buffer");
+     return true;
  }
+
+ // extern int Load_LDTR(ushort_t);  //--tobedone--
 
 /*
  * Switch to user address space.
@@ -642,8 +708,10 @@ return true;
       return;
     }
     Set_PDBR(userContext->pageDir);
-    Load_LDTR(userContext->ldtSelector);
-   
-}
+    // Load_LDTR(userContext->ldtSelector); //--tobedone--
+ }
+
+
+
 
 

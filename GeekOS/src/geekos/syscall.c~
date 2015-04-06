@@ -28,12 +28,23 @@
 #include <geekos/signal.h>
 #include <geekos/sem.h>
 #include <geekos/projects.h>
-
+#include <geekos/kassert.h>
+#include <geekos/io.h> 
+#include <geekos/irq.h> 
+#include <geekos/bget.h>
 #include <geekos/sys_net.h>
 #include <geekos/pipe.h>
 #include <geekos/mem.h>
 
 extern Spin_Lock_t kthreadLock;
+
+
+
+static inline int Calc_Ticks_Per_MS(int milliseconds) {
+    float ticks = TICKS_PER_MS * milliseconds;
+    float trunc = (float)ticks;
+    return (((ticks - trunc) > 0) ? trunc + 1 : trunc);
+}
 
 /*
  * Allocate a buffer for a user string, and
@@ -115,6 +126,14 @@ static int Sys_ShutDown(struct Interrupt_State *state) {
 
 static Spin_Lock_t sprintLock;
 
+
+static int Sys_Sbrk(struct Interrupt_State *state)
+{
+    ///ebx contains size of type ulong_t
+    bpool((void *)CURRENT_THREAD->userContext->end, state->ebx);
+    CURRENT_THREAD->userContext->end=CURRENT_THREAD->userContext->end+state->ebx;
+    return 1;
+}
 
 /*
  * Print a string to the console.
@@ -809,10 +828,33 @@ static int Sys_Format(struct Interrupt_State *state) {
 
  * Returns: 0 if successful, error code (< 0) if unsuccessful
  */
+
+void Sys_IO_Unblock(int param) {
+    // wake up
+    // Wake_Up(&IOWaitQueue);
+    // Make_Runnable()
+    struct Thread_Queue * ToWakeUp = 0;
+    Enqueue_Thread(ToWakeUp, IOWaitQueue->head);
+    Wake_Up(ToWakeUp);
+    Remove_Thread(IOWaitQueue, IOWaitQueue->head);
+
+    g_needReschedule[Get_CPU_ID()] = true;
+}
+
 static int Sys_ReadBlock(struct Interrupt_State *state) {
-    TODO_P(PROJECT_FS, "ReadBlock system call");
+    // TODO_P(PROJECT_FS, "ReadBlock system call");
+    int blocknum = state->edi;
+    int waitFor = get_time(blocknum);
+    int id = Start_Timer(Calc_Ticks_Per_MS(waitFor), &Sys_IO_Unblock);
+    struct Kernel_Thread *current = CURRENT_THREAD;
+
+    Enqueue_Thread(IOWaitQueue, current); 
+    Schedule();
     return EUNSUPPORTED;
 }
+
+
+
 
 /*
  * Write a block to a device
@@ -981,15 +1023,17 @@ static int Sys_OpenCount(struct Interrupt_State *state) {
 	return EUNSUPPORTED;
 }
 
+static int Sys_TotalCount(struct Interrupt_State *state) {
+	Print("Process made %i Sys Calls\n",CURRENT_THREAD->total_count);
+	return EUNSUPPORTED;
+}
+
 static int Sys_Get_NewTOD(struct Interrupt_State *state) {
     Copy_To_User(state->ebx, (void*)&g_numTicks, sizeof(int));
     return 0;
 }
 
-static int Sys_TotalCount(struct Interrupt_State *state) {
-	Print("Process made %i Sys Calls\n",CURRENT_THREAD->total_count);
-	return EUNSUPPORTED;
-}
+
 
 /*
  * Global table of system call handler functions.
@@ -1085,7 +1129,8 @@ const Syscall g_syscallTable[] = {
     Sys_SymLink,
     Sys_OpenCount,
     Sys_TotalCount,
-    Sys_Get_NewTOD
+    Sys_Get_NewTOD,
+    Sys_Sbrk
 };
 
 /*
