@@ -319,8 +319,9 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
     int index = 0, i;
     for(i = 0; i < BITMAP_SIZE; i++) {
     	if (Free_BitMap[i]) {
-    		index += __builtin_clzl(Free_BitMap[i]);
-    		return index;
+    		int l_index = __builtin_clzl(Free_BitMap[i]);
+    		Free_BitMap[i] ^= (1 << (31 - l_index));
+    		return index + l_index;
     	}
     	else {
     		index += CHAR_BIT * sizeof(ulong_t);
