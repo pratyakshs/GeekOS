@@ -34,7 +34,6 @@
 #include <geekos/smp.h>
 
 #include <libc/mmap.h>
-
 /* ----------------------------------------------------------------------
  * Public data
  * ---------------------------------------------------------------------- */
@@ -288,13 +287,12 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
  * All filesystems should be mounted before this function
  * is called, to ensure that the paging file is available.
  */
- void Init_Paging(void) {
+ void Init_Pagefile(void) {
  	// list of free pages in pagefile
-    int i;
-    for(i = 0; i < PF_SIZE; i++) {
-        struct FreeList_Node * fln = 0;
-        fln = Malloc(sizeof(struct FreeList_Node));
-        Add_To_Back_Of_PF_FreePages(&g_PF_FreeList, fln);
+ 	int i;
+    Print("Initializing Pagefile...\n");
+    for(i = 0; i < BITMAP_SIZE; i++) {
+        Free_BitMap[i] = 0x11111111;
     }
     
     // initialize the mapping (empty)
@@ -303,7 +301,8 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
     // open the block device for paging file
     // Open_Block_Device("ide1",&pdev);
     pdev = Get_Paging_Device()->dev;
-
+    
+    
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B,
     //  "Initialize paging file data structures");
  }
@@ -317,16 +316,18 @@ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
  int Find_Space_On_Paging_File(void) {
     KASSERT(!Interrupts_Enabled());
 
-    struct FreeList_Node * free_node;
-    if (!Is_PF_FreePages_Empty(&g_PF_FreeList)) {
-        free_node = Get_Front_Of_PF_FreePages(&g_PF_FreeList); 
-        // KASSERT(??)
-        Remove_From_Front_Of_PF_FreePages(&g_PF_FreeList);
-        return free_node->index;
+    int index = 0, i;
+    for(i = 0; i < BITMAP_SIZE; i++) {
+    	if (Free_BitMap[i]) {
+    		index += __builtin_clzl(Free_BitMap[i]);
+    		return index;
+    	}
+    	else {
+    		index += CHAR_BIT * sizeof(ulong_t);
+    	}
     }
-    else 
-        return -1;
-    // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Find free page in paging file");
+    return -1;
+        // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Find free page in paging file");
     // return EUNSUPPORTED;
  }
 

@@ -51,7 +51,6 @@
 #include <geekos/smp.h>
 #include <geekos/io.h>
 
-
 /*
  * Define this for a self-contained boot floppy
  * with a PFAT filesystem.  (Target "fd_aug.img" in
@@ -80,10 +79,10 @@ static void Spawn_Init_Process(void);
  * and spawns init process.
  */
 
-extern void checkPaging(void);
+ extern void checkPaging(void);
 
 
-void Hardware_Shutdown() {
+ void Hardware_Shutdown() {
 
     // works with > 1.3 qemu with the command line: -device isa-debug-exit,iobase=0x501
     Out_Byte(0x501, 0x00);
@@ -109,9 +108,10 @@ void Main(struct Boot_Info *bootInfo) {
     lockKernel();
     Init_Interrupts(0);
     Init_VM(bootInfo);
+    
     Init_SMP();
     TODO_P(PROJECT_VIRTUAL_MEMORY_A,
-           "initialize virtual memory page tables.");
+     "initialize virtual memory page tables.");
     Init_Scheduler(0, (void *)KERN_STACK);
     Init_Traps();
     Init_Local_APIC(0);
@@ -126,6 +126,7 @@ void Main(struct Boot_Info *bootInfo) {
     Init_GOSFS();
     Init_CFS();
     Init_Alarm();
+    // Init_Pagefile();
 
     Release_SMP();
 
@@ -141,10 +142,11 @@ void Main(struct Boot_Info *bootInfo) {
     /* Initialize Sound */
     Init_Sound_Devices();
     /* End sound init */
-
     Mount_Root_Filesystem();
 
-    TODO_P(PROJECT_VIRTUAL_MEMORY_A, "initialize page file.");
+    Init_Pagefile();
+    
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_A, "initialize page file.");
 
     Set_Current_Attr(ATTRIB(BLACK, GREEN | BRIGHT));
     Print("Welcome to GeekOS!\n");

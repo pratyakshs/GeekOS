@@ -18,6 +18,7 @@
 #ifndef GEEKOS_PAGING_H
 #define GEEKOS_PAGING_H
 
+#include <limits.h>
 #include <geekos/ktypes.h>
 #include <geekos/defs.h>
 #include <geekos/bootinfo.h>
@@ -116,7 +117,7 @@ typedef struct _mappedRegion {
 #define KINFO_PAGE_ON_DISK	0x4     /* Page not present; contents in paging file */
 
 void Init_VM(struct Boot_Info *bootInfo);
-void Init_Paging(void);
+void Init_Pagefile(void);
 
 extern void Flush_TLB(void);
 extern void Set_PDBR(pde_t * pageDir);
@@ -143,15 +144,10 @@ void Write_Out_Mmaped_Page(struct User_Context *context, ulong_t vaddr);
 
 extern const pde_t *Kernel_Page_Dir(void);
 
-struct FreeList_Node {
-    int index;
-    DEFINE_LINK(PF_FreePages, FreeList_Node);
-};
+#define BITMAP_SIZE 32768
 
-DEFINE_LIST(PF_FreePages, FreeList_Node);
-IMPLEMENT_LIST(PF_FreePages, FreeList_Node);
-
-static struct PF_FreePages g_PF_FreeList;
+// bit set if free
+ulong_t Free_BitMap[32768];
 
 // in multiple of 4 KB
 #define PF_SIZE 1024 * 1024
