@@ -33,7 +33,7 @@ extern struct Kernel_Thread *g_currentThreads[];
 do {							\
     if (!(cond)) {					\
 	Set_Current_Attr(ATTRIB(RED, GRAY|BRIGHT));	\
-	Print("Failed assertion in %s: %s at %s, line %d, RA=%lx, thread=%p\n",\
+	Print("Failed assertion(no arg) in %s: %s at %s, line %d, RA=%lx, thread=%p\n",\
 		__func__, #cond, __FILE__, __LINE__,	\
 		(ulong_t) __builtin_return_address(0),	\
 		CURRENT_THREAD);			\

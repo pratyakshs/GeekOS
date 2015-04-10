@@ -270,13 +270,10 @@ void Destroy_User_Context(struct User_Context *context) {
 
 
 
-
-
-
 int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
     uint_t pagedir_index=startAddress>>22;
     uint_t page_index=(startAddress<<10)>>22;
-    
+    // Print("Allocated %x\n", (unsigned int)startAddress);
     pde_t *pagedir_entry = pageDir+pagedir_index;
     pte_t *page_entry;
     
@@ -304,9 +301,8 @@ int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
             pagedir_entry->globalPage=0;
             pagedir_entry->pageTableBaseAddr=(ulong_t)page_entry >> 12;
         }
-        pagedir_entry++;
+
         page_entry+=page_index;
-        page_index = 0;
         
         uint_t i;
         uint_t first_page_addr=0;
@@ -315,7 +311,7 @@ int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
             if(!page_entry->present)
             {
                 page_addr=Alloc_Pageable_Page(page_entry, Round_Down_To_Page(startAddress));
-                // Print("Allocated %lu\n", (unsigned long)page_addr);
+                
                 if(page_addr==NULL)
                 {
                     Print("can not allocate page in Alloc_Pages_User/n");
@@ -326,6 +322,8 @@ int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
                 page_entry->flags=VM_WRITE | VM_READ | VM_USER;
                 page_entry->globalPage = 0;
                 page_entry->pageBaseAddr = (ulong_t)page_addr>>12;
+
+
                 KASSERT(page_addr!= 0);
                 if(i==0)
                 {
@@ -335,7 +333,9 @@ int Alloc_Pages_User(pde_t *pageDir,uint_t startAddress,uint_t sizeInMemory) {
             page_entry++;
             startAddress+=PAGE_SIZE;
         }
-        num_pages -= (NUM_PAGE_TABLE_ENTRIES - page_index);
+        num_pages -= ((num_pages<(NUM_PAGE_TABLE_ENTRIES - page_index)? num_pages : (NUM_PAGE_TABLE_ENTRIES - page_index)));
+        pagedir_entry++;
+				page_index = 0;
     }
     
     return 0;
@@ -361,7 +361,8 @@ uint_t lin_to_phyaddr(pde_t * page_dir,uint_t lin_address)
         //-----------------mydebug----------------------
         if(page_entry->present==0)
         {
-            Print("the page do not present!/n");
+            Print("the page is not present!\n");
+            Print("Linear address is %x\n", lin_address);
             KASSERT(0);
         }
         //----------------------------------------------
@@ -380,7 +381,10 @@ bool Copy_Pages_User(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte
     uint_t temp_length;
     int page_nums;
     struct Page * page;
-    
+
+    if(byte_num==0) {
+    	return true;
+    }
     
     if(Round_Down_To_Page(dest_user+byte_num) == Round_Down_To_Page(dest_user))
     {
@@ -393,7 +397,6 @@ bool Copy_Pages_User(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte
         byte_num-=temp_length;
         page_nums=0;
     }
-    
     phyMemStart=lin_to_phyaddr(page_dir, dest_user);
     if(phyMemStart==0)
     {
@@ -531,7 +534,7 @@ int Load_User_Program(char *exeFileData, ulong_t exeFileLength,
     if (userContext == 0)
         return -1;
     pageDirectory=userContext->pageDir;
-    Disable_Interrupts();
+    // Disable_Interrupts();
     for(i=0; i<exeFormat->numSegments; i++)
     {
         
@@ -541,6 +544,13 @@ int Load_User_Program(char *exeFileData, ulong_t exeFileLength,
             Print("Page cant be allocated for copying the segment\n");
             return -1;
         }
+   
+        
+    }
+		Print("Allocation complete\n\n");
+    for(i=0; i<exeFormat->numSegments; i++)
+    {
+       
         
         res=Copy_Pages_User(pageDirectory,exeFormat->segmentList[i].startAddress+USER_VM_START,exeFileData+exeFormat->segmentList[i].offsetInFile,exeFormat->segmentList[i].lengthInFile);
         if(res!=true)
@@ -592,7 +602,7 @@ int Load_User_Program(char *exeFileData, ulong_t exeFileLength,
     userContext->size = USER_VM_LEN;
     
     *pUserContext = userContext;
-    Enable_Interrupts();
+    // Enable_Interrupts();
     return 0;
     
 }
