@@ -48,10 +48,10 @@ struct User_Context;
 #define VM_EXEC    0            /* Memory can be executed (ignored for x86) */
 
 
-#define USER_VM_START 0x80000000+4096
+#define USER_VM_START 0x80001000
 #define KERNEL_SPACE_END 0x80000000  
-#define USER_VM_END 0xffffffff
-#define USER_VM_SIZE 0x80000000 - 4096
+#define USER_VM_END  0xF0000FFF  //0xffffffff
+#define USER_VM_SIZE 0x70000000 //0x7FFFF000
 /*
  * Page directory entry datatype.
  * If marked as present, it specifies the physical address

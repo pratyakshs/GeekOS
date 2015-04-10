@@ -25,6 +25,9 @@
 #define KERNEL_CS  (1<<3)
 #define KERNEL_DS  (2<<3)
 
+#define USER_CS  (3<<3)
+#define USER_DS  (4<<3)
+
 /*
  * Pages for initial kernel thread context object and stack.
  * Keep these up to date with defs.asm.
