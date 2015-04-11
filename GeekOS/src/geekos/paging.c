@@ -175,7 +175,7 @@ void Init_VM(struct Boot_Info *bootInfo) {
         /* Create a page directory entry pointing to this page table */
         entry.present = 1;
         entry.pageTableBaseAddr = ((ulong_t) pageTable) >> 12;
-        entry.flags = VM_USER|VM_WRITE;
+        entry.flags = VM_WRITE;
         
         /* Install the PDE in index i of the page directory */
         PageDir[i] = entry;
@@ -258,7 +258,7 @@ void Init_VM(struct Boot_Info *bootInfo) {
                 ulong_t addr;
                 /* Create a page table entry pointing to  physical memory frame*/
                 entry.present = 1;
-                entry.flags = VM_USER | VM_WRITE;
+                entry.flags = VM_WRITE;
                 addr=((ulong_t) i) << 10;
                 addr=addr | ((ulong_t) j);
                 entry.pageBaseAddr = addr;
