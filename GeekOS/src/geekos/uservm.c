@@ -210,8 +210,7 @@ bool Free_Pages_User_Process(pde_t * page_dir)
         for(ptable=ptable_first; ptable<ptable_first+NUM_PAGE_TABLE_ENTRIES; ptable++)
         {
         		if(ptable->pageBaseAddr >= (int)0xfec00) {
-        			//break;
-        				goto m;
+        				goto skip;
         		}
 
             if(ptable->present)
@@ -227,7 +226,7 @@ bool Free_Pages_User_Process(pde_t * page_dir)
         Free_Page(ptable_first);
       
     }
- m:
+ skip:
     Free_Page(page_dir); 
    
     End_Int_Atomic(flag);
