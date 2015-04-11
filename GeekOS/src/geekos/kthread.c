@@ -428,7 +428,7 @@ static void Reaper(ulong_t arg __attribute__ ((unused))) {
                     Get_Next_In_Thread_Queue(kthread);
                 // Print("Reaper on CPU%d: disposing of thread %s (pid %d) @ %x, stack @ %x\n",
                 // Get_CPU_ID(), kthread->threadName, kthread->pid, kthread, kthread->stackPage);
-                Destroy_Thread(kthread);
+				Destroy_Thread(kthread);
                 KASSERT(kthread != next);
                 kthread = next;
             }

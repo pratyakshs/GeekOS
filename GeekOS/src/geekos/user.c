@@ -73,7 +73,7 @@ void Detach_User_Context(struct Kernel_Thread *kthread) {
 
         --old->refCount;
         if (old->refCount == 0) {
-            Destroy_User_Context(old);
+				Destroy_User_Context(old);
         }
         End_Int_Atomic(iflag);
     }
@@ -183,11 +183,10 @@ void Switch_To_User_Context(struct Kernel_Thread *kthread,
         /* Kernel mode thread: muse switch kernel address space. 
            another core could delete a user context while this thread is 
            using it otherwise. */
-        Set_PDBR((void *)Kernel_Page_Dir());
+		Set_PDBR((void *)Kernel_Page_Dir());
         CPUs[cpuID].s_currentUserContext = NULL;
         return;
     }
-
     /* Switch only if the user context is indeed different */
     if (userContext != CPUs[cpuID].s_currentUserContext) {
 

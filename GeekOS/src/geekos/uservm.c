@@ -201,6 +201,7 @@ bool Free_Pages_User_Process(pde_t * page_dir)
     {
         pte_t * ptable;
         pte_t * ptable_first;
+       
         if(!pdir->present)
         {
             continue;
@@ -208,9 +209,13 @@ bool Free_Pages_User_Process(pde_t * page_dir)
         ptable_first=(pte_t*) (pdir->pageTableBaseAddr << 12);
         for(ptable=ptable_first; ptable<ptable_first+NUM_PAGE_TABLE_ENTRIES; ptable++)
         {
+        		if(ptable->pageBaseAddr >= (int)0xfec00) {
+        			//break;
+        				goto m;
+        		}
+
             if(ptable->present)
             {
-            	  Print("I was here1\n");
                 Free_Page( (void*) (ptable->pageBaseAddr << 12));
             }
             else if(ptable->kernelInfo==KINFO_PAGE_ON_DISK)
@@ -218,14 +223,15 @@ bool Free_Pages_User_Process(pde_t * page_dir)
                 Free_Space_On_Paging_File(ptable->pageBaseAddr);                
             }
         }
-        Print("I was here2\n");
+        
         Free_Page(ptable_first);
+      
     }
-    Print("I was here3\n");
-    Free_Page(page_dir);    
-    
+ m:
+    Free_Page(page_dir); 
+   
     End_Int_Atomic(flag);
-    
+
     return true;
 }
 
@@ -252,16 +258,23 @@ void Destroy_User_Context(struct User_Context *context) {
     }
     
     Free_Segment_Descriptor(context->ldtDescriptor);
-    Set_PDBR(context->pageDir);
+    //Set_PDBR(PageDir);
     if(context->pageDir!=NULL)
     {
         Free_Pages_User_Process(context->pageDir);
     }
-    context->pageDir = 0;
+    //context->pageDir = 0;
     bool iflag;
     iflag = Begin_Int_Atomic();    
     Free(context);
-    End_Int_Atomic(iflag);   
+    End_Int_Atomic(iflag); 
+    //Set_PDBR(PageDir);
+    int i;
+    //for(i=0; i<1000000000; i++);
+    	//Print("fcr4c");
+
+    //for(i=0; i<1000000000; i++);
+    	//Print("fcr4c");
 }
 
 
@@ -708,7 +721,7 @@ void Switch_To_Address_Space(struct User_Context *userContext) {
         Print("Null User Context/n");
         return;
     }
-    Set_PDBR(userContext->pageDir);
+    Set_PDBR((void*)userContext->pageDir);
     ushort_t ldtSelector;
     ldtSelector = userContext->ldtSelector;
     __asm__ __volatile__("lldt %0"::"a"(ldtSelector)
