@@ -154,14 +154,14 @@ static struct User_Context *Create_User_Context(ulong_t size) {
     Init_Data_Segment_Descriptor(&context->ldt[1],
                                  (ulong_t) context->memory,
                                  size / PAGE_SIZE, USER_PRIVILEGE);
-    // context->csSelector = Selector(USER_PRIVILEGE, false, 0);
-    // context->dsSelector = Selector(USER_PRIVILEGE, false, 1);
+    context->csSelector = Selector(USER_PRIVILEGE, false, 0);
+    context->dsSelector = Selector(USER_PRIVILEGE, false, 1);
     
     /* Nobody is using this user context yet */
     context->refCount = 0;
     
-    context->csSelector = USER_CS;
-    context->dsSelector = USER_DS;
+    //context->csSelector = USER_CS;
+    //context->dsSelector = USER_DS;
     
     /* Success! */
     return context;
@@ -210,6 +210,7 @@ bool Free_Pages_User_Process(pde_t * page_dir)
         {
             if(ptable->present)
             {
+            	  Print("I was here1\n");
                 Free_Page( (void*) (ptable->pageBaseAddr << 12));
             }
             else if(ptable->kernelInfo==KINFO_PAGE_ON_DISK)
@@ -217,9 +218,10 @@ bool Free_Pages_User_Process(pde_t * page_dir)
                 Free_Space_On_Paging_File(ptable->pageBaseAddr);                
             }
         }
+        Print("I was here2\n");
         Free_Page(ptable_first);
     }
-
+    Print("I was here3\n");
     Free_Page(page_dir);    
     
     End_Int_Atomic(flag);
@@ -707,6 +709,10 @@ void Switch_To_Address_Space(struct User_Context *userContext) {
         return;
     }
     Set_PDBR(userContext->pageDir);
+    ushort_t ldtSelector;
+    ldtSelector = userContext->ldtSelector;
+    __asm__ __volatile__("lldt %0"::"a"(ldtSelector)
+        );
     // Load_LDTR(userContext->ldtSelector); //--tobedone--
 }
 

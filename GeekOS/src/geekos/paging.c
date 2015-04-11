@@ -110,6 +110,8 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
     /* rest of your handling code here */
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "handle page faults");
     
+    Print("Looking for %lu\n", address);
+
     TODO_P(PROJECT_MMAP, "handle mmap'd page faults");
     
     

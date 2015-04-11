@@ -685,10 +685,8 @@ void Schedule(void) {
 
     /* Preemption should not be disabled. */
     KASSERT(!g_preemptionDisabled[Get_CPU_ID()]);
-
     /* Get next thread to run from the run queue */
     runnable = Get_Next_Runnable();
-
     // Print("switching to %d, %s (core %d)\n", runnable->pid, runnable->userContext? runnable->userContext->name : runnable->threadName, Get_CPU_ID());
 
     /*
@@ -766,12 +764,10 @@ int Join(struct Kernel_Thread *kthread) {
     KASSERT(kthread->owner == CURRENT_THREAD);
 
     Disable_Interrupts();
-
     /* Wait for it to die */
     while (kthread->alive) {
         Wait(&kthread->joinQueue);
     }
-
     /* Get thread exit code. */
     exitCode = kthread->exitCode;
 
@@ -839,13 +835,10 @@ void Wait(struct Thread_Queue *waitQueue) {
 
     KASSERT(!Interrupts_Enabled());
     KASSERT(waitQueue != NULL); /* try to protect against passing uninitialized pointers in */
-
     /* Add the thread to the wait queue. */
     Enqueue_Thread(waitQueue, current);
-
     /* Find another thread to run. */
-    Schedule();
-
+	Schedule();
 }
 
 void Wake_Up_Locked(struct Thread_Queue *waitQueue) {
