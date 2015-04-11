@@ -188,18 +188,15 @@ fail:
 bool Free_Pages_User_Process(pde_t * page_dir)
 {
     pde_t * pdir;
-    //KASSERT(!Interrupts_Enabled());
-    //Enable_Interrupts();
+    
     bool flag;
     flag=Begin_Int_Atomic();
-    
-    //mydebug
-    //Print("shut down the interrupt/n");
     
     if(page_dir==NULL)
     {
         return true;
     }
+
     for(pdir=page_dir+NUM_PAGE_DIR_ENTRIES/2; pdir < page_dir+NUM_PAGE_DIR_ENTRIES; pdir++)
     {
         pte_t * ptable;
@@ -217,20 +214,16 @@ bool Free_Pages_User_Process(pde_t * page_dir)
             }
             else if(ptable->kernelInfo==KINFO_PAGE_ON_DISK)
             {
-                //Disable_Interrupts();
-                Free_Space_On_Paging_File(ptable->pageBaseAddr);
-                //Enable_Interrupts();
-                
+                Free_Space_On_Paging_File(ptable->pageBaseAddr);                
             }
         }
         Free_Page(ptable_first);
     }
-    //Disable_Interrupts();
-    Free_Page(page_dir);
+
+    Free_Page(page_dir);    
     
     End_Int_Atomic(flag);
-    //mydebug
-    //Print("here open the interrupt/n");
+    
     return true;
 }
 
@@ -263,9 +256,10 @@ void Destroy_User_Context(struct User_Context *context) {
         Free_Pages_User_Process(context->pageDir);
     }
     context->pageDir = 0;
+    bool iflag;
+    iflag = Begin_Int_Atomic();    
     Free(context);
-    
-    
+    End_Int_Atomic(iflag);   
 }
 
 
@@ -375,7 +369,7 @@ uint_t lin_to_phyaddr(pde_t * page_dir,uint_t lin_address)
     }
 }
 
-bool Copy_Pages_User(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte_num)
+bool Free_Pages_User_Process(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte_num)
 {
     uint_t phyMemStart;
     uint_t temp_length;
@@ -547,7 +541,7 @@ int Load_User_Program(char *exeFileData, ulong_t exeFileLength,
    
         
     }
-		Print("Allocation complete\n\n");
+
     for(i=0; i<exeFormat->numSegments; i++)
     {
        

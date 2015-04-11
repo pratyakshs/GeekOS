@@ -1,4 +1,4 @@
-cscope 15 $HOME/Pictures/project3/OSLab/GeekOS               0001075773
+cscope 15 $HOME/Pictures/project3/OSLab/GeekOS               0001076447
 	@build/libc/errno.c
 
 1 c⁄° *
@@ -3725,7 +3725,7 @@ BRIGHT
 
 36 
 	`Pröt
-("Failedássertion in %s: %sát %s,Üine %d, RA=%lx,Åhread=%p\n",\
+("Failedássertion(noárg) in %s: %sát %s,Üine %d, RA=%lx,Åhread=%p\n",\
 
 37 
 __func__
@@ -79894,20 +79894,38 @@ c⁄ãxt
  = 0;
 
 266 
+boﬁ
+ 
+iÊag
+;
+
+267 
+iÊag
+ = 
+	`Begö_I¡_Atomic
+();
+
+268 
 	`Fªe
 (
 c⁄ãxt
 );
 
 269 
+	`End_I¡_Atomic
+(
+iÊag
+);
+
+270 
 	}
 }
 
-345 
+274 
 	$AŒoc_Pages_U£r
 (
 pde_t
- * 
+ *
 ∑geDú
 ,
 uöt_t
@@ -79915,9 +79933,9 @@ uöt_t
 °¨tAddªss
 ,uöt_à
 sizeInMem‹y
-)
+) {
 
-347 
+275 
 uöt_t
  
 ∑gedú_ödex
@@ -79925,7 +79943,7 @@ uöt_t
 °¨tAddªss
 >>22;
 
-348 
+276 
 uöt_t
  
 ∑ge_ödex
@@ -79933,119 +79951,35 @@ uöt_t
 °¨tAddªss
 <<10)>>22;
 
-350 
+278 
 pde_t
- * 
+ *
 ∑gedú_íåy
-=
+ = 
 ∑geDú
 +
 ∑gedú_ödex
 ;
 
-351 
+279 
 ±e_t
- * 
+ *
 ∑ge_íåy
 ;
 
-356 if(
-∑gedú_íåy
-->
-¥e£¡
-)
-
-358 
-∑ge_íåy
-=(
-±e_t
- *)(
-∑gedú_íåy
-->
-∑geTabÀBa£Addr
-<<12);
-
-363 
-∑ge_íåy
-=(
-±e_t
-*Ë
-	`AŒoc_Page
-();
-
-364 if(
-∑ge_íåy
-==
-NULL
-)
-
-366 
-	`Pröt
-("canÇotállocateÖage in Alloc_User_Page/n");
-
-369 
-	`mem£t
-(
-∑ge_íåy
-,0,
-PAGE_SIZE
-);
-
-371 *((
-uöt_t
-*)
-∑gedú_íåy
-)=0;
-
-372 
-∑gedú_íåy
-->
-¥e£¡
-=1;
-
-373 
-∑gedú_íåy
-->
-Êags
-=
-VM_WRITE
- | 
-VM_READ
- | 
-VM_USER
-;
-
-374 
-∑gedú_íåy
-->
-globÆPage
-=0;
-
-375 
-∑gedú_íåy
-->
-∑geTabÀBa£Addr
-=(
+281 
 ul⁄g_t
-)
-∑ge_íåy
- >> 12;
-
-379 
-∑ge_íåy
-+=
-∑ge_ödex
-;
-
-382 
+ 
 num_∑ges
+, 
+num_∑ges_ãmp
 ;
 
-383 * 
+282 *
 ∑ge_addr
 ;
 
-385 
+283 
 num_∑ges
 =
 	`Round_Up_To_Page
@@ -80059,29 +79993,127 @@ sizeInMem‹y
 PAGE_SIZE
 ;
 
-391 
+285 
+num_∑ges
+>0) {
+
+286 if(
+∑gedú_íåy
+->
+¥e£¡
+)
+
+288 
+∑ge_íåy
+=(
+±e_t
+ *)(
+∑gedú_íåy
+->
+∑geTabÀBa£Addr
+<<12);
+
+292 
+∑ge_íåy
+=(
+±e_t
+*Ë
+	`AŒoc_Page
+();
+
+293 if(
+∑ge_íåy
+==
+NULL
+)
+
+295 
+	`Pröt
+("canÇotállocateÖage in Alloc_Pages_User/n");
+
+298 
+	`mem£t
+(
+∑ge_íåy
+,0,
+PAGE_SIZE
+);
+
+299 *((
+uöt_t
+*)
+∑gedú_íåy
+)=0;
+
+300 
+∑gedú_íåy
+->
+¥e£¡
+=1;
+
+301 
+∑gedú_íåy
+->
+Êags
+=
+VM_WRITE
+ | 
+VM_READ
+ | 
+VM_USER
+;
+
+302 
+∑gedú_íåy
+->
+globÆPage
+=0;
+
+303 
+∑gedú_íåy
+->
+∑geTabÀBa£Addr
+=(
+ul⁄g_t
+)
+∑ge_íåy
+ >> 12;
+
+306 
+∑ge_íåy
++=
+∑ge_ödex
+;
+
+308 
+uöt_t
+ 
 i
 ;
 
-392 
+309 
 uöt_t
  
 fú°_∑ge_addr
 =0;
 
-393 
+310 
 i
-=0;i<
+=0;i<(
 num_∑ges
-;i++)
+<(
+NUM_PAGE_TABLE_ENTRIES
+ - 
+∑ge_ödex
+)?Çum_pages : (NUM_PAGE_TABLE_ENTRIES -Öage_index));i++)
 
-396 if(!
+312 if(!
 ∑ge_íåy
 ->
 ¥e£¡
 )
 
-398 
+314 
 ∑ge_addr
 =
 	`AŒoc_PagóbÀ_Page
@@ -80093,29 +80125,29 @@ num_∑ges
 °¨tAddªss
 ));
 
-399 if(
+316 if(
 ∑ge_addr
 ==
 NULL
 )
 
-401 
+318 
 	`Pröt
-("canÇotállocateÖage in Alloc_User_Page/n");
+("canÇotállocateÖage in Alloc_Pages_User/n");
 
-405 *((
+321 *((
 uöt_t
 *)
 ∑ge_íåy
 )=0;
 
-406 
+322 
 ∑ge_íåy
 ->
 ¥e£¡
 =1;
 
-407 
+323 
 ∑ge_íåy
 ->
 Êags
@@ -80127,13 +80159,13 @@ VM_READ
 VM_USER
 ;
 
-408 
+324 
 ∑ge_íåy
 ->
 globÆPage
  = 0;
 
-409 
+325 
 ∑ge_íåy
 ->
 ∑geBa£Addr
@@ -80143,17 +80175,17 @@ ul⁄g_t
 ∑ge_addr
 >>12;
 
-410 
+328 
 	`KASSERT
 (
 ∑ge_addr
 != 0);
 
-411 if(
+329 if(
 i
 ==0)
 
-413 
+331 
 fú°_∑ge_addr
  = (
 uöt_t
@@ -80161,21 +80193,37 @@ uöt_t
 ∑ge_addr
 ;
 
-416 
+334 
 ∑ge_íåy
 ++;
 
-417 
+335 
 °¨tAddªss
 +=
 PAGE_SIZE
 ;
 
-420 
+337 
+num_∑ges
+ -(“um_∑ges<(
+NUM_PAGE_TABLE_ENTRIES
+ - 
+∑ge_ödex
+)?Çum_pages : (NUM_PAGE_TABLE_ENTRIES -Öage_index)));
+
+338 
+∑gedú_íåy
+++;
+
+339 
+∑ge_ödex
+ = 0;
+
+344 
 	}
 }
 
-423 
+348 
 uöt_t
  
 	$lö_to_phyaddr
@@ -80189,7 +80237,7 @@ uöt_t
 lö_addªss
 )
 
-425 
+350 
 uöt_t
  
 ∑gedú_ödex
@@ -80197,7 +80245,7 @@ uöt_t
 lö_addªss
 >>22;
 
-426 
+351 
 uöt_t
  
 ∑ge_ödex
@@ -80205,7 +80253,7 @@ uöt_t
 lö_addªss
 <<10)>>22;
 
-427 
+352 
 uöt_t
  
 off£t_addªss
@@ -80213,7 +80261,7 @@ off£t_addªss
 lö_addªss
  & 0xfff;
 
-430 
+355 
 pde_t
  * 
 ∑gedú_íåy
@@ -80223,19 +80271,19 @@ pde_t
 ∑gedú_ödex
 ;
 
-431 
+356 
 ±e_t
  * 
 ∑ge_íåy
 =0;
 
-433 if(
+358 if(
 ∑gedú_íåy
 ->
 ¥e£¡
 )
 
-435 
+360 
 ∑ge_íåy
 =(
 ±e_t
@@ -80247,27 +80295,33 @@ uöt_t
 ∑geTabÀBa£Addr
  << 12);
 
-436 
+361 
 ∑ge_íåy
 +=
 ∑ge_ödex
 ;
 
-438 if(
+363 if(
 ∑ge_íåy
 ->
 ¥e£¡
 ==0)
 
-440 
+365 
 	`Pröt
-("theÖage doÇotÖresent!/n");
+("theÖage isÇotÖresent!\n");
 
-441 
+366 
+	`Pröt
+("Löó∏addªs†i†%x\n", 
+lö_addªss
+);
+
+367 
 	`KASSERT
 (0);
 
-444  (
+370  (
 ∑ge_íåy
 ->
 ∑geBa£Addr
@@ -80275,17 +80329,17 @@ uöt_t
 off£t_addªss
 ;
 
-448 
+374 
 	`Pröt
 ("TryögÅÿªsﬁvên⁄-exi°íàaddªss%u/n", 
 lö_addªss
 );
 
-451 
+377 
 	}
 }
 
-539 
+379 
 boﬁ
  
 	$C›y_Pages_U£r
@@ -80303,29 +80357,37 @@ de°_u£r
 byã_num
 )
 
-541 
+381 
 uöt_t
  
-phy_°¨t
+phyMemSèπ
 ;
 
-542 
+382 
 uöt_t
  
-ãmp_Àn
+ãmp_Àngth
 ;
 
-543 
+383 
 ∑ge_nums
 ;
 
-544 
+384 
 Page
  * 
 ∑ge
 ;
 
-547 if(
+386 if(
+byã_num
+==0) {
+
+387  
+åue
+;
+
+390 if(
 	`Round_Down_To_Page
 (
 de°_u£r
@@ -80333,36 +80395,36 @@ de°_u£r
 byã_num
 ) == Round_Down_To_Page(dest_user))
 
-549 
-ãmp_Àn
+392 
+ãmp_Àngth
 =
 byã_num
 ;
 
-550 
+393 
 ∑ge_nums
 =1;
 
-554 
-ãmp_Àn
+397 
+ãmp_Àngth
 =
 	`Round_Up_To_Page
 (
 de°_u£r
 )-dest_user;
 
-555 
+398 
 byã_num
 -=
-ãmp_Àn
+ãmp_Àngth
 ;
 
-556 
+399 
 ∑ge_nums
 =0;
 
-559 
-phy_°¨t
+401 
+phyMemSèπ
 =
 	`lö_to_phyaddr
 (
@@ -80371,27 +80433,31 @@ phy_°¨t
 de°_u£r
 );
 
-560 if(
-phy_°¨t
+402 if(
+phyMemSèπ
 ==0)
 
-562  
+404 
+	`Pröt
+("Error! LinearÅoÖhysical memoryÅransformationÇotÖossible.\n");
+
+405  
 Ál£
 ;
 
-564 
+407 
 ∑ge
  = 
 	`Gë_Page
 (
-phy_°¨t
+phyMemSèπ
 );
 
-566 
+409 
 	`DißbÀ_I¡îru±s
 ();
 
-567 
+410 
 ∑ge
 ->
 Êags
@@ -80399,21 +80465,21 @@ phy_°¨t
 PAGE_PAGEABLE
 ;
 
-568 
+411 
 	`E«bÀ_I¡îru±s
 ();
 
-570 
+413 
 	`mem˝y
 ((*)
-phy_°¨t
+phyMemSèπ
 , 
 §c
 , 
-ãmp_Àn
+ãmp_Àngth
 );
 
-571 
+414 
 ∑ge
 ->
 Êags
@@ -80421,41 +80487,27 @@ phy_°¨t
 PAGE_PAGEABLE
 ;
 
-573 if(
+416 if(
 ∑ge_nums
  == 1)
 
-575  
+418  
 åue
 ;
 
-579 
-ãmp_Àn
-=
-	`Round_Up_To_Page
-(
-de°_u£r
-)-dest_user;
-
-580 
+423 
 de°_u£r
 +=
-ãmp_Àn
+ãmp_Àngth
 ;
 
-581 
+424 
 §c
 +=
-ãmp_Àn
+ãmp_Àngth
 ;
 
-582 
-byã_num
--=
-ãmp_Àn
-;
-
-584 
+427 
 de°_u£r
 !=
 	`Round_Down_To_Page
@@ -80463,8 +80515,8 @@ de°_u£r
 byã_num
 ))
 
-587 
-phy_°¨t
+430 
+phyMemSèπ
 =
 	`lö_to_phyaddr
 (
@@ -80473,27 +80525,31 @@ phy_°¨t
 de°_u£r
 );
 
-588 if(
-phy_°¨t
+431 if(
+phyMemSèπ
  == 0)
 
-590  
+433 
+	`Pröt
+("Error! LinearÅoÖhysical memoryÅransformationÇotÖossible.\n");
+
+434  
 Ál£
 ;
 
-592 
+436 
 ∑ge
  = 
 	`Gë_Page
 (
-phy_°¨t
+phyMemSèπ
 );
 
-594 
+438 
 	`DißbÀ_I¡îru±s
 ();
 
-595 
+439 
 ∑ge
 ->
 Êags
@@ -80501,21 +80557,21 @@ phy_°¨t
 PAGE_PAGEABLE
 ;
 
-596 
+440 
 	`E«bÀ_I¡îru±s
 ();
 
-598 
+442 
 	`mem˝y
 ((*)
-phy_°¨t
+phyMemSèπ
 , 
 §c
 , 
 PAGE_SIZE
 );
 
-599 
+443 
 ∑ge
 ->
 Êags
@@ -80523,26 +80579,26 @@ PAGE_SIZE
 PAGE_PAGEABLE
 ;
 
-601 
+445 
 de°_u£r
 +=
 PAGE_SIZE
 ;
 
-602 
+446 
 byã_num
 -=
 PAGE_SIZE
 ;
 
-603 
+447 
 §c
 +=
 PAGE_SIZE
 ;
 
-607 
-phy_°¨t
+451 
+phyMemSèπ
  = 
 	`lö_to_phyaddr
 (
@@ -80551,19 +80607,23 @@ phy_°¨t
 de°_u£r
 );
 
-608 if(
-phy_°¨t
+452 if(
+phyMemSèπ
 ==0)
 
-610  
+454 
+	`Pröt
+("Error! LinearÅoÖhysical memoryÅransformationÇotÖossible.\n");
+
+455  
 Ál£
 ;
 
-613 
+458 
 	`DißbÀ_I¡îru±s
 ();
 
-614 
+459 
 ∑ge
 ->
 Êags
@@ -80571,21 +80631,21 @@ phy_°¨t
 PAGE_PAGEABLE
 ;
 
-615 
+460 
 	`E«bÀ_I¡îru±s
 ();
 
-617 
+462 
 	`mem˝y
 ((*)
-phy_°¨t
+phyMemSèπ
 , 
 §c
 , 
 byã_num
 );
 
-618 
+463 
 ∑ge
 ->
 Êags
@@ -80593,15 +80653,15 @@ byã_num
 PAGE_PAGEABLE
 ;
 
-619  
+464  
 åue
 ;
 
-620 
+465 
 	}
 }
 
-640 
+485 
 	$Lﬂd_U£r_Progøm
 (*
 exeFûeD©a
@@ -80611,7 +80671,7 @@ ul⁄g_t
 exeFûeLígth
 ,
 
-641 
+486 
 Exe_F‹m©
  *
 exeF‹m©
@@ -80619,29 +80679,29 @@ exeF‹m©
 comm™d
 ,
 
-642 
+487 
 U£r_C⁄ãxt
  **
 pU£rC⁄ãxt
 ) {
 
-653 
+498 
 i
 ,
 ªs
 ;
 
-654 
+499 
 ul⁄g_t
  
 maxva
  = 0;
 
-655 
+500 
 numArgs
 ;
 
-657 
+502 
 ul⁄g_t
  
 size
@@ -80651,19 +80711,19 @@ size
 ¨gBlockSize
 ;
 
-658 
+503 
 U£r_C⁄ãxt
  *
 u£rC⁄ãxt
  = 0;
 
-659 
+504 
 pde_t
 * 
 ∑geDúe˘‹y
 ;
 
-660 
+505 
 uöt_t
  
 °ack_addr
@@ -80671,7 +80731,7 @@ uöt_t
 ¨g_addr
 ;
 
-662 
+507 
 i
  = 0; i < 
 exeF‹m©
@@ -80679,7 +80739,7 @@ exeF‹m©
 numSegmíts
 ; ++i) {
 
-663 
+508 
 Exe_Segmít
  *
 £gmít
@@ -80691,7 +80751,7 @@ exeF‹m©
 i
 ];
 
-664 
+509 
 ul⁄g_t
  
 t›va
@@ -80703,19 +80763,19 @@ t›va
 sizeInMem‹y
 ;
 
-666 i‡(
+511 i‡(
 t›va
  > 
 maxva
 )
 
-667 
+512 
 maxva
  = 
 t›va
 ;
 
-671 
+516 
 	`Gë_Argumít_Block_Size
 (
 comm™d
@@ -80725,7 +80785,7 @@ numArgs
 ¨gBlockSize
 );
 
-678 
+523 
 size
  = 
 	`Round_Up_To_Page
@@ -80735,29 +80795,29 @@ maxva
 DEFAULT_USER_STACK_SIZE
 ;
 
-679 
+524 
 ¨gBlockAddr
  = 
 size
 ;
 
-680 
+525 
 size
  +
 ¨gBlockSize
 ;
 
-683 if(
+528 if(
 size
 >
 USER_VM_SIZE
 ) {
 
-684 
+529 
 	`Pröt
 ("Falling short ofÖhysical memory :(");
 
-689 
+534 
 u£rC⁄ãxt
  = 
 	`Cª©e_U£r_C⁄ãxt
@@ -80765,11 +80825,11 @@ u£rC⁄ãxt
 size
 );
 
-690 i‡(
+535 i‡(
 u£rC⁄ãxt
  == 0)
 
-692 
+537 
 ∑geDúe˘‹y
 =
 u£rC⁄ãxt
@@ -80777,11 +80837,7 @@ u£rC⁄ãxt
 ∑geDú
 ;
 
-693 
-	`DißbÀ_I¡îru±s
-();
-
-694 
+539 
 i
 =0; i<
 exeF‹m©
@@ -80789,7 +80845,7 @@ exeF‹m©
 numSegmíts
 ; i++)
 
-697 
+542 
 ªs
 =
 	`AŒoc_Pages_U£r
@@ -80809,15 +80865,23 @@ USER_VM_START
 sizeInMem‹y
 );
 
-698 if(
+543 if(
 ªs
 !=0)
 
-700 
+545 
 	`Pröt
 ("Page cant beállocated for copyingÅhe segment\n");
 
-704 
+552 
+i
+=0; i<
+exeF‹m©
+->
+numSegmíts
+; i++)
+
+556 
 ªs
 =
 	`C›y_Pages_U£r
@@ -80841,27 +80905,27 @@ off£tInFûe
 ÀngthInFûe
 );
 
-705 if(
+557 if(
 ªs
 !=
 åue
 )
 
-707 
+559 
 	`Pröt
 ("Segment Copy Failed\n");
 
-713 if(
+565 if(
 ¨gBlockSize
  > 
 PAGE_SIZE
 )
 
-715 
+567 
 	`Pröt
 ("Argument Block isÅoo big/n");
 
-719 
+571 
 ul⁄g_t
  
 USER_VM_LEN
@@ -80871,7 +80935,7 @@ USER_VM_LEN
 size
 );
 
-720 
+572 
 ¨g_addr
 =
 	`Round_Down_To_Page
@@ -80881,11 +80945,11 @@ USER_VM_LEN
 ¨gBlockSize
 );
 
-721 
+573 
 	`DißbÀ_I¡îru±s
 ();
 
-722 * 
+574 * 
 block_buf
 =
 	`MÆloc
@@ -80893,11 +80957,11 @@ block_buf
 ¨gBlockSize
 );
 
-723 
+575 
 	`E«bÀ_I¡îru±s
 ();
 
-724 
+576 
 	`KASSERT
 (
 block_buf
@@ -80905,7 +80969,7 @@ block_buf
 NULL
 );
 
-725 
+577 
 	`F‹m©_Argumít_Block
 (
 block_buf
@@ -80917,7 +80981,7 @@ numArgs
 comm™d
 );
 
-727 
+579 
 ªs
 =
 	`AŒoc_Pages_U£r
@@ -80931,11 +80995,11 @@ USER_VM_START
 ¨gBlockSize
 );
 
-728 if(
+580 if(
 ªs
 !=0)
 
-732 
+584 
 ªs
 =
 	`C›y_Pages_U£r
@@ -80951,27 +81015,27 @@ block_buf
 ¨gBlockSize
 );
 
-733 if(
+585 if(
 ªs
 !=
 åue
 )
 
-737 
+589 
 	`DißbÀ_I¡îru±s
 ();
 
-738 
+590 
 	`Fªe
 (
 block_buf
 );
 
-739 
+591 
 	`E«bÀ_I¡îru±s
 ();
 
-741 
+593 
 °ack_addr
 =
 USER_VM_LEN
@@ -80983,7 +81047,7 @@ USER_VM_LEN
 DEFAULT_USER_STACK_SIZE
 ;
 
-742 
+594 
 ªs
 =
 	`AŒoc_Pages_U£r
@@ -80997,11 +81061,11 @@ USER_VM_START
 DEFAULT_USER_STACK_SIZE
 );
 
-743 if(
+595 if(
 ªs
 !=0)
 
-748 
+600 
 u£rC⁄ãxt
 ->
 ¨gBlockAddr
@@ -81009,7 +81073,7 @@ u£rC⁄ãxt
 ¨g_addr
 ;
 
-749 
+601 
 u£rC⁄ãxt
 ->
 °ackPoöãrAddr
@@ -81017,7 +81081,7 @@ u£rC⁄ãxt
 ¨g_addr
 ;
 
-750 
+602 
 u£rC⁄ãxt
 ->
 íåyAddr
@@ -81025,7 +81089,7 @@ u£rC⁄ãxt
 exeF‹m©
 ->entryAddr;
 
-751 
+603 
 u£rC⁄ãxt
 ->
 size
@@ -81033,21 +81097,17 @@ size
 USER_VM_LEN
 ;
 
-753 *
+605 *
 pU£rC⁄ãxt
  = 
 u£rC⁄ãxt
 ;
 
-754 
-	`E«bÀ_I¡îru±s
-();
-
-757 
+609 
 	}
 }
 
-763 
+615 
 boﬁ
  
 	$C›y_From_U£r
@@ -81061,7 +81121,7 @@ ul⁄g_t
 numByãs
 ) {
 
-782 * 
+634 * 
 u£r_addªss
 =(*)(
 USER_VM_START
@@ -81069,7 +81129,7 @@ USER_VM_START
 §cInU£r
 ;
 
-783 
+635 
 U£r_C⁄ãxt
 * 
 u£rC⁄ãxt
@@ -81077,7 +81137,7 @@ u£rC⁄ãxt
 CURRENT_THREAD
 ->userContext;
 
-786 if((
+638 if((
 §cInU£r
 +
 numByãs
@@ -81087,7 +81147,7 @@ u£rC⁄ãxt
 size
 )
 
-788 
+640 
 	`mem˝y
 (
 de°InKî√l
@@ -81097,19 +81157,19 @@ u£r_addªss
 numByãs
 );
 
-789  
+641  
 åue
 ;
 
-791  
+643  
 Ál£
 ;
 
-794 
+646 
 	}
 }
 
-800 
+652 
 boﬁ
  
 	$C›y_To_U£r
@@ -81123,7 +81183,7 @@ de°InU£r
 numByãs
 ) {
 
-808 * 
+660 * 
 u£r_addªss
  = (*)(
 USER_VM_START
@@ -81131,7 +81191,7 @@ USER_VM_START
 de°InU£r
 ;
 
-809 
+661 
 U£r_C⁄ãxt
 * 
 u£rC⁄ãxt
@@ -81139,7 +81199,7 @@ u£rC⁄ãxt
 CURRENT_THREAD
 ->userContext;
 
-810 if((
+662 if((
 de°InU£r
 +
 numByãs
@@ -81149,7 +81209,7 @@ u£rC⁄ãxt
 size
 )
 
-812 
+664 
 	`mem˝y
 (
 u£r_addªss
@@ -81159,19 +81219,19 @@ u£r_addªss
 numByãs
 );
 
-813  
+665  
 åue
 ;
 
-815  
+667  
 Ál£
 ;
 
-817 
+669 
 	}
 }
 
-823 
+675 
 boﬁ
  
 	$C›y_U£r_To_U£r
@@ -81185,21 +81245,21 @@ ul⁄g_t
 numByãs
 ) {
 
-842 
+694 
 	`TODO_P
 (
 PROJECT_VIRTUAL_MEMORY_A
 , "Copy user dataÅo kernel buffer");
 
-843  
+695  
 åue
 ;
 
-844 
+696 
 	}
 }
 
-851 
+703 
 	$Swôch_To_Addªss_S∑˚
 (
 U£r_C⁄ãxt
@@ -81207,15 +81267,15 @@ U£r_C⁄ãxt
 u£rC⁄ãxt
 ) {
 
-857 if(
+709 if(
 u£rC⁄ãxt
  == 0)
 
-859 
+711 
 	`Pröt
 ("Null User Context/n");
 
-862 
+714 
 	`Së_PDBR
 (
 u£rC⁄ãxt
@@ -81223,7 +81283,7 @@ u£rC⁄ãxt
 ∑geDú
 );
 
-864 
+716 
 	}
 }
 
