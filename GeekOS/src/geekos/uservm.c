@@ -369,7 +369,8 @@ uint_t lin_to_phyaddr(pde_t * page_dir,uint_t lin_address)
     }
 }
 
-bool Free_Pages_User_Process(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte_num)
+
+bool Copy_Pages_User(pde_t * page_dir, uint_t dest_user, char * src, uint_t byte_num)
 {
     uint_t phyMemStart;
     uint_t temp_length;
@@ -456,6 +457,7 @@ bool Free_Pages_User_Process(pde_t * page_dir, uint_t dest_user, char * src, uin
     page->flags |= PAGE_PAGEABLE;
     return true;
 }
+
 
 /*
  * Load a user executable into memory by creating a User_Context
