@@ -77,6 +77,7 @@ struct Page {
 IMPLEMENT_LIST(Page_List, Page);
 
 void Init_Mem(struct Boot_Info *bootInfo);
+void Init_Clock(void);
 void Init_BSS(void);
 void *Alloc_Page(void);
 void *Alloc_Pageable_Page(pte_t * entry, ulong_t vaddr);
@@ -131,5 +132,38 @@ static __inline__ ulong_t Get_Page_Address(struct Page *page) {
     ulong_t index = page - g_pageList;
     return index << PAGE_POWER;
 }
+
+// void * circular_page_queue[33504];
+
+#define HANDS_DIST 200
+int hand1, hand2;
+
+#define MIN_FREE_PAGES 50
+
+/*
+ * List of Page structures representing each page of physical memory.
+ */
+struct Page *g_pageList;
+
+/*
+ * Number of pages currently available on the freelist.
+ */
+uint_t g_freePageCount;
+
+/*
+ * Free frames manager will wait until 
+ * number of free frames falls below threshold.
+ */
+static struct Thread_Queue g_ffmWaitQueue;
+
+/*
+ * List of pages available for allocation.
+ */
+static struct Page_List s_freeList;
+
+/*
+ * Total number of physical pages.
+ */
+int unsigned s_numPages;
 
 #endif /* GEEKOS_MEM_H */

@@ -103,14 +103,77 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
     if (address < 0xfec01000 && address > 0xf0000000) {
         KASSERT0(0, "page fault address in APIC/IOAPIC range\n");
     }
-    
+     if(faultCode.writeFault)
     /* Get the fault code */
     faultCode = *((faultcode_t *) & (state->errorCode));
+
     
     /* rest of your handling code here */
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "handle page faults");
+
+    //mycode
+    struct User_Context* userContext = g_currentThread->userContext;
     
-    Print("Looking for %x\n", (unsigned int)address);
+    //in case of a write fault, allocate a new page
+    if(faultCode.writeFault)
+    {
+        Print("write fault/n");
+        int result;
+        result = Alloc_Pages_User(userContext->pageDir,Round_Down_To_Page(address),PAGE_SIZE);
+        if(result==-1)
+        {
+            Print("cannot Allocate a page in page fault handler");
+            goto error;
+        }
+        return;
+    }
+    else
+    {
+        Print("read fault/n");
+        ulong_t page_dir_addr=address >> 22;
+        ulong_t page_addr=(address << 10) >> 22;
+        pde_t * page_dir_entry=(pde_t*)userContext->pageDir+page_dir_addr;
+        pte_t * page_entry= NULL;
+
+        if(page_dir_entry->present)
+        {
+            page_entry=(pte_t*)((page_dir_entry->pageTableBaseAddr) << 12);
+            page_entry+=page_addr;
+        }
+        else
+        {
+            goto error;
+        }
+
+        //didnt understand this
+        if(page_entry->kernelInfo!=KINFO_PAGE_ON_DISK)
+        {
+            //Illegal address access to the missing page case
+            goto error;
+        }
+
+        int pagefile_index = page_entry->pageBaseAddr;
+        void * paddr=Alloc_Pageable_Page(page_entry,Round_Down_To_Page(address));
+        if(paddr==NULL)
+        {
+            Print("no more page/n");
+            goto error;
+        }
+
+        *((uint_t*)page_entry)=0;
+        page_entry->present=1;
+        //do we need to set these flags ????
+        page_entry->flags=VM_WRITE | VM_READ | VM_USER;
+        page_entry->globalPage = 0;
+        page_entry->pageBaseAddr = (ulong_t)paddr>>12;
+        Enable_Interrupts();
+        Read_From_Paging_File(paddr,Round_Down_To_Page(address), pagefile_index);
+        Disable_Interrupts();
+        Free_Space_On_Paging_File(pagefile_index);
+        return ;
+    }
+    
+    Print("Looking for %lu\n", address);
 
     TODO_P(PROJECT_MMAP, "handle mmap'd page faults");
     
@@ -276,6 +339,7 @@ void Init_VM(struct Boot_Info *bootInfo) {
     Install_Interrupt_Handler(14, Page_Fault_Handler);
     Install_Interrupt_Handler(46, Page_Fault_Handler);
     
+    Start_Kernel_Thread(Free_Frames_Manager, 0, PRIORITY_NORMAL, true, "{Free Frames Manager}");
     
 }
 
@@ -293,7 +357,7 @@ void Init_Pagefile(void) {
     int i;
     Print("Initializing Pagefile...\n");
     for(i = 0; i < BITMAP_SIZE; i++) {
-        Free_BitMap[i] = 0x11111111;
+        Free_BitMap[i] = 0xFFFFFFFF;
     }
     
     // initialize the mapping (empty)
@@ -340,7 +404,15 @@ int Find_Space_On_Paging_File(void) {
  */
 void Free_Space_On_Paging_File(int pagefileIndex) {
     KASSERT(!Interrupts_Enabled());
-    TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Free page in paging file");
+    
+    // Check if the index is within bounds
+    KASSERT(pagefileIndex >= 0 && pagefileIndex < PAGE_FILE_SIZE);
+
+    int index1 = pagefileIndex >> 5, index2 = pagefileIndex & 0x1F;
+    Free_BitMap[index1] |= (1 << (31 - index2));
+
+
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Free page in paging file");
 }
 
 /**
@@ -363,6 +435,13 @@ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
     extern struct Page *g_pageList;
     ulong_t index = page - g_pageList;
     PF_Map[index] = pagefileIndex;
+
+    page->flags = 0;    
+    page->flags |= PAGE_PAGEABLE;
+    
+    page->entry->present = 0;
+    page->entry->pageBaseAddr = pagefileIndex;
+
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Write page data to paging file");
 }
 
@@ -378,6 +457,19 @@ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
 void Read_From_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
     struct Page *page = Get_Page((ulong_t) paddr);
     KASSERT(!(page->flags & PAGE_PAGEABLE));    /* Page must be locked! */
+
+    int i;
+    for(i = 0; i < 8; i++) {
+        Block_Read(pdev, 8 * pagefileIndex + i, (void*)page + 512 * i);
+    }
+
+    page->flags = 0;    
+    page->flags |= PAGE_ALLOCATED;
+    page->flags |= PAGE_PAGEABLE;
+
+    page->entry->present = 1;
+    page->entry->pageBaseAddr = ((ulong_t) paddr) >> 12;
+
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Read page data from paging file");
 }
 

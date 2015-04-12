@@ -150,6 +150,9 @@ void Wait(struct Thread_Queue *waitQueue);
 void Wake_Up(struct Thread_Queue *waitQueue);
 void Wake_Up_One(struct Thread_Queue *waitQueue);
 
+
+void Free_Frames_Manager(ulong_t arg);
+
 /*
  * Pointer to currently executing thread.
  */
@@ -181,5 +184,7 @@ extern void *Tlocal_Get(tlocal_key_t);
 extern void Dump_All_Thread_List(void);
 
 extern void Wake_Up_Locked(struct Thread_Queue *waitQueue);
+
+
 
 #endif /* GEEKOS_KTHREAD_H */

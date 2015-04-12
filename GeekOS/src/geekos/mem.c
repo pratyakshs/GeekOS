@@ -53,16 +53,6 @@ extern int debugFaults;
 #define Debug(args...) if (debugFaults) Print(args)
 
 /*
- * List of pages available for allocation.
- */
-static struct Page_List s_freeList;
-
-/*
- * Total number of physical pages.
- */
-int unsigned s_numPages;
-
-/*
  * Add a range of pages to the inventory of physical memory.
  */
 static void Add_Page_Range(ulong_t start, ulong_t end, int flags) {
@@ -203,6 +193,17 @@ void Init_Mem(struct Boot_Info *bootInfo) {
     Print
         ("%uKB memory detected, %u pages in freelist, %d bytes in kernel heap\n",
          bootInfo->memSizeKB, g_freePageCount, KERNEL_HEAP_SIZE);
+
+    Init_Clock();
+
+}
+
+/*
+ * Initialize the clock hand pointers
+ */
+void Init_Clock(void) {
+    hand1 = HANDS_DIST;
+    hand1 = 0;
 }
 
 /*
@@ -229,6 +230,7 @@ static void *Alloc_Page_Frame(void) {
         /* Mark page as having been allocated. */
         page->flags |= PAGE_ALLOCATED;
         g_freePageCount--;
+        Wake_Up(&g_ffmWaitQueue);
         result = (void *)Get_Page_Address(page);
     }
 
@@ -244,24 +246,23 @@ static void *Alloc_Page_Frame(void) {
  * Returns null if no pages are available.
  */
 static struct Page *Find_Page_To_Page_Out() {
-    unsigned int i;
-    struct Page *curr, *best;
-    best = NULL;
-    for (i = 0; i < s_numPages; i++) {
-        if ((g_pageList[i].flags & PAGE_PAGEABLE) &&
-            (g_pageList[i].flags & PAGE_ALLOCATED)) {
-            if (!best)
-                best = &g_pageList[i];
-            curr = &g_pageList[i];
-            if ((curr->clock < best->clock) && (curr->flags & PAGE_PAGEABLE)) {
-                best = curr;
-            }
+    struct Page *best;
+    bool found = false;
+    while(!found) {
+        struct Page *p1 = &g_pageList[hand1], *p2 = &g_pageList[hand2];
+        if (! p1->entry->accessed && 
+            (p1->flags & PAGE_PAGEABLE) &&
+            (p1->flags & PAGE_ALLOCATED)) {
+            best = p1;
+            found = true;
         }
+        p2->entry->accessed = (char)0;
+        hand1 = (hand1 + 1) % s_numPages;
+        hand2 = (hand2 + 1) % s_numPages;
     }
     return best;
-
-
 }
+
 
 /**
  * Allocate a page of pageable physical memory, to be mapped
@@ -450,3 +451,4 @@ void Free_Page(void *pageAddr) {
     g_freePageCount++;
 
 }
+
