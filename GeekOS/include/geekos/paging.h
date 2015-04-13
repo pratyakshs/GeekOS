@@ -146,6 +146,9 @@ extern const pde_t *Kernel_Page_Dir(void);
 
 #define BITMAP_SIZE 32768
 
+// max number of pages in pagefile
+#define PAGE_FILE_SIZE BITMAP_SIZE * 32
+
 // bit set if free
 ulong_t Free_BitMap[32768];
 

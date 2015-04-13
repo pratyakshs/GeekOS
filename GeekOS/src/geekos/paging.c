@@ -293,7 +293,7 @@ void Init_Pagefile(void) {
     int i;
     Print("Initializing Pagefile...\n");
     for(i = 0; i < BITMAP_SIZE; i++) {
-        Free_BitMap[i] = 0x11111111;
+        Free_BitMap[i] = 0xFFFFFFFF;
     }
     
     // initialize the mapping (empty)
@@ -340,7 +340,14 @@ int Find_Space_On_Paging_File(void) {
  */
 void Free_Space_On_Paging_File(int pagefileIndex) {
     KASSERT(!Interrupts_Enabled());
-    TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Free page in paging file");
+    
+    // Check if the index is within bounds
+    KASSERT(pagefileIndex >= 0 && pagefileIndex < PAGE_FILE_SIZE);
+
+    int index1 = pagefileIndex >> 5, index2 = pagefileIndex & 0x1F;
+    Free_BitMap[index1] |= (1 << (31 - index2));
+
+    // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Free page in paging file");
 }
 
 /**
