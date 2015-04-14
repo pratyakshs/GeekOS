@@ -26,7 +26,7 @@
 #include <geekos/projects.h>
 #include <geekos/smp.h>
 
-extern Spin_Lock_t kthreadLock;
+ extern Spin_Lock_t kthreadLock;
 
 /* ----------------------------------------------------------------------
  * Private data
@@ -35,17 +35,17 @@ extern Spin_Lock_t kthreadLock;
 /*
  * List of all threads in the system.
  */
-struct All_Thread_List s_allThreadList;
+ struct All_Thread_List s_allThreadList;
 
 /*
  * Queue of runnable threads.
  */
-struct Thread_Queue s_runQueue;
+ struct Thread_Queue s_runQueue;
 
 /*
  * Current thread.
  */
-struct Kernel_Thread *g_currentThreads[MAX_CPUS];
+ struct Kernel_Thread *g_currentThreads[MAX_CPUS];
 
 /*
  * Boolean flag indicating that we need to choose a new runnable thread.
@@ -59,34 +59,34 @@ int g_needReschedule[MAX_CPUS];
  * When set, external interrupts (such as the timer tick)
  * will not cause a new thread to be selected.
  */
-volatile int g_preemptionDisabled[MAX_CPUS];
+ volatile int g_preemptionDisabled[MAX_CPUS];
 
 /*
  * Queue of finished threads needing disposal,
  * and a wait queue used for communication between exited threads
  * and the reaper thread.
  */
-static struct Thread_Queue s_graveyardQueue;
-static struct Thread_Queue s_reaperWaitQueue;
+ static struct Thread_Queue s_graveyardQueue;
+ static struct Thread_Queue s_reaperWaitQueue;
 
 /*
  * Counter for keys that access thread-local data, and an array
  * of destructors for freeing that data when the thread dies.  This is
  * based on POSIX threads' thread-specific data functionality.
  */
-static unsigned int s_tlocalKeyCounter = 0;
-static tlocal_destructor_t s_tlocalDestructors[MAX_TLOCAL_KEYS];
+ static unsigned int s_tlocalKeyCounter = 0;
+ static tlocal_destructor_t s_tlocalDestructors[MAX_TLOCAL_KEYS];
 
-static struct Kernel_Thread *Get_Next_Runnable_Locked(void);
+ static struct Kernel_Thread *Get_Next_Runnable_Locked(void);
 
 /* ----------------------------------------------------------------------
  * Private functions
  * ---------------------------------------------------------------------- */
 
 
-Spin_Lock_t pidLock;
+ Spin_Lock_t pidLock;
 
-int nextPid() {
+ int nextPid() {
     int ret;
     static int nextFreePid = 1;
 
@@ -100,8 +100,8 @@ int nextPid() {
 /*
  * Initialize a new Kernel_Thread.
  */
-static void Init_Thread(struct Kernel_Thread *kthread, void *stackPage,
-                        int priority, bool detached) {
+ static void Init_Thread(struct Kernel_Thread *kthread, void *stackPage,
+    int priority, bool detached) {
     struct Kernel_Thread *owner = CURRENT_THREAD;
 
     memset(kthread, '\0', sizeof(*kthread));
@@ -122,17 +122,17 @@ static void Init_Thread(struct Kernel_Thread *kthread, void *stackPage,
      * If the thread is not detached, then its owner
      * also has a reference to it so Wait will work.
      */
-    kthread->refCount = detached ? 1 : 2;
-    kthread->alive = true;
-    Clear_Thread_Queue(&kthread->joinQueue);
-    kthread->pid = nextPid();
-}
+     kthread->refCount = detached ? 1 : 2;
+     kthread->alive = true;
+     Clear_Thread_Queue(&kthread->joinQueue);
+     kthread->pid = nextPid();
+ }
 
 /*
  * Create a new raw thread object.
  * Returns a null pointer if there isn't enough memory.
  */
-static struct Kernel_Thread *Create_Thread(int priority, bool detached) {
+ static struct Kernel_Thread *Create_Thread(int priority, bool detached) {
     struct Kernel_Thread *kthread;
     void *stackPage = 0;
 
@@ -140,8 +140,8 @@ static struct Kernel_Thread *Create_Thread(int priority, bool detached) {
      * For now, just allocate one page each for the thread context
      * object and the thread's stack.
      */
-    kthread = Alloc_Page();
-    if (kthread == 0)
+     kthread = Alloc_Page();
+     if (kthread == 0)
         return 0;
 
     stackPage = Alloc_Page();
@@ -156,20 +156,20 @@ static struct Kernel_Thread *Create_Thread(int priority, bool detached) {
      * Initialize the stack pointer of the new thread
      * and accounting info
      */
-    Init_Thread(kthread, stackPage, priority, detached);
+     Init_Thread(kthread, stackPage, priority, detached);
 
     /* Add to the list of all threads in the system. */
-    Add_To_Back_Of_All_Thread_List(&s_allThreadList, kthread);
+     Add_To_Back_Of_All_Thread_List(&s_allThreadList, kthread);
 
-    return kthread;
-}
+     return kthread;
+ }
 
 /*
  * Push a dword value on the stack of given thread.
  * We use this to set up some context for the thread before
  * we make it runnable.
  */
-static __inline__ void Push(struct Kernel_Thread *kthread, ulong_t value) {
+ static __inline__ void Push(struct Kernel_Thread *kthread, ulong_t value) {
     kthread->esp -= 4;
     *((ulong_t *) kthread->esp) = value;
 }
@@ -180,12 +180,12 @@ static __inline__ void Push(struct Kernel_Thread *kthread, ulong_t value) {
  * reclaim the resources used by a thread.
  * Called with kthread lock held
  */
-static void Destroy_Thread(struct Kernel_Thread *kthread) {
+ static void Destroy_Thread(struct Kernel_Thread *kthread) {
     /*
      * Detach the thread's user context, if any.
      * This will reclaim pages used by user processes.
      */
-    if (kthread->userContext != 0)
+     if (kthread->userContext != 0)
         Detach_User_Context(kthread);
 
     /* Remove from list of all threads */
@@ -200,7 +200,7 @@ static void Destroy_Thread(struct Kernel_Thread *kthread) {
  * Hand given thread to the reaper for destruction.
  * Must be called with interrupts disabled!
  */
-static void Reap_Thread(struct Kernel_Thread *kthread) {
+ static void Reap_Thread(struct Kernel_Thread *kthread) {
     // XXX 
     KASSERT(kthread != CPUs[0].idleThread);
     KASSERT(kthread != CPUs[1].idleThread);
@@ -212,7 +212,7 @@ static void Reap_Thread(struct Kernel_Thread *kthread) {
 /*
  * Called when a reference to the thread is broken.
  */
-void Detach_Thread(struct Kernel_Thread *kthread) {
+ void Detach_Thread(struct Kernel_Thread *kthread) {
     int count;
 
     KASSERT(!Interrupts_Enabled());
@@ -241,7 +241,7 @@ static void Launch_Thread(void) {
 /*
  * Push initial values for general purpose registers.
  */
-static void Push_General_Registers(struct Kernel_Thread *kthread) {
+ static void Push_General_Registers(struct Kernel_Thread *kthread) {
     /*
      * Push initial values for saved general-purpose registers.
      * (The actual values are not important.)
@@ -253,32 +253,32 @@ static void Push_General_Registers(struct Kernel_Thread *kthread) {
     Push(kthread, 0);           /* esi */
     Push(kthread, 0);           /* edi */
     Push(kthread, 0);           /* ebp */
-}
+ }
 
 /*
  * Shutdown a kernel thread.
  * This is called if a kernel thread exits by falling off
  * the end of its start function.
  */
-static void Shutdown_Thread(void) {
+ static void Shutdown_Thread(void) {
     Exit(0);
 }
 
 /*
  * Set up the initial context for a kernel-mode-only thread.
  */
-static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
-                                Thread_Start_Func startFunc, ulong_t arg) {
+ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
+    Thread_Start_Func startFunc, ulong_t arg) {
     /*
      * Push the argument to the thread start function, and the
      * return address (the Shutdown_Thread function, so the thread will
      * go away cleanly when the start function returns).
      */
-    Push(kthread, arg);
-    Push(kthread, (ulong_t) & Shutdown_Thread);
+Push(kthread, arg);
+Push(kthread, (ulong_t) & Shutdown_Thread);
 
     /* Push the address of the start function. */
-    Push(kthread, (ulong_t) startFunc);
+Push(kthread, (ulong_t) startFunc);
 
     /*
      * To make the thread schedulable, we need to make it look
@@ -299,15 +299,15 @@ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
      * As the "return address" specifying where the new thread will
      * start executing, use the Launch_Thread() function.
      */
-    Push(kthread, KERNEL_CS);
-    Push(kthread, (ulong_t) & Launch_Thread);
+     Push(kthread, KERNEL_CS);
+     Push(kthread, (ulong_t) & Launch_Thread);
 
     /* Push fake error code and interrupt number. */
-    Push(kthread, 0);
-    Push(kthread, 0);
+     Push(kthread, 0);
+     Push(kthread, 0);
 
     /* Push initial values for general-purpose registers. */
-    Push_General_Registers(kthread);
+     Push_General_Registers(kthread);
 
     /*
      * Push values for saved segment registers.
@@ -319,26 +319,26 @@ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
     Push(kthread, KERNEL_DS);   /* es */
     Push(kthread, 0);           /* fs */
     Push(kthread, 0);           /* gs */
-}
+ }
 
 /*
  * Set up the a user mode thread.
  */
 /*static*/ void Setup_User_Thread(
-                                     struct Kernel_Thread *kthread,
-                                     struct User_Context *userContext) {
+ struct Kernel_Thread *kthread,
+ struct User_Context *userContext) {
     extern int userDebug;
 
     /*
      * Interrupts in user mode MUST be enabled.
      * All other EFLAGS bits will be clear.
      */
-    ulong_t eflags = EFLAGS_IF;
+     ulong_t eflags = EFLAGS_IF;
 
-    unsigned csSelector = userContext->csSelector;
-    unsigned dsSelector = userContext->dsSelector;
+     unsigned csSelector = userContext->csSelector;
+     unsigned dsSelector = userContext->dsSelector;
 
-    Attach_User_Context(kthread, userContext);
+     Attach_User_Context(kthread, userContext);
 
     /*
      * Make the thread's stack look like it was interrupted
@@ -350,10 +350,10 @@ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
     Push(kthread, userContext->stackPointerAddr);       /* user esp */
 
     /* eflags, cs, eip */
-    Push(kthread, eflags);
-    Push(kthread, csSelector);
-    Push(kthread, userContext->entryAddr);
-    if (userDebug)
+     Push(kthread, eflags);
+     Push(kthread, csSelector);
+     Push(kthread, userContext->entryAddr);
+     if (userDebug)
         Print("Entry addr=%lx\n", userContext->entryAddr);
 
     /* Push fake error code and interrupt number. */
@@ -380,8 +380,8 @@ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
     Push(kthread, dsSelector);  /* gs */
 
     /* allow it to run on any core */
-    kthread->affinity = -1;
-}
+     kthread->affinity = -1;
+ }
 
 
 /*
@@ -389,24 +389,24 @@ static void Setup_Kernel_Thread(struct Kernel_Thread *kthread,
  * the invariant that a runnable thread always exists,
  * i.e., the run queue is never empty.
  */
-static void Idle(ulong_t arg __attribute__ ((unused))) {
+ static void Idle(ulong_t arg __attribute__ ((unused))) {
     while (true) {
         /* 
          * The hlt instruction tells the CPU to wait until an interrupt is called.
          * We call this in this loop so the Idle process does not eat up 100% cpu,
          * and make our laptops catch fire.
          */
-        __asm__("hlt");
+         __asm__("hlt");
 
-        Yield();
-    }
-}
+         Yield();
+     }
+ }
 
 /*
  * The reaper thread.  Its job is to de-allocate memory
  * used by threads which have finished.
  */
-static void Reaper(ulong_t arg __attribute__ ((unused))) {
+ static void Reaper(ulong_t arg __attribute__ ((unused))) {
     struct Kernel_Thread *kthread;
 
     Disable_Interrupts();
@@ -425,10 +425,10 @@ static void Reaper(ulong_t arg __attribute__ ((unused))) {
             /* Dispose of the dead threads. */
             while (kthread != 0) {
                 struct Kernel_Thread *next =
-                    Get_Next_In_Thread_Queue(kthread);
+                Get_Next_In_Thread_Queue(kthread);
                 // Print("Reaper on CPU%d: disposing of thread %s (pid %d) @ %x, stack @ %x\n",
                 // Get_CPU_ID(), kthread->threadName, kthread->pid, kthread, kthread->stackPage);
-				Destroy_Thread(kthread);
+                Destroy_Thread(kthread);
                 KASSERT(kthread != next);
                 kthread = next;
             }
@@ -447,7 +447,7 @@ static void Reaper(ulong_t arg __attribute__ ((unused))) {
  * Find the best (highest priority) thread in given
  * thread queue.  Returns null if queue is empty.
  */
-static __inline__ struct Kernel_Thread *Find_Best(struct Thread_Queue *queue) {
+ static __inline__ struct Kernel_Thread *Find_Best(struct Thread_Queue *queue) {
     int cpuID;
 
     KASSERT(Is_Locked(&kthreadLock));
@@ -474,7 +474,7 @@ static __inline__ struct Kernel_Thread *Find_Best(struct Thread_Queue *queue) {
  * Acquires pointer to thread-local data from the current thread
  * indexed by the given key.  Assumes interrupts are off.
  */
-static __inline__ const void **Get_Tlocal_Pointer(tlocal_key_t k) {
+ static __inline__ const void **Get_Tlocal_Pointer(tlocal_key_t k) {
     struct Kernel_Thread *current = CURRENT_THREAD;
 
     KASSERT(k < MAX_TLOCAL_KEYS);
@@ -490,7 +490,7 @@ static __inline__ const void **Get_Tlocal_Pointer(tlocal_key_t k) {
  * data to become alive once again.  If everything is NULL by the end
  * of an iteration, we are done.
  */
-static void Tlocal_Exit(struct Kernel_Thread *curr) {
+ static void Tlocal_Exit(struct Kernel_Thread *curr) {
     int i, j, called = 0;
 
     KASSERT(!Interrupts_Enabled());
@@ -520,7 +520,7 @@ static void Tlocal_Exit(struct Kernel_Thread *curr) {
  * Public functions
  * ---------------------------------------------------------------------- */
 
-void Init_Scheduler(unsigned int cpuID, void *stack) {
+ void Init_Scheduler(unsigned int cpuID, void *stack) {
     struct Kernel_Thread *mainThread = (struct Kernel_Thread *)Alloc_Page();
 
     memcpy(mainThread, (void *)KERN_THREAD_OBJ, sizeof(struct Kernel_Thread));
@@ -529,34 +529,34 @@ void Init_Scheduler(unsigned int cpuID, void *stack) {
      * Create initial kernel thread context object and stack,
      * and make them current.
      */
-    Init_Thread(mainThread, stack, PRIORITY_NORMAL, true);
-    CURRENT_THREAD = mainThread;
-    Add_To_Back_Of_All_Thread_List(&s_allThreadList, mainThread);
-    strcpy(mainThread->threadName, "{Main}");
+     Init_Thread(mainThread, stack, PRIORITY_NORMAL, true);
+     CURRENT_THREAD = mainThread;
+     Add_To_Back_Of_All_Thread_List(&s_allThreadList, mainThread);
+     strcpy(mainThread->threadName, "{Main}");
 
     /*
      * Create the idle thread.
      */
     /*Print("starting idle thread\n"); */
-    char name[30];
-    strcpy(name, "{Idle-#?}");
-    name[7] = cpuID + '0';
-    CPUs[cpuID].idleThread =
-        Start_Kernel_Thread(Idle, 0, PRIORITY_IDLE, true, name);
-    CPUs[cpuID].idleThread->owner = NULL;
-    CPUs[cpuID].idleThread->affinity = cpuID;
+     char name[30];
+     strcpy(name, "{Idle-#?}");
+     name[7] = cpuID + '0';
+     CPUs[cpuID].idleThread =
+     Start_Kernel_Thread(Idle, 0, PRIORITY_IDLE, true, name);
+     CPUs[cpuID].idleThread->owner = NULL;
+     CPUs[cpuID].idleThread->affinity = cpuID;
 
-    if (!cpuID) {
+     if (!cpuID) {
         /*
          * Create the reaper thread.
          */
         /*Print("starting reaper thread\n"); */
-        struct Kernel_Thread *reaper;
+         struct Kernel_Thread *reaper;
 
-        reaper =
-            Start_Kernel_Thread(Reaper, 0, PRIORITY_NORMAL, true, "{Reaper}");
-    }
-}
+         reaper =
+         Start_Kernel_Thread(Reaper, 0, PRIORITY_NORMAL, true, "{Reaper}");
+     }
+ }
 
 /*
  * Start a kernel-mode-only thread, using given function as its body
@@ -569,34 +569,34 @@ void Init_Scheduler(unsigned int cpuID, void *stack) {
  *    most things
  * detached - use false for kernel threads
  */
-struct Kernel_Thread *Start_Kernel_Thread(Thread_Start_Func startFunc,
-                                          ulong_t arg,
-                                          int priority,
-                                          bool detached, const char *name) {
+ struct Kernel_Thread *Start_Kernel_Thread(Thread_Start_Func startFunc,
+  ulong_t arg,
+  int priority,
+  bool detached, const char *name) {
     struct Kernel_Thread *kthread = Create_Thread(priority, detached);
     if (kthread != 0) {
         /*
          * Create the initial context for the thread to make
          * it schedulable.
          */
-        Setup_Kernel_Thread(kthread, startFunc, arg);
+         Setup_Kernel_Thread(kthread, startFunc, arg);
 
 
         /* Atomically put the thread on the run queue. */
-        Make_Runnable_Atomic(kthread);
+         Make_Runnable_Atomic(kthread);
 
-        strcpy(kthread->threadName, name);
-    }
+         strcpy(kthread->threadName, name);
+     }
 
-    return kthread;
-}
+     return kthread;
+ }
 
 /*
  * Start a user-mode thread (i.e., a process), using given user context.
  * Returns pointer to the new thread if successful, null otherwise.
  */
-struct Kernel_Thread *Start_User_Thread(struct User_Context *userContext,
-                                        bool detached) {
+ struct Kernel_Thread *Start_User_Thread(struct User_Context *userContext,
+    bool detached) {
     struct Kernel_Thread *kthread = Create_Thread(PRIORITY_USER, detached);
     if (kthread != 0) {
         /* Set up the thread, and put it on the run queue */
@@ -611,7 +611,7 @@ struct Kernel_Thread *Start_User_Thread(struct User_Context *userContext,
  * Add given thread to the run queue, so that it
  * may be scheduled.  Must be called with interrupts disabled!
  */
-void Make_Runnable(struct Kernel_Thread *kthread) {
+ void Make_Runnable(struct Kernel_Thread *kthread) {
     KASSERT(!Interrupts_Enabled());
 
     Enqueue_Thread(&s_runQueue, kthread);
@@ -624,7 +624,7 @@ void Make_Runnable(struct Kernel_Thread *kthread) {
  * Atomically make a thread runnable.
  * Assumes interrupts are currently enabled.
  */
-void Make_Runnable_Atomic(struct Kernel_Thread *kthread) {
+ void Make_Runnable_Atomic(struct Kernel_Thread *kthread) {
     Disable_Interrupts();
     Spin_Lock(&kthreadLock);
     Make_Runnable(kthread);
@@ -635,7 +635,7 @@ void Make_Runnable_Atomic(struct Kernel_Thread *kthread) {
 /*
  * Get the thread that currently has the CPU.
  */
-struct Kernel_Thread *Get_Current(void) {
+ struct Kernel_Thread *Get_Current(void) {
     return CURRENT_THREAD;
 }
 
@@ -643,7 +643,7 @@ struct Kernel_Thread *Get_Current(void) {
  * Get the next runnable thread from the run queue.
  * This is the scheduler.
  */
-struct Kernel_Thread *Get_Next_Runnable_Locked(void) {
+ struct Kernel_Thread *Get_Next_Runnable_Locked(void) {
     struct Kernel_Thread *best = 0;
     best = Find_Best(&s_runQueue);
     KASSERT(best != 0);
@@ -695,14 +695,14 @@ void Schedule(void) {
      * will "return", and then Schedule() will return to wherever
      * it was called from.
      */
-    Switch_To_Thread(runnable);
-}
+     Switch_To_Thread(runnable);
+ }
 
 /*
  * Voluntarily give up the CPU to another thread.
  * Does nothing if no other threads are ready to run.
  */
-void Yield(void) {
+ void Yield(void) {
     Disable_Interrupts();
     Make_Runnable(CURRENT_THREAD);
     Schedule();
@@ -714,7 +714,7 @@ void Yield(void) {
  * Exit the current thread.
  * Calling this function initiates a context switch.
  */
-void Exit(int exitCode) {
+ void Exit(int exitCode) {
     extern int Munmap_Impl(uint_t addr);
 
     struct Kernel_Thread *current = CURRENT_THREAD;
@@ -744,18 +744,18 @@ void Exit(int exitCode) {
      * Since the old thread wasn't placed on any
      * thread queue, it won't get scheduled again.
      */
-    Schedule();
+     Schedule();
 
     /* Shouldn't get here */
-    KASSERT(false);
-}
+     KASSERT(false);
+ }
 
 /*
  * Wait for given thread to die.
  * Interrupts must be enabled.
  * Returns the thread exit code.
  */
-int Join(struct Kernel_Thread *kthread) {
+ int Join(struct Kernel_Thread *kthread) {
     int exitCode;
 
     KASSERT(Interrupts_Enabled());
@@ -791,7 +791,7 @@ int Join(struct Kernel_Thread *kthread) {
  * the caller will not retain the extra reference with interrupts
  * enabled, or else the thread could die and create a dangling pointer.
  */
-struct Kernel_Thread *Lookup_Thread(int pid, int notOwner) {
+ struct Kernel_Thread *Lookup_Thread(int pid, int notOwner) {
     struct Kernel_Thread *result = 0;
 
     bool iflag = Begin_Int_Atomic();
@@ -802,9 +802,9 @@ struct Kernel_Thread *Lookup_Thread(int pid, int notOwner) {
      * reference is added to the thread before it is returned.
      */
 
-    Spin_Lock(&kthreadLock);
-    result = Get_Front_Of_All_Thread_List(&s_allThreadList);
-    while (result != 0) {
+     Spin_Lock(&kthreadLock);
+     result = Get_Front_Of_All_Thread_List(&s_allThreadList);
+     while (result != 0) {
         if (result->pid == pid) {
             if (CURRENT_THREAD != result->owner && !notOwner)
                 result = 0;
@@ -830,7 +830,7 @@ struct Kernel_Thread *Lookup_Thread(int pid, int notOwner) {
  * for an example.
  */
 
-void Wait(struct Thread_Queue *waitQueue) {
+ void Wait(struct Thread_Queue *waitQueue) {
     struct Kernel_Thread *current = CURRENT_THREAD;
 
     KASSERT(!Interrupts_Enabled());
@@ -838,7 +838,7 @@ void Wait(struct Thread_Queue *waitQueue) {
     /* Add the thread to the wait queue. */
     Enqueue_Thread(waitQueue, current);
     /* Find another thread to run. */
-	Schedule();
+    Schedule();
 }
 
 void Wake_Up_Locked(struct Thread_Queue *waitQueue) {
@@ -852,7 +852,7 @@ void Wake_Up_Locked(struct Thread_Queue *waitQueue) {
      * Walk throught the list of threads in the wait queue,
      * transferring each one to the run queue.
      */
-    for (kthread = waitQueue->head; kthread != 0; kthread = next) {
+     for (kthread = waitQueue->head; kthread != 0; kthread = next) {
         next = Get_Next_In_Thread_Queue(kthread);
         char *name;
 
@@ -877,7 +877,7 @@ void Wake_Up_Locked(struct Thread_Queue *waitQueue) {
  * See Keyboard_Interrupt_Handler() function in keyboard.c
  * for an example.
  */
-void Wake_Up(struct Thread_Queue *waitQueue) {
+ void Wake_Up(struct Thread_Queue *waitQueue) {
     Spin_Lock(&kthreadLock);
     Wake_Up_Locked(waitQueue);
     Spin_Unlock(&kthreadLock);
@@ -889,7 +889,7 @@ void Wake_Up(struct Thread_Queue *waitQueue) {
  * (if there are any threads waiting).  Chooses the highest priority thread.
  * Interrupts must be disabled!
  */
-void Wake_Up_One(struct Thread_Queue *waitQueue) {
+ void Wake_Up_One(struct Thread_Queue *waitQueue) {
     struct Kernel_Thread *best;
 
     KASSERT(!Interrupts_Enabled());
@@ -911,7 +911,7 @@ void Wake_Up_One(struct Thread_Queue *waitQueue) {
 /*
  * Allocate a key for accessing thread-local data.
  */
-int Tlocal_Create(tlocal_key_t * key, tlocal_destructor_t destructor) {
+ int Tlocal_Create(tlocal_key_t * key, tlocal_destructor_t destructor) {
     bool iflag = Begin_Int_Atomic();
 
     KASSERT(key);
@@ -929,7 +929,7 @@ int Tlocal_Create(tlocal_key_t * key, tlocal_destructor_t destructor) {
 /*
  * Store a value for a thread-local item
  */
-void Tlocal_Put(tlocal_key_t k, const void *v) {
+ void Tlocal_Put(tlocal_key_t k, const void *v) {
     const void **pv;
 
     KASSERT(k < s_tlocalKeyCounter);
@@ -941,7 +941,7 @@ void Tlocal_Put(tlocal_key_t k, const void *v) {
 /*
  * Acquire a thread-local value
  */
-void *Tlocal_Get(tlocal_key_t k) {
+ void *Tlocal_Get(tlocal_key_t k) {
     const void **pv;
 
     KASSERT(k < s_tlocalKeyCounter);
@@ -954,7 +954,7 @@ void *Tlocal_Get(tlocal_key_t k) {
  * Print list of all threads in system.
  * For debugging.
  */
-void Dump_All_Thread_List(void) {
+ void Dump_All_Thread_List(void) {
     struct Kernel_Thread *kthread;
     int count = 0;
     bool iflag = Begin_Int_Atomic();
@@ -964,18 +964,125 @@ void Dump_All_Thread_List(void) {
     kthread = Get_Front_Of_All_Thread_List(&s_allThreadList);
 
     Print("[");
-    while (kthread != 0) {
-        ++count;
-        Print("<%lx,%lx,%lx>",
+        while (kthread != 0) {
+            ++count;
+            Print("<%lx,%lx,%lx>",
               (ulong_t) Get_Prev_In_All_Thread_List(kthread),
               (ulong_t) kthread,
               (ulong_t) Get_Next_In_All_Thread_List(kthread));
-        KASSERT(kthread != Get_Next_In_All_Thread_List(kthread));
-        kthread = Get_Next_In_All_Thread_List(kthread);
-    }
-    Print("]\n");
-    Print("%d threads are running\n", count);
+            KASSERT(kthread != Get_Next_In_All_Thread_List(kthread));
+            kthread = Get_Next_In_All_Thread_List(kthread);
+        }
+        Print("]\n");
+        Print("%d threads are running\n", count);
 
-    Spin_Unlock(&kthreadLock);
-    End_Int_Atomic(iflag);
+        Spin_Unlock(&kthreadLock);
+        End_Int_Atomic(iflag);
+    }
+
+/*
+ * Free frames manager thread.
+ * Implements 2 handed clock algorithm.
+ * Ensures g_freePageCount doesn't 
+ * below a threshold.
+ */
+ void Free_Frames_Manager(ulong_t arg __attribute__ ((unused))) {
+    struct Kernel_Thread *kthread;
+
+    Disable_Interrupts();
+
+    while (true) {
+        Spin_Lock(&kthreadLock);
+        /* See if number of free pages sufficient */
+        if (g_freePageCount > MIN_FREE_PAGES) {
+            /* Enough free pages, wait. */
+            Spin_Unlock(&kthreadLock);
+            Wait(&g_ffmWaitQueue);
+        } else {
+            bool mappedPage;
+            void *paddr = 0;
+            int pagefileIndex;
+
+            struct Page *p1 = &g_pageList[hand1], *p2 = &g_pageList[hand2];
+            if (! p1->entry->accessed && 
+                (p1->flags & PAGE_PAGEABLE) &&
+                (p1->flags & PAGE_ALLOCATED)) {
+
+                Add_To_Back_Of_Page_List(&s_freeList, p1);
+                g_freePageCount++;
+
+                paddr = (void *)Get_Page_Address(p1);
+
+                /* Make the page temporarily unpageable (can't let another process steal it) */
+                p1->flags &= ~(PAGE_PAGEABLE);
+
+                /* Lock the page so it cannot be freed while we're writing */
+                p1->flags |= PAGE_LOCKED;
+
+                /* check if it is an mmap'd page */
+                if (Is_Mmaped_Page(p1->context, p1->vaddr)) {
+                    mappedPage = true;
+                    if (p1->entry->dirty) {
+                        Enable_Interrupts();
+                        Write_Out_Mmaped_Page(p1->context, p1->vaddr);
+                        Disable_Interrupts();
+                        p1->entry->dirty = 0;
+                    }
+                    p1->entry->present = 0;
+                } else {
+                    mappedPage = false;
+                    /* Find a place on disk for the page (if there isn't space, we're screwed.) */
+                    pagefileIndex = Find_Space_On_Paging_File();
+                    if (pagefileIndex < 0) {
+                        /* No space available in paging file. */
+                        KASSERT0(paddr == NULL,
+                           "expected to return NULL when no space on the paging file.");
+                        goto done;
+                    }
+
+                    /* Write the page to disk. Interrupts are enabled, since the I/O may block. */
+                    Enable_Interrupts();
+                    Write_To_Paging_File(paddr, p1->vaddr, pagefileIndex);
+                    Disable_Interrupts();
+                }
+
+                /* While we were writing got notification this page isn't even needed anymore */
+                if (p1->flags & PAGE_ALLOCATED) {
+                    /* The page is still in use update its bookeping info */
+                    /* Update page table to reflect the page being on disk */
+                    p1->entry->present = 0;
+                    if (!mappedPage) {
+                        p1->entry->kernelInfo = KINFO_PAGE_ON_DISK;
+                        p1->entry->pageBaseAddr = pagefileIndex;      /* Remember where it is located! */
+                    }
+                } else {
+                    /* The page got freed, don't need bookeeping or it on disk */
+                    if (!mappedPage) {
+                        Free_Space_On_Paging_File(pagefileIndex);
+                    }
+
+                    /* Its still allocated though to us now */
+                    p1->flags |= PAGE_ALLOCATED;
+                }
+
+                /* Unlock the page */
+                p1->flags &= ~(PAGE_LOCKED);
+
+                /* XXX - flush TLB should only flush the one page */
+                Flush_TLB();
+
+
+            }
+            done:
+            p2->entry->accessed = (char)0;
+            hand1 = (hand1 + 1) % s_numPages;
+            hand2 = (hand2 + 1) % s_numPages;
+
+            Spin_Unlock(&kthreadLock);
+
+            Enable_Interrupts();
+            Yield();
+            Disable_Interrupts();
+        }
+    }
 }
