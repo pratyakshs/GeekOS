@@ -1,4 +1,4 @@
-cscope 15 $HOME/Desktop/OS/os_project/OSLab/OSLab/GeekOS/include/geekos               0000081707
+cscope 15 $HOME/Desktop/OS/os_project/OSLab/OSLab/GeekOS/include/geekos               0000082058
 	@alarm.h
 
 17 #iâdeà
@@ -4813,35 +4813,43 @@ Th»ad_Queue
 wa™Queue
 );
 
-156 
+154 
+	`F»e_F¿mes_Mªag”
+(
+ulÚg_t
+ 
+¬g
+);
+
+159 
 K”Ãl_Th»ad
  *
 g_cu¼’tTh»ads
 [];
 
-161 
+164 
 g_ÃedRescheduË
 [];
 
-166 vÞ©ž
+169 vÞ©ž
 g_´“m±iÚDi§bËd
 [];
 
-171 
+174 
 	#MIN_DESTRUCTOR_ITERATIONS
  4
 
 	)
 
-173 (*
+176 (*
 	tŽoÿl_de¡ruùÜ_t
 ) (*);
 
-174 
+177 
 	tŽoÿl_key_t
 ;
 
-176 
+179 
 	`Tloÿl_C»©e
 (
 Žoÿl_key_t
@@ -4849,23 +4857,23 @@ g_´“m±iÚDi§bËd
 Žoÿl_de¡ruùÜ_t
 );
 
-177 
+180 
 	`Tloÿl_Put
 (
 Žoÿl_key_t
 , const *);
 
-178 *
+181 *
 	`Tloÿl_G‘
 (
 Žoÿl_key_t
 );
 
-181 
+184 
 	`Dump_AÎ_Th»ad_Li¡
 ();
 
-183 
+186 
 	`Wake_Up_Locked
 (
 Th»ad_Queue
@@ -6272,14 +6280,18 @@ boÙInfo
 );
 
 80 
+In™_Clock
+();
+
+81 
 In™_BSS
 ();
 
-81 *
+82 *
 AÎoc_Page
 ();
 
-82 *
+83 *
 AÎoc_Pag—bË_Page
 (
 ±e_t
@@ -6291,13 +6303,13 @@ ulÚg_t
 vaddr
 );
 
-83 
+84 
 F»e_Page
 (*
 ·geAddr
 );
 
-88 
+89 
 __šlše__
  
 boÞ
@@ -6309,17 +6321,17 @@ ulÚg_t
 addr
 ) {
 
-89  
+90  
 addr
  =ð×dd¸& ~(
 PAGE_MASK
 ));
 
-90 
+91 
 	}
 }
 
-95 
+96 
 __šlše__
  
 ulÚg_t
@@ -6331,33 +6343,33 @@ ulÚg_t
 addr
 ) {
 
-96 ià((
+97 ià((
 addr
  & 
 PAGE_MASK
 ) != 0) {
 
-97 
+98 
 addr
  &ð~(
 PAGE_MASK
 );
 
-98 
+99 
 addr
  +ð
 PAGE_SIZE
 ;
 
-100  
+101  
 addr
 ;
 
-101 
+102 
 	}
 }
 
-106 
+107 
 __šlše__
  
 ulÚg_t
@@ -6369,17 +6381,17 @@ ulÚg_t
 addr
 ) {
 
-107  
+108  
 addr
  & (~
 PAGE_MASK
 );
 
-108 
+109 
 	}
 }
 
-113 
+114 
 __šlše__
  
 	$Page_Index
@@ -6389,17 +6401,17 @@ ulÚg_t
 addr
 ) {
 
-114  ()(
+115  ()(
 addr
  >> 
 PAGE_POWER
 );
 
-115 
+116 
 	}
 }
 
-120 
+121 
 __šlše__
  
 Page
@@ -6411,13 +6423,13 @@ ulÚg_t
 addr
 ) {
 
-121 
+122 
 Page
  *
 g_·geLi¡
 ;
 
-123  &
+124  &
 g_·geLi¡
 [
 	`Page_Index
@@ -6425,11 +6437,11 @@ g_·geLi¡
 addr
 )];
 
-124 
+125 
 	}
 }
 
-129 
+130 
 __šlše__
  
 ulÚg_t
@@ -6441,13 +6453,13 @@ Page
 ·ge
 ) {
 
-130 
+131 
 Page
  *
 g_·geLi¡
 ;
 
-131 
+132 
 ulÚg_t
  
 šdex
@@ -6457,15 +6469,61 @@ ulÚg_t
 g_·geLi¡
 ;
 
-132  
+133  
 šdex
  << 
 PAGE_POWER
 ;
 
-133 
+134 
 	}
 }
+
+138 
+	#HANDS_DIST
+ 200
+
+	)
+
+139 
+	ghªd1
+, 
+	ghªd2
+;
+
+141 
+	#MIN_FREE_PAGES
+ 50
+
+	)
+
+146 
+Page
+ *
+	gg_·geLi¡
+;
+
+151 
+ušt_t
+ 
+	gg_ä“PageCouÁ
+;
+
+157 
+Th»ad_Queue
+ 
+	gg_ffmWa™Queue
+;
+
+162 
+Page_Li¡
+ 
+	gs_ä“Li¡
+;
+
+167 
+	gs_numPages
+;
 
 	@paging.h
 
@@ -6943,25 +7001,33 @@ K”Ãl_Page_Dœ
 
 	)
 
-150 
+150 
+	#PAGE_FILE_SIZE
+ 
+BITMAP_SIZE
+ * 32
+
+	)
+
+153 
 ulÚg_t
  
 	gF»e_B™M­
 [32768];
 
-153 
+156 
 	#PF_SIZE
  1024 * 1024
 
 	)
 
-158 
+161 
 ulÚg_t
  
 	gPF_M­
 [33504];
 
-160 
+163 
 Block_Deviû
  * 
 	gpdev

@@ -56,7 +56,7 @@ ALL_TARGETS := diskc.img diskd.img # gfs-1024x2048.img
 
 
 # Kernel source file containing implementation of user address space support
-USER_IMP_C := uservm.c
+USER_IMP_C := userseg.c
 # Kernel source files
 KERNEL_C_SRCS := idt.c int.c trap.c irq.c io.c \
 	keyboard.c screen.c timer.c \
@@ -335,7 +335,7 @@ geekos/kernel.bin : geekos/kernel.exe
 # The kernel executable and symbol map.
 geekos/kernel.exe : $(KERNEL_OBJS) $(COMMON_KERNEL_C_OBJS)
 	$(TARGET_LD) $(LD_GENERAL_OPTS) -o geekos/kernel.exe -Ttext $(KERNEL_BASE_ADDR) -e $(KERNEL_ENTRY) \
-		$(KERNEL_OBJS) $(COMMON_KERNEL_C_OBJS) 
+		$(KERNEL_OBJS) $(COMMON_KERNEL_C_OBJS)
 	$(TARGET_NM) geekos/kernel.exe > geekos/kernel.syms
 
 # C library for user mode programs

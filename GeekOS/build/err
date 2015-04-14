@@ -1,0 +1,1407 @@
+WARNING: gcc -m32 -Wno-error=unused-parameter builds for  x86_64-linux-gnu
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/compat.c -o libc/compat.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/conio.c -o libc/conio.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/entry.c -o libc/entry.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/fileio.c -o libc/fileio.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/net.c -o libc/net.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/process.c -o libc/process.o
+../src/libc/process.c: In function ‘Limit’:
+../src/libc/process.c:54:15: warning: unused parameter ‘res’ [-Wunused-parameter]
+ int Limit(int res, int limit) {
+               ^
+../src/libc/process.c:54:24: warning: unused parameter ‘limit’ [-Wunused-parameter]
+ int Limit(int res, int limit) {
+                        ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/sched.c -o libc/sched.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/sema.c -o libc/sema.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/signal.c -o libc/signal.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/socket.c -o libc/socket.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/libc/spin.c -o libc/spin.o
+../src/libc/spin.c: In function ‘Is_Locked’:
+../src/libc/spin.c:29:34: warning: unused parameter ‘lock’ [-Wunused-parameter]
+ int Is_Locked(User_Spin_Lock_t * lock) {
+                                  ^
+../src/libc/spin.c: In function ‘Spin_Lock_Init’:
+../src/libc/spin.c:34:40: warning: unused parameter ‘lock’ [-Wunused-parameter]
+ void Spin_Lock_Init(User_Spin_Lock_t * lock) {
+                                        ^
+../src/libc/spin.c: In function ‘Spin_Unlock’:
+../src/libc/spin.c:44:36: warning: unused parameter ‘lock’ [-Wunused-parameter]
+ int Spin_Unlock(User_Spin_Lock_t * lock) {
+                                    ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   libc/errno.c -o libc/errno.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/common/fmtout.c -o common/fmtout.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/common/string.c -o common/string.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/common/memmove.c -o common/memmove.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/common/bget.c -o common/bget.o
+ar ruv libc/libc.a libc/compat.o libc/conio.o libc/entry.o libc/fileio.o libc/net.o libc/process.o libc/sched.o libc/sema.o libc/signal.o libc/socket.o libc/spin.o libc/lowlevel.o libc/errno.o common/fmtout.o common/string.o common/memmove.o common/bget.o
+r - libc/compat.o
+r - libc/conio.o
+r - libc/entry.o
+r - libc/fileio.o
+r - libc/net.o
+r - libc/process.o
+r - libc/sched.o
+r - libc/sema.o
+r - libc/signal.o
+r - libc/socket.o
+r - libc/spin.o
+r - libc/errno.o
+r - common/fmtout.o
+r - common/string.o
+r - common/memmove.o
+r - common/bget.o
+ranlib libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/arp.c -o user/arp.o
+ld -m elf_i386 -o user/arp.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/arp.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/b.c -o user/b.o
+ld -m elf_i386 -o user/b.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/b.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/cat.c -o user/cat.o
+ld -m elf_i386 -o user/cat.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/cat.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/c.c -o user/c.o
+ld -m elf_i386 -o user/c.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/c.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/cp.c -o user/cp.o
+ld -m elf_i386 -o user/cp.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/cp.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/echoclnt.c -o user/echoclnt.o
+ld -m elf_i386 -o user/echoclnt.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/echoclnt.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/echoserv.c -o user/echoserv.o
+ld -m elf_i386 -o user/echoserv.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/echoserv.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ethrecv.c -o user/ethrecv.o
+ld -m elf_i386 -o user/ethrecv.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ethrecv.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ethsend.c -o user/ethsend.o
+ld -m elf_i386 -o user/ethsend.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ethsend.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ethsendx.c -o user/ethsendx.o
+ld -m elf_i386 -o user/ethsendx.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ethsendx.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/example.c -o user/example.o
+ld -m elf_i386 -o user/example.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/example.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/execr1.c -o user/execr1.o
+ld -m elf_i386 -o user/execr1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/execr1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/execr2.c -o user/execr2.o
+ld -m elf_i386 -o user/execr2.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/execr2.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/execr3.c -o user/execr3.o
+ld -m elf_i386 -o user/execr3.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/execr3.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/forkexec.c -o user/forkexec.o
+../src/user/forkexec.c: In function ‘main’:
+../src/user/forkexec.c:21:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/forkexec.c:21:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/forkexec.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/forkexec.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/fork-p1.c -o user/fork-p1.o
+../src/user/fork-p1.c: In function ‘main’:
+../src/user/fork-p1.c:22:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/fork-p1.c:22:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/fork-p1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/fork-p1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/forkpipe.c -o user/forkpipe.o
+../src/user/forkpipe.c: In function ‘main’:
+../src/user/forkpipe.c:23:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/forkpipe.c:23:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/forkpipe.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/forkpipe.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/gfs2f.c -o user/gfs2f.o
+ld -m elf_i386 -o user/gfs2f.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/gfs2f.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/halt.c -o user/halt.o
+ld -m elf_i386 -o user/halt.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/halt.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ifconfig.c -o user/ifconfig.o
+ld -m elf_i386 -o user/ifconfig.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ifconfig.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ipsend.c -o user/ipsend.o
+ld -m elf_i386 -o user/ipsend.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ipsend.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/kill.c -o user/kill.o
+ld -m elf_i386 -o user/kill.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/kill.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/long.c -o user/long.o
+ld -m elf_i386 -o user/long.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/long.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ls.c -o user/ls.o
+ld -m elf_i386 -o user/ls.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ls.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/mkdir.c -o user/mkdir.o
+ld -m elf_i386 -o user/mkdir.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/mkdir.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/mount.c -o user/mount.o
+ld -m elf_i386 -o user/mount.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/mount.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/nsp5test.c -o user/nsp5test.o
+ld -m elf_i386 -o user/nsp5test.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/nsp5test.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/null.c -o user/null.o
+ld -m elf_i386 -o user/null.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/null.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/pipe-p1.c -o user/pipe-p1.o
+../src/user/pipe-p1.c: In function ‘main’:
+../src/user/pipe-p1.c:20:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/pipe-p1.c:20:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/pipe-p1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/pipe-p1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/pipe-p2.c -o user/pipe-p2.o
+../src/user/pipe-p2.c: In function ‘main’:
+../src/user/pipe-p2.c:21:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/pipe-p2.c:21:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/pipe-p2.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/pipe-p2.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/ps.c -o user/ps.o
+ld -m elf_i386 -o user/ps.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/ps.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/rec.c -o user/rec.o
+ld -m elf_i386 -o user/rec.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/rec.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/recvbyte.c -o user/recvbyte.o
+ld -m elf_i386 -o user/recvbyte.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/recvbyte.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/rm.c -o user/rm.o
+ld -m elf_i386 -o user/rm.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/rm.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/route.c -o user/route.o
+ld -m elf_i386 -o user/route.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/route.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sched1.c -o user/sched1.o
+ld -m elf_i386 -o user/sched1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sched1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sched2.c -o user/sched2.o
+ld -m elf_i386 -o user/sched2.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sched2.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sched3.c -o user/sched3.o
+ld -m elf_i386 -o user/sched3.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sched3.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/schedtst.c -o user/schedtst.o
+ld -m elf_i386 -o user/schedtst.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/schedtst.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sem-p1.c -o user/sem-p1.o
+ld -m elf_i386 -o user/sem-p1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sem-p1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sem-p2.c -o user/sem-p2.o
+ld -m elf_i386 -o user/sem-p2.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sem-p2.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sem-p3.c -o user/sem-p3.o
+ld -m elf_i386 -o user/sem-p3.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sem-p3.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sem-ping.c -o user/sem-ping.o
+ld -m elf_i386 -o user/sem-ping.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sem-ping.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sem-pong.c -o user/sem-pong.o
+ld -m elf_i386 -o user/sem-pong.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sem-pong.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/semtest1.c -o user/semtest1.o
+ld -m elf_i386 -o user/semtest1.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/semtest1.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/semtest2.c -o user/semtest2.o
+ld -m elf_i386 -o user/semtest2.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/semtest2.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/semtest.c -o user/semtest.o
+ld -m elf_i386 -o user/semtest.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/semtest.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sendbyte.c -o user/sendbyte.o
+ld -m elf_i386 -o user/sendbyte.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sendbyte.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/setacl.c -o user/setacl.o
+ld -m elf_i386 -o user/setacl.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/setacl.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/setuid.c -o user/setuid.o
+ld -m elf_i386 -o user/setuid.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/setuid.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/shell.c -o user/shell.o
+ld -m elf_i386 -o user/shell.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/shell.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/spin.c -o user/spin.o
+../src/user/spin.c: In function ‘main’:
+../src/user/spin.c:20:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+              ^
+../src/user/spin.c:20:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main(int argc, char **argv) {
+                           ^
+ld -m elf_i386 -o user/spin.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/spin.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sum.c -o user/sum.o
+../src/user/sum.c: In function ‘main’:
+../src/user/sum.c:23:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char *argv[]) {
+              ^
+ld -m elf_i386 -o user/sum.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sum.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/sync.c -o user/sync.o
+ld -m elf_i386 -o user/sync.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/sync.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/test.c -o user/test.o
+ld -m elf_i386 -o user/test.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/test.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/time.c -o user/time.o
+ld -m elf_i386 -o user/time.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/time.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/touch.c -o user/touch.o
+ld -m elf_i386 -o user/touch.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/touch.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/type.c -o user/type.o
+ld -m elf_i386 -o user/type.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/type.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/whoami.c -o user/whoami.o
+ld -m elf_i386 -o user/whoami.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/whoami.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/workload.c -o user/workload.o
+ld -m elf_i386 -o user/workload.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/workload.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS_LIBC -I../include -I../include/libc   ../src/user/write.c -o user/write.o
+ld -m elf_i386 -o user/write.exe -Ttext 0x1000 -e _Entry \
+		libc/entry.o user/write.o libc/libc.a
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/idt.c -o geekos/idt.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/int.c -o geekos/int.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/trap.c -o geekos/trap.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/irq.c -o geekos/irq.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/io.c -o geekos/io.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/keyboard.c -o geekos/keyboard.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/screen.c -o geekos/screen.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/timer.c -o geekos/timer.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/mem.c -o geekos/mem.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/crc32.c -o geekos/crc32.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/gdt.c -o geekos/gdt.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/tss.c -o geekos/tss.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/smp.c -o geekos/smp.o
+../src/geekos/smp.c: In function ‘Spurious_Interrupt_Handler’:
+../src/geekos/smp.c:321:64: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static void Spurious_Interrupt_Handler(struct Interrupt_State *state) {
+                                                                ^
+../src/geekos/smp.c: In function ‘Secondary_Start’:
+../src/geekos/smp.c:480:26: warning: unused parameter ‘stack’ [-Wunused-parameter]
+ void Secondary_Start(int stack) {
+                          ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/segment.c -o geekos/segment.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/malloc.c -o geekos/malloc.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/synch.c -o geekos/synch.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/kthread.c -o geekos/kthread.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/user.c -o geekos/user.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/userseg.c -o geekos/userseg.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/argblock.c -o geekos/argblock.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/syscall.c -o geekos/syscall.o
+../src/geekos/syscall.c: In function ‘Sys_ShutDown’:
+../src/geekos/syscall.c:120:49: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_ShutDown(struct Interrupt_State *state) {
+                                                 ^
+../src/geekos/syscall.c: In function ‘Sys_GetKey’:
+../src/geekos/syscall.c:179:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_GetKey(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_GetPID’:
+../src/geekos/syscall.c:302:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_GetPID(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_PS’:
+../src/geekos/syscall.c:321:43: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_PS(struct Interrupt_State *state) {
+                                           ^
+../src/geekos/syscall.c: In function ‘Sys_Kill’:
+../src/geekos/syscall.c:334:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Kill(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_Signal’:
+../src/geekos/syscall.c:346:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Signal(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_RegDeliver’:
+../src/geekos/syscall.c:362:51: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_RegDeliver(struct Interrupt_State *state) {
+                                                   ^
+../src/geekos/syscall.c: In function ‘Sys_ReturnSignal’:
+../src/geekos/syscall.c:374:53: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_ReturnSignal(struct Interrupt_State *state) {
+                                                     ^
+../src/geekos/syscall.c: In function ‘Sys_WaitNoPID’:
+../src/geekos/syscall.c:385:50: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_WaitNoPID(struct Interrupt_State *state) {
+                                                  ^
+../src/geekos/syscall.c: In function ‘Sys_SetSchedulingPolicy’:
+../src/geekos/syscall.c:397:60: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_SetSchedulingPolicy(struct Interrupt_State *state) {
+                                                            ^
+../src/geekos/syscall.c: In function ‘Sys_OpenDirectory’:
+../src/geekos/syscall.c:540:54: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_OpenDirectory(struct Interrupt_State *state) {
+                                                      ^
+../src/geekos/syscall.c: In function ‘Sys_Delete’:
+../src/geekos/syscall.c:578:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Delete(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_Rename’:
+../src/geekos/syscall.c:593:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Rename(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_Link’:
+../src/geekos/syscall.c:608:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Link(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_SymLink’:
+../src/geekos/syscall.c:623:48: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_SymLink(struct Interrupt_State *state) {
+                                                ^
+../src/geekos/syscall.c: In function ‘Sys_ReadEntry’:
+../src/geekos/syscall.c:673:50: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_ReadEntry(struct Interrupt_State *state) {
+                                                  ^
+../src/geekos/syscall.c: In function ‘Sys_Stat’:
+../src/geekos/syscall.c:724:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Stat(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_FStat’:
+../src/geekos/syscall.c:737:46: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_FStat(struct Interrupt_State *state) {
+                                              ^
+../src/geekos/syscall.c: In function ‘Sys_Seek’:
+../src/geekos/syscall.c:750:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Seek(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_CreateDir’:
+../src/geekos/syscall.c:763:50: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_CreateDir(struct Interrupt_State *state) {
+                                                  ^
+../src/geekos/syscall.c: In function ‘Sys_Sync’:
+../src/geekos/syscall.c:773:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Sync(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_IO_Unblock’:
+../src/geekos/syscall.c:824:25: warning: unused parameter ‘param’ [-Wunused-parameter]
+ void Sys_IO_Unblock(int param) {
+                         ^
+../src/geekos/syscall.c: In function ‘Sys_WriteBlock’:
+../src/geekos/syscall.c:862:51: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_WriteBlock(struct Interrupt_State *state) {
+                                                   ^
+../src/geekos/syscall.c: In function ‘Sys_GetUid’:
+../src/geekos/syscall.c:868:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_GetUid(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_SetSetUid’:
+../src/geekos/syscall.c:873:50: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_SetSetUid(struct Interrupt_State *state) {
+                                                  ^
+../src/geekos/syscall.c: In function ‘Sys_SetEffectiveUid’:
+../src/geekos/syscall.c:878:56: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_SetEffectiveUid(struct Interrupt_State *state) {
+                                                        ^
+../src/geekos/syscall.c: In function ‘Sys_SetAcl’:
+../src/geekos/syscall.c:883:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_SetAcl(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_PlaySoundFile’:
+../src/geekos/syscall.c:889:54: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_PlaySoundFile(struct Interrupt_State *state) {
+                                                      ^
+../src/geekos/syscall.c: In function ‘Sys_Pipe’:
+../src/geekos/syscall.c:900:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Pipe(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_Fork’:
+../src/geekos/syscall.c:907:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Fork(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_Execl’:
+../src/geekos/syscall.c:921:46: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Execl(struct Interrupt_State *state) {
+                                              ^
+../src/geekos/syscall.c: In function ‘Sys_Limit’:
+../src/geekos/syscall.c:971:46: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Limit(struct Interrupt_State *state) {
+                                              ^
+../src/geekos/syscall.c: In function ‘Sys_Set_Affinity’:
+../src/geekos/syscall.c:976:53: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Set_Affinity(struct Interrupt_State *state) {
+                                                     ^
+../src/geekos/syscall.c: In function ‘Sys_Get_Affinity’:
+../src/geekos/syscall.c:980:53: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Get_Affinity(struct Interrupt_State *state) {
+                                                     ^
+../src/geekos/syscall.c: In function ‘Sys_Clone’:
+../src/geekos/syscall.c:992:46: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Clone(struct Interrupt_State *state) {
+                                              ^
+../src/geekos/syscall.c: In function ‘Sys_Mmap’:
+../src/geekos/syscall.c:997:45: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Mmap(struct Interrupt_State *state) {
+                                             ^
+../src/geekos/syscall.c: In function ‘Sys_Munmap’:
+../src/geekos/syscall.c:1002:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Munmap(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/syscall.c: In function ‘Sys_Alarm’:
+../src/geekos/syscall.c:1009:46: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_Alarm(struct Interrupt_State *state) {
+                                              ^
+../src/geekos/syscall.c: In function ‘Sys_OpenCount’:
+../src/geekos/syscall.c:1013:50: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_OpenCount(struct Interrupt_State *state) {
+                                                  ^
+../src/geekos/syscall.c: In function ‘Sys_TotalCount’:
+../src/geekos/syscall.c:1018:51: warning: unused parameter ‘state’ [-Wunused-parameter]
+ static int Sys_TotalCount(struct Interrupt_State *state) {
+                                                   ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/dma.c -o geekos/dma.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/floppy.c -o geekos/floppy.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/elf.c -o geekos/elf.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/blockdev.c -o geekos/blockdev.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/ide.c -o geekos/ide.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/vfs.c -o geekos/vfs.o
+../src/geekos/vfs.c: In function ‘SetSetUid’:
+../src/geekos/vfs.c:772:27: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int SetSetUid(const char *path, int setUid) {
+                           ^
+../src/geekos/vfs.c:772:37: warning: unused parameter ‘setUid’ [-Wunused-parameter]
+ int SetSetUid(const char *path, int setUid) {
+                                     ^
+../src/geekos/vfs.c: In function ‘SetAcl’:
+../src/geekos/vfs.c:784:24: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int SetAcl(const char *path, int user, int permissions) {
+                        ^
+../src/geekos/vfs.c:784:34: warning: unused parameter ‘user’ [-Wunused-parameter]
+ int SetAcl(const char *path, int user, int permissions) {
+                                  ^
+../src/geekos/vfs.c:784:44: warning: unused parameter ‘permissions’ [-Wunused-parameter]
+ int SetAcl(const char *path, int user, int permissions) {
+                                            ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/pfat.c -o geekos/pfat.o
+../src/geekos/pfat.c: In function ‘PFAT_SetSetUid’:
+../src/geekos/pfat.c:682:47: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ static int PFAT_SetSetUid(struct Mount_Point *mp, const char *file,
+                                               ^
+../src/geekos/pfat.c:682:63: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int PFAT_SetSetUid(struct Mount_Point *mp, const char *file,
+                                                               ^
+../src/geekos/pfat.c:683:31: warning: unused parameter ‘setuid’ [-Wunused-parameter]
+                           int setuid) {
+                               ^
+../src/geekos/pfat.c: In function ‘PFAT_SetAcl’:
+../src/geekos/pfat.c:688:44: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ static int PFAT_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                            ^
+../src/geekos/pfat.c:688:60: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int PFAT_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                            ^
+../src/geekos/pfat.c:688:70: warning: unused parameter ‘uid’ [-Wunused-parameter]
+ static int PFAT_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                                      ^
+../src/geekos/pfat.c:689:28: warning: unused parameter ‘permissions’ [-Wunused-parameter]
+                        int permissions) {
+                            ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/bitset.c -o geekos/bitset.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/bufcache.c -o geekos/bufcache.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/signal.c -o geekos/signal.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/paging.c -o geekos/paging.o
+../src/geekos/paging.c: In function ‘Idenity_Map_Page’:
+../src/geekos/paging.c:127:31: warning: unused parameter ‘currentPageDir’ [-Wunused-parameter]
+ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
+                               ^
+../src/geekos/paging.c:127:60: warning: unused parameter ‘address’ [-Wunused-parameter]
+ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
+                                                            ^
+../src/geekos/paging.c:127:73: warning: unused parameter ‘flags’ [-Wunused-parameter]
+ void Idenity_Map_Page(pde_t * currentPageDir, unsigned int address, int flags) {
+                                                                         ^
+../src/geekos/paging.c: In function ‘Init_VM’:
+../src/geekos/paging.c:139:32: warning: unused parameter ‘bootInfo’ [-Wunused-parameter]
+ void Init_VM(struct Boot_Info *bootInfo) {
+                                ^
+../src/geekos/paging.c: In function ‘Free_Space_On_Paging_File’:
+../src/geekos/paging.c:184:36: warning: unused parameter ‘pagefileIndex’ [-Wunused-parameter]
+ void Free_Space_On_Paging_File(int pagefileIndex) {
+                                    ^
+../src/geekos/paging.c: In function ‘Write_To_Paging_File’:
+../src/geekos/paging.c:197:48: warning: unused parameter ‘vaddr’ [-Wunused-parameter]
+ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
+                                                ^
+../src/geekos/paging.c:197:59: warning: unused parameter ‘pagefileIndex’ [-Wunused-parameter]
+ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
+                                                           ^
+../src/geekos/paging.c: In function ‘Read_From_Paging_File’:
+../src/geekos/paging.c:212:49: warning: unused parameter ‘vaddr’ [-Wunused-parameter]
+ void Read_From_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
+                                                 ^
+../src/geekos/paging.c:212:60: warning: unused parameter ‘pagefileIndex’ [-Wunused-parameter]
+ void Read_From_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
+                                                            ^
+../src/geekos/paging.c: In function ‘Mmap_Impl’:
+../src/geekos/paging.c:219:23: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ void *Mmap_Impl(void *ptr, unsigned int length, int prot, int flags, int fd) {
+                       ^
+../src/geekos/paging.c:219:41: warning: unused parameter ‘length’ [-Wunused-parameter]
+ void *Mmap_Impl(void *ptr, unsigned int length, int prot, int flags, int fd) {
+                                         ^
+../src/geekos/paging.c:219:53: warning: unused parameter ‘prot’ [-Wunused-parameter]
+ void *Mmap_Impl(void *ptr, unsigned int length, int prot, int flags, int fd) {
+                                                     ^
+../src/geekos/paging.c:219:63: warning: unused parameter ‘flags’ [-Wunused-parameter]
+ void *Mmap_Impl(void *ptr, unsigned int length, int prot, int flags, int fd) {
+                                                               ^
+../src/geekos/paging.c:219:74: warning: unused parameter ‘fd’ [-Wunused-parameter]
+ void *Mmap_Impl(void *ptr, unsigned int length, int prot, int flags, int fd) {
+                                                                          ^
+../src/geekos/paging.c: In function ‘Is_Mmaped_Page’:
+../src/geekos/paging.c:224:43: warning: unused parameter ‘context’ [-Wunused-parameter]
+ bool Is_Mmaped_Page(struct User_Context * context, ulong_t vaddr) {
+                                           ^
+../src/geekos/paging.c:224:60: warning: unused parameter ‘vaddr’ [-Wunused-parameter]
+ bool Is_Mmaped_Page(struct User_Context * context, ulong_t vaddr) {
+                                                            ^
+../src/geekos/paging.c: In function ‘Write_Out_Mmaped_Page’:
+../src/geekos/paging.c:230:49: warning: unused parameter ‘context’ [-Wunused-parameter]
+ void Write_Out_Mmaped_Page(struct User_Context *context, ulong_t vaddr) {
+                                                 ^
+../src/geekos/paging.c:230:66: warning: unused parameter ‘vaddr’ [-Wunused-parameter]
+ void Write_Out_Mmaped_Page(struct User_Context *context, ulong_t vaddr) {
+                                                                  ^
+../src/geekos/paging.c: In function ‘Munmap_Impl’:
+../src/geekos/paging.c:234:25: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ int Munmap_Impl(ulong_t ptr) {
+                         ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/sem.c -o geekos/sem.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/gosfs.c -o geekos/gosfs.o
+../src/geekos/gosfs.c: In function ‘GOSFS_Format’:
+../src/geekos/gosfs.c:35:39: warning: unused parameter ‘blockDev’ [-Wunused-parameter]
+ int GOSFS_Format(struct Block_Device *blockDev) {
+                                       ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Mount’:
+../src/geekos/gosfs.c:44:37: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int GOSFS_Mount(struct Mount_Point *mountPoint) {
+                                     ^
+../src/geekos/gosfs.c: In function ‘GOSFS_FStat’:
+../src/geekos/gosfs.c:52:30: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                              ^
+../src/geekos/gosfs.c:52:58: warning: unused parameter ‘stat’ [-Wunused-parameter]
+ int GOSFS_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                                                          ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Open’:
+../src/geekos/gosfs.c:61:36: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int GOSFS_Open(struct Mount_Point *mp, const char *const_path, int mode,
+                                    ^
+../src/geekos/gosfs.c:61:52: warning: unused parameter ‘const_path’ [-Wunused-parameter]
+ int GOSFS_Open(struct Mount_Point *mp, const char *const_path, int mode,
+                                                    ^
+../src/geekos/gosfs.c:61:68: warning: unused parameter ‘mode’ [-Wunused-parameter]
+ int GOSFS_Open(struct Mount_Point *mp, const char *const_path, int mode,
+                                                                    ^
+../src/geekos/gosfs.c:62:30: warning: unused parameter ‘pFile’ [-Wunused-parameter]
+                struct File **pFile) {
+                              ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Read’:
+../src/geekos/gosfs.c:71:29: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                             ^
+../src/geekos/gosfs.c:71:41: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ int GOSFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                                         ^
+../src/geekos/gosfs.c:71:54: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int GOSFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                                                      ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Write’:
+../src/geekos/gosfs.c:80:30: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                              ^
+../src/geekos/gosfs.c:80:42: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ int GOSFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                                          ^
+../src/geekos/gosfs.c:80:55: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int GOSFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                                                       ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Stat’:
+../src/geekos/gosfs.c:88:36: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int GOSFS_Stat(struct Mount_Point *mountPoint, const char *path,
+                                    ^
+../src/geekos/gosfs.c:88:60: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int GOSFS_Stat(struct Mount_Point *mountPoint, const char *path,
+                                                            ^
+../src/geekos/gosfs.c:89:38: warning: unused parameter ‘stat’ [-Wunused-parameter]
+                struct VFS_File_Stat *stat) {
+                                      ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Sync’:
+../src/geekos/gosfs.c:98:36: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int GOSFS_Sync(struct Mount_Point *mountPoint) {
+                                    ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Close’:
+../src/geekos/gosfs.c:106:30: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_Close(struct File *file) {
+                              ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Create_Directory’:
+../src/geekos/gosfs.c:114:48: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int GOSFS_Create_Directory(struct Mount_Point *mp, const char *const_path) {
+                                                ^
+../src/geekos/gosfs.c:114:64: warning: unused parameter ‘const_path’ [-Wunused-parameter]
+ int GOSFS_Create_Directory(struct Mount_Point *mp, const char *const_path) {
+                                                                ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Open_Directory’:
+../src/geekos/gosfs.c:122:46: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int GOSFS_Open_Directory(struct Mount_Point *mountPoint, const char *path,
+                                              ^
+../src/geekos/gosfs.c:122:70: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int GOSFS_Open_Directory(struct Mount_Point *mountPoint, const char *path,
+                                                                      ^
+../src/geekos/gosfs.c:123:40: warning: unused parameter ‘pDir’ [-Wunused-parameter]
+                          struct File **pDir) {
+                                        ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Seek’:
+../src/geekos/gosfs.c:131:29: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_Seek(struct File *file, ulong_t pos) {
+                             ^
+../src/geekos/gosfs.c:131:43: warning: unused parameter ‘pos’ [-Wunused-parameter]
+ int GOSFS_Seek(struct File *file, ulong_t pos) {
+                                           ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Delete’:
+../src/geekos/gosfs.c:140:38: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int GOSFS_Delete(struct Mount_Point *mp, const char *const_path,
+                                      ^
+../src/geekos/gosfs.c:140:54: warning: unused parameter ‘const_path’ [-Wunused-parameter]
+ int GOSFS_Delete(struct Mount_Point *mp, const char *const_path,
+                                                      ^
+../src/geekos/gosfs.c:141:23: warning: unused parameter ‘recursive’ [-Wunused-parameter]
+                  bool recursive) {
+                       ^
+../src/geekos/gosfs.c: In function ‘GOSFS_SetSetUid’:
+../src/geekos/gosfs.c:147:41: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int GOSFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                         ^
+../src/geekos/gosfs.c:147:57: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                                         ^
+../src/geekos/gosfs.c:147:67: warning: unused parameter ‘setuid’ [-Wunused-parameter]
+ int GOSFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                                                   ^
+../src/geekos/gosfs.c: In function ‘GOSFS_SetAcl’:
+../src/geekos/gosfs.c:154:38: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int GOSFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                      ^
+../src/geekos/gosfs.c:154:54: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                      ^
+../src/geekos/gosfs.c:154:64: warning: unused parameter ‘uid’ [-Wunused-parameter]
+ int GOSFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                                ^
+../src/geekos/gosfs.c:155:22: warning: unused parameter ‘permissions’ [-Wunused-parameter]
+                  int permissions) {
+                      ^
+../src/geekos/gosfs.c: In function ‘GOSFS_Read_Entry’:
+../src/geekos/gosfs.c:163:35: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int GOSFS_Read_Entry(struct File *file, struct VFS_Dir_Entry *entry) {
+                                   ^
+../src/geekos/gosfs.c:163:63: warning: unused parameter ‘entry’ [-Wunused-parameter]
+ int GOSFS_Read_Entry(struct File *file, struct VFS_Dir_Entry *entry) {
+                                                               ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/gfs2.c -o geekos/gfs2.o
+../src/geekos/gfs2.c: In function ‘GFS2_FStat’:
+../src/geekos/gfs2.c:39:36: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int GFS2_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                                    ^
+../src/geekos/gfs2.c:39:64: warning: unused parameter ‘stat’ [-Wunused-parameter]
+ static int GFS2_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                                                                ^
+../src/geekos/gfs2.c: In function ‘GFS2_Read’:
+../src/geekos/gfs2.c:47:35: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int GFS2_Read(struct File *file, void *buf, ulong_t numBytes) {
+                                   ^
+../src/geekos/gfs2.c:47:47: warning: unused parameter ‘buf’ [-Wunused-parameter]
+ static int GFS2_Read(struct File *file, void *buf, ulong_t numBytes) {
+                                               ^
+../src/geekos/gfs2.c:47:60: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ static int GFS2_Read(struct File *file, void *buf, ulong_t numBytes) {
+                                                            ^
+../src/geekos/gfs2.c: In function ‘GFS2_Write’:
+../src/geekos/gfs2.c:56:36: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int GFS2_Write(struct File *file, void *buf, ulong_t numBytes) {
+                                    ^
+../src/geekos/gfs2.c:56:48: warning: unused parameter ‘buf’ [-Wunused-parameter]
+ static int GFS2_Write(struct File *file, void *buf, ulong_t numBytes) {
+                                                ^
+../src/geekos/gfs2.c:56:61: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ static int GFS2_Write(struct File *file, void *buf, ulong_t numBytes) {
+                                                             ^
+../src/geekos/gfs2.c: In function ‘GFS2_Seek’:
+../src/geekos/gfs2.c:65:35: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int GFS2_Seek(struct File *file, ulong_t pos) {
+                                   ^
+../src/geekos/gfs2.c:65:49: warning: unused parameter ‘pos’ [-Wunused-parameter]
+ static int GFS2_Seek(struct File *file, ulong_t pos) {
+                                                 ^
+../src/geekos/gfs2.c: In function ‘GFS2_Close’:
+../src/geekos/gfs2.c:73:36: warning: unused parameter ‘file’ [-Wunused-parameter]
+ static int GFS2_Close(struct File *file) {
+                                    ^
+../src/geekos/gfs2.c: In function ‘GFS2_FStat_Directory’:
+../src/geekos/gfs2.c:90:46: warning: unused parameter ‘dir’ [-Wunused-parameter]
+ static int GFS2_FStat_Directory(struct File *dir, struct VFS_File_Stat *stat) {
+                                              ^
+../src/geekos/gfs2.c:90:73: warning: unused parameter ‘stat’ [-Wunused-parameter]
+ static int GFS2_FStat_Directory(struct File *dir, struct VFS_File_Stat *stat) {
+                                                                         ^
+../src/geekos/gfs2.c: In function ‘GFS2_Close_Directory’:
+../src/geekos/gfs2.c:99:46: warning: unused parameter ‘dir’ [-Wunused-parameter]
+ static int GFS2_Close_Directory(struct File *dir) {
+                                              ^
+../src/geekos/gfs2.c: In function ‘GFS2_Read_Entry’:
+../src/geekos/gfs2.c:107:41: warning: unused parameter ‘dir’ [-Wunused-parameter]
+ static int GFS2_Read_Entry(struct File *dir, struct VFS_Dir_Entry *entry) {
+                                         ^
+../src/geekos/gfs2.c:107:68: warning: unused parameter ‘entry’ [-Wunused-parameter]
+ static int GFS2_Read_Entry(struct File *dir, struct VFS_Dir_Entry *entry) {
+                                                                    ^
+../src/geekos/gfs2.c: In function ‘GFS2_Open’:
+../src/geekos/gfs2.c:126:42: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Open(struct Mount_Point *mountPoint, const char *path,
+                                          ^
+../src/geekos/gfs2.c:126:66: warning: unused parameter ‘path’ [-Wunused-parameter]
+ static int GFS2_Open(struct Mount_Point *mountPoint, const char *path,
+                                                                  ^
+../src/geekos/gfs2.c:127:26: warning: unused parameter ‘mode’ [-Wunused-parameter]
+                      int mode, struct File **pFile) {
+                          ^
+../src/geekos/gfs2.c:127:46: warning: unused parameter ‘pFile’ [-Wunused-parameter]
+                      int mode, struct File **pFile) {
+                                              ^
+../src/geekos/gfs2.c: In function ‘GFS2_Create_Directory’:
+../src/geekos/gfs2.c:135:54: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Create_Directory(struct Mount_Point *mountPoint,
+                                                      ^
+../src/geekos/gfs2.c:136:46: warning: unused parameter ‘path’ [-Wunused-parameter]
+                                  const char *path) {
+                                              ^
+../src/geekos/gfs2.c: In function ‘GFS2_Open_Directory’:
+../src/geekos/gfs2.c:144:52: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Open_Directory(struct Mount_Point *mountPoint,
+                                                    ^
+../src/geekos/gfs2.c:145:44: warning: unused parameter ‘path’ [-Wunused-parameter]
+                                const char *path, struct File **pDir) {
+                                            ^
+../src/geekos/gfs2.c:145:64: warning: unused parameter ‘pDir’ [-Wunused-parameter]
+                                const char *path, struct File **pDir) {
+                                                                ^
+../src/geekos/gfs2.c: In function ‘GFS2_Delete’:
+../src/geekos/gfs2.c:153:44: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Delete(struct Mount_Point *mountPoint, const char *path,
+                                            ^
+../src/geekos/gfs2.c:153:68: warning: unused parameter ‘path’ [-Wunused-parameter]
+ static int GFS2_Delete(struct Mount_Point *mountPoint, const char *path,
+                                                                    ^
+../src/geekos/gfs2.c:154:29: warning: unused parameter ‘recursive’ [-Wunused-parameter]
+                        bool recursive) {
+                             ^
+../src/geekos/gfs2.c: In function ‘GFS2_Stat’:
+../src/geekos/gfs2.c:162:42: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Stat(struct Mount_Point *mountPoint, const char *path,
+                                          ^
+../src/geekos/gfs2.c:162:66: warning: unused parameter ‘path’ [-Wunused-parameter]
+ static int GFS2_Stat(struct Mount_Point *mountPoint, const char *path,
+                                                                  ^
+../src/geekos/gfs2.c:163:44: warning: unused parameter ‘stat’ [-Wunused-parameter]
+                      struct VFS_File_Stat *stat) {
+                                            ^
+../src/geekos/gfs2.c: In function ‘GFS2_Sync’:
+../src/geekos/gfs2.c:172:42: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Sync(struct Mount_Point *mountPoint) {
+                                          ^
+../src/geekos/gfs2.c: In function ‘GFS2_Disk_Properties’:
+../src/geekos/gfs2.c:177:53: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Disk_Properties(struct Mount_Point *mountPoint,
+                                                     ^
+../src/geekos/gfs2.c:178:47: warning: unused parameter ‘block_size’ [-Wunused-parameter]
+                                 unsigned int *block_size,
+                                               ^
+../src/geekos/gfs2.c:179:47: warning: unused parameter ‘blocks_in_disk’ [-Wunused-parameter]
+                                 unsigned int *blocks_in_disk) {
+                                               ^
+../src/geekos/gfs2.c: In function ‘GFS2_Mount’:
+../src/geekos/gfs2.c:206:43: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ static int GFS2_Mount(struct Mount_Point *mountPoint) {
+                                           ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/cfs.c -o geekos/cfs.o
+../src/geekos/cfs.c: In function ‘CFS_Format’:
+../src/geekos/cfs.c:38:37: warning: unused parameter ‘blockDev’ [-Wunused-parameter]
+ int CFS_Format(struct Block_Device *blockDev) {
+                                     ^
+../src/geekos/cfs.c: In function ‘CFS_Mount’:
+../src/geekos/cfs.c:47:35: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int CFS_Mount(struct Mount_Point *mountPoint) {
+                                   ^
+../src/geekos/cfs.c: In function ‘CFS_FStat’:
+../src/geekos/cfs.c:55:28: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                            ^
+../src/geekos/cfs.c:55:56: warning: unused parameter ‘stat’ [-Wunused-parameter]
+ int CFS_FStat(struct File *file, struct VFS_File_Stat *stat) {
+                                                        ^
+../src/geekos/cfs.c: In function ‘CFS_Open’:
+../src/geekos/cfs.c:66:34: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_Open(struct Mount_Point *mp, const char *path, int mode,
+                                  ^
+../src/geekos/cfs.c:66:50: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int CFS_Open(struct Mount_Point *mp, const char *path, int mode,
+                                                  ^
+../src/geekos/cfs.c:66:60: warning: unused parameter ‘mode’ [-Wunused-parameter]
+ int CFS_Open(struct Mount_Point *mp, const char *path, int mode,
+                                                            ^
+../src/geekos/cfs.c:67:28: warning: unused parameter ‘pFile’ [-Wunused-parameter]
+              struct File **pFile) {
+                            ^
+../src/geekos/cfs.c: In function ‘CFS_Read’:
+../src/geekos/cfs.c:76:27: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                           ^
+../src/geekos/cfs.c:76:39: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ int CFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                                       ^
+../src/geekos/cfs.c:76:52: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int CFS_Read(struct File *file, void *ptr, ulong_t numBytes) {
+                                                    ^
+../src/geekos/cfs.c: In function ‘CFS_Write’:
+../src/geekos/cfs.c:85:28: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                            ^
+../src/geekos/cfs.c:85:40: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+ int CFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                                        ^
+../src/geekos/cfs.c:85:53: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int CFS_Write(struct File *file, void *ptr, ulong_t numBytes) {
+                                                     ^
+../src/geekos/cfs.c: In function ‘CFS_Stat’:
+../src/geekos/cfs.c:93:34: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int CFS_Stat(struct Mount_Point *mountPoint, const char *path,
+                                  ^
+../src/geekos/cfs.c:93:58: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int CFS_Stat(struct Mount_Point *mountPoint, const char *path,
+                                                          ^
+../src/geekos/cfs.c:94:36: warning: unused parameter ‘stat’ [-Wunused-parameter]
+              struct VFS_File_Stat *stat) {
+                                    ^
+../src/geekos/cfs.c: In function ‘CFS_Sync’:
+../src/geekos/cfs.c:103:34: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int CFS_Sync(struct Mount_Point *mountPoint) {
+                                  ^
+../src/geekos/cfs.c: In function ‘CFS_Close’:
+../src/geekos/cfs.c:111:28: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_Close(struct File *file) {
+                            ^
+../src/geekos/cfs.c: In function ‘CFS_Create_Directory’:
+../src/geekos/cfs.c:119:46: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_Create_Directory(struct Mount_Point *mp, const char *const_path) {
+                                              ^
+../src/geekos/cfs.c:119:62: warning: unused parameter ‘const_path’ [-Wunused-parameter]
+ int CFS_Create_Directory(struct Mount_Point *mp, const char *const_path) {
+                                                              ^
+../src/geekos/cfs.c: In function ‘CFS_Open_Directory’:
+../src/geekos/cfs.c:127:44: warning: unused parameter ‘mountPoint’ [-Wunused-parameter]
+ int CFS_Open_Directory(struct Mount_Point *mountPoint, const char *path,
+                                            ^
+../src/geekos/cfs.c:127:68: warning: unused parameter ‘path’ [-Wunused-parameter]
+ int CFS_Open_Directory(struct Mount_Point *mountPoint, const char *path,
+                                                                    ^
+../src/geekos/cfs.c:128:38: warning: unused parameter ‘pDir’ [-Wunused-parameter]
+                        struct File **pDir) {
+                                      ^
+../src/geekos/cfs.c: In function ‘CFS_Seek’:
+../src/geekos/cfs.c:136:27: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_Seek(struct File *file, ulong_t pos) {
+                           ^
+../src/geekos/cfs.c:136:41: warning: unused parameter ‘pos’ [-Wunused-parameter]
+ int CFS_Seek(struct File *file, ulong_t pos) {
+                                         ^
+../src/geekos/cfs.c: In function ‘CFS_Delete’:
+../src/geekos/cfs.c:146:36: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_Delete(struct Mount_Point *mp, const char *const_path, bool recursive) {
+                                    ^
+../src/geekos/cfs.c:146:52: warning: unused parameter ‘const_path’ [-Wunused-parameter]
+ int CFS_Delete(struct Mount_Point *mp, const char *const_path, bool recursive) {
+                                                    ^
+../src/geekos/cfs.c:146:69: warning: unused parameter ‘recursive’ [-Wunused-parameter]
+ int CFS_Delete(struct Mount_Point *mp, const char *const_path, bool recursive) {
+                                                                     ^
+../src/geekos/cfs.c: In function ‘CFS_Rename’:
+../src/geekos/cfs.c:151:36: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_Rename(struct Mount_Point *mp, const char *oldpath,
+                                    ^
+../src/geekos/cfs.c:151:52: warning: unused parameter ‘oldpath’ [-Wunused-parameter]
+ int CFS_Rename(struct Mount_Point *mp, const char *oldpath,
+                                                    ^
+../src/geekos/cfs.c:152:28: warning: unused parameter ‘newpath’ [-Wunused-parameter]
+                const char *newpath) {
+                            ^
+../src/geekos/cfs.c: In function ‘CFS_Link’:
+../src/geekos/cfs.c:157:34: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_Link(struct Mount_Point *mp, const char *oldpath, const char *newpath) {
+                                  ^
+../src/geekos/cfs.c:157:50: warning: unused parameter ‘oldpath’ [-Wunused-parameter]
+ int CFS_Link(struct Mount_Point *mp, const char *oldpath, const char *newpath) {
+                                                  ^
+../src/geekos/cfs.c:157:71: warning: unused parameter ‘newpath’ [-Wunused-parameter]
+ int CFS_Link(struct Mount_Point *mp, const char *oldpath, const char *newpath) {
+                                                                       ^
+../src/geekos/cfs.c: In function ‘CFS_SymLink’:
+../src/geekos/cfs.c:162:37: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_SymLink(struct Mount_Point *mp, const char *oldpath,
+                                     ^
+../src/geekos/cfs.c:162:53: warning: unused parameter ‘oldpath’ [-Wunused-parameter]
+ int CFS_SymLink(struct Mount_Point *mp, const char *oldpath,
+                                                     ^
+../src/geekos/cfs.c:163:29: warning: unused parameter ‘newpath’ [-Wunused-parameter]
+                 const char *newpath) {
+                             ^
+../src/geekos/cfs.c: In function ‘CFS_SetSetUid’:
+../src/geekos/cfs.c:168:39: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                       ^
+../src/geekos/cfs.c:168:55: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                                       ^
+../src/geekos/cfs.c:168:65: warning: unused parameter ‘setuid’ [-Wunused-parameter]
+ int CFS_SetSetUid(struct Mount_Point *mp, const char *file, int setuid) {
+                                                                 ^
+../src/geekos/cfs.c: In function ‘CFS_SetAcl’:
+../src/geekos/cfs.c:175:36: warning: unused parameter ‘mp’ [-Wunused-parameter]
+ int CFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                    ^
+../src/geekos/cfs.c:175:52: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                    ^
+../src/geekos/cfs.c:175:62: warning: unused parameter ‘uid’ [-Wunused-parameter]
+ int CFS_SetAcl(struct Mount_Point *mp, const char *file, int uid,
+                                                              ^
+../src/geekos/cfs.c:176:20: warning: unused parameter ‘permissions’ [-Wunused-parameter]
+                int permissions) {
+                    ^
+../src/geekos/cfs.c: In function ‘CFS_Read_Entry’:
+../src/geekos/cfs.c:184:33: warning: unused parameter ‘file’ [-Wunused-parameter]
+ int CFS_Read_Entry(struct File *file, struct VFS_Dir_Entry *entry) {
+                                 ^
+../src/geekos/cfs.c:184:61: warning: unused parameter ‘entry’ [-Wunused-parameter]
+ int CFS_Read_Entry(struct File *file, struct VFS_Dir_Entry *entry) {
+                                                             ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/arp.c -o geekos/net/arp.o
+../src/geekos/net/arp.c: In function ‘ARP_Dispatch’:
+../src/geekos/net/arp.c:89:37: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int ARP_Dispatch(struct Net_Device *device, struct Net_Buf *nBuf) {
+                                     ^
+../src/geekos/net/arp.c: In function ‘ARP_Send_Request’:
+../src/geekos/net/arp.c:125:38: warning: unused parameter ‘htype’ [-Wunused-parameter]
+                             ushort_t htype,
+                                      ^
+../src/geekos/net/arp.c:126:38: warning: unused parameter ‘ptype’ [-Wunused-parameter]
+                             ushort_t ptype,
+                                      ^
+../src/geekos/net/arp.c:128:29: warning: unused parameter ‘protocolAddress’ [-Wunused-parameter]
+                             protocolAddress[ARP_PROT_ADDR_SIZE]) {
+                             ^
+../src/geekos/net/arp.c: In function ‘ARP_Send_Reply’:
+../src/geekos/net/arp.c:145:46: warning: unused parameter ‘device’ [-Wunused-parameter]
+ static int ARP_Send_Reply(struct Net_Device *device,
+                                              ^
+../src/geekos/net/arp.c:146:46: warning: unused parameter ‘receivedPacket’ [-Wunused-parameter]
+                           struct ARP_Packet *receivedPacket,
+                                              ^
+../src/geekos/net/arp.c:147:41: warning: unused parameter ‘protocolAddress’ [-Wunused-parameter]
+                           const uchar_t protocolAddress[ARP_PROT_ADDR_SIZE]) {
+                                         ^
+../src/geekos/net/arp.c: In function ‘ARP_Send_Request_And_Wait’:
+../src/geekos/net/arp.c:155:50: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int ARP_Send_Request_And_Wait(struct Net_Device *device, ushort_t htype,
+                                                  ^
+../src/geekos/net/arp.c:155:67: warning: unused parameter ‘htype’ [-Wunused-parameter]
+ int ARP_Send_Request_And_Wait(struct Net_Device *device, ushort_t htype,
+                                                                   ^
+../src/geekos/net/arp.c:156:40: warning: unused parameter ‘ptype’ [-Wunused-parameter]
+                               ushort_t ptype,
+                                        ^
+../src/geekos/net/arp.c:157:52: warning: unused parameter ‘protocolAddress’ [-Wunused-parameter]
+                               ARP_Protocol_Address protocolAddress) {
+                                                    ^
+../src/geekos/net/arp.c: In function ‘ARP_Table_Cleanse’:
+../src/geekos/net/arp.c:253:39: warning: unused parameter ‘htype’ [-Wunused-parameter]
+ static int ARP_Table_Cleanse(ushort_t htype, ushort_t ptype) {
+                                       ^
+../src/geekos/net/arp.c:253:55: warning: unused parameter ‘ptype’ [-Wunused-parameter]
+ static int ARP_Table_Cleanse(ushort_t htype, ushort_t ptype) {
+                                                       ^
+../src/geekos/net/arp.c: In function ‘ARP_Resolve_Address’:
+../src/geekos/net/arp.c:261:44: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int ARP_Resolve_Address(struct Net_Device *device,
+                                            ^
+../src/geekos/net/arp.c:262:34: warning: unused parameter ‘htype’ [-Wunused-parameter]
+                         ushort_t htype,
+                                  ^
+../src/geekos/net/arp.c:263:34: warning: unused parameter ‘ptype’ [-Wunused-parameter]
+                         ushort_t ptype,
+                                  ^
+../src/geekos/net/arp.c:264:46: warning: unused parameter ‘protocolAddress’ [-Wunused-parameter]
+                         ARP_Protocol_Address protocolAddress,
+                                              ^
+../src/geekos/net/arp.c:265:46: warning: unused parameter ‘hardwareAddress’ [-Wunused-parameter]
+                         ARP_Hardware_Address hardwareAddress) {
+                                              ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/ethernet.c -o geekos/net/ethernet.o
+../src/geekos/net/ethernet.c: In function ‘Eth_Transmit’:
+../src/geekos/net/ethernet.c:37:28: warning: unused parameter ‘destAddr’ [-Wunused-parameter]
+                  uchar_t * destAddr, ushort_t type) {
+                            ^
+../src/geekos/net/ethernet.c:37:47: warning: unused parameter ‘type’ [-Wunused-parameter]
+                  uchar_t * destAddr, ushort_t type) {
+                                               ^
+../src/geekos/net/ethernet.c: In function ‘Eth_Receive’:
+../src/geekos/net/ethernet.c:116:36: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int Eth_Receive(struct Net_Device *device, /*@out@ */ struct Net_Buf **nBuf) {
+                                    ^
+../src/geekos/net/ethernet.c:116:72: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+ int Eth_Receive(struct Net_Device *device, /*@out@ */ struct Net_Buf **nBuf) {
+                                                                        ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/ip.c -o geekos/net/ip.o
+../src/geekos/net/ip.c: In function ‘IP_Broadcast’:
+../src/geekos/net/ip.c:92:43: warning: unused parameter ‘ipHeader’ [-Wunused-parameter]
+ static int IP_Broadcast(struct IP_Header *ipHeader, struct Net_Buf *nBuf) {
+                                           ^
+../src/geekos/net/ip.c:92:69: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+ static int IP_Broadcast(struct IP_Header *ipHeader, struct Net_Buf *nBuf) {
+                                                                     ^
+../src/geekos/net/ip.c: In function ‘IP_Device_Stat’:
+../src/geekos/net/ip.c:171:43: warning: unused parameter ‘info’ [-Wunused-parameter]
+ int IP_Device_Stat(struct IP_Device_Info *info, ulong_t deviceCount,
+                                           ^
+../src/geekos/net/ip.c:171:57: warning: unused parameter ‘deviceCount’ [-Wunused-parameter]
+ int IP_Device_Stat(struct IP_Device_Info *info, ulong_t deviceCount,
+                                                         ^
+../src/geekos/net/ip.c:172:26: warning: unused parameter ‘name’ [-Wunused-parameter]
+                    char *name) {
+                          ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/ne2000.c -o geekos/net/ne2000.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/netbuf.c -o geekos/net/netbuf.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/net.c -o geekos/net/net.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/rip.c -o geekos/net/rip.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/routing.c -o geekos/net/routing.o
+../src/geekos/net/routing.c: In function ‘Net_Add_Route’:
+../src/geekos/net/routing.c:30:32: warning: unused parameter ‘destination’ [-Wunused-parameter]
+ int Net_Add_Route(IP_Address * destination, Netmask * mask,
+                                ^
+../src/geekos/net/routing.c:30:55: warning: unused parameter ‘mask’ [-Wunused-parameter]
+ int Net_Add_Route(IP_Address * destination, Netmask * mask,
+                                                       ^
+../src/geekos/net/routing.c:31:32: warning: unused parameter ‘gateway’ [-Wunused-parameter]
+                   IP_Address * gateway, int metric, char *interface) {
+                                ^
+../src/geekos/net/routing.c:31:45: warning: unused parameter ‘metric’ [-Wunused-parameter]
+                   IP_Address * gateway, int metric, char *interface) {
+                                             ^
+../src/geekos/net/routing.c:31:59: warning: unused parameter ‘interface’ [-Wunused-parameter]
+                   IP_Address * gateway, int metric, char *interface) {
+                                                           ^
+../src/geekos/net/routing.c: In function ‘Net_Delete_Route’:
+../src/geekos/net/routing.c:43:35: warning: unused parameter ‘destination’ [-Wunused-parameter]
+ int Net_Delete_Route(IP_Address * destination, Netmask * netmask) {
+                                   ^
+../src/geekos/net/routing.c:43:58: warning: unused parameter ‘netmask’ [-Wunused-parameter]
+ int Net_Delete_Route(IP_Address * destination, Netmask * netmask) {
+                                                          ^
+../src/geekos/net/routing.c: In function ‘Net_Clean_Routes’:
+../src/geekos/net/routing.c:56:30: warning: unused parameter ‘msecs’ [-Wunused-parameter]
+ int Net_Clean_Routes(ulong_t msecs) {
+                              ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/socket.c -o geekos/net/socket.o
+../src/geekos/net/socket.c: In function ‘Socket_Create’:
+../src/geekos/net/socket.c:25:27: warning: unused parameter ‘type’ [-Wunused-parameter]
+ int Socket_Create(uchar_t type, int flags __attribute__ ((unused))) {
+                           ^
+../src/geekos/net/socket.c: In function ‘Socket_Connect’:
+../src/geekos/net/socket.c:31:28: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Connect(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                            ^
+../src/geekos/net/socket.c:31:41: warning: unused parameter ‘port’ [-Wunused-parameter]
+ int Socket_Connect(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                                         ^
+../src/geekos/net/socket.c:31:60: warning: unused parameter ‘ipAddress’ [-Wunused-parameter]
+ int Socket_Connect(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                                                            ^
+../src/geekos/net/socket.c: In function ‘Socket_Bind’:
+../src/geekos/net/socket.c:37:25: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Bind(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                         ^
+../src/geekos/net/socket.c:37:38: warning: unused parameter ‘port’ [-Wunused-parameter]
+ int Socket_Bind(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                                      ^
+../src/geekos/net/socket.c:37:57: warning: unused parameter ‘ipAddress’ [-Wunused-parameter]
+ int Socket_Bind(ulong_t id, ushort_t port, IP_Address * ipAddress) {
+                                                         ^
+../src/geekos/net/socket.c: In function ‘Socket_Listen’:
+../src/geekos/net/socket.c:42:27: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Listen(ulong_t id, ulong_t backlog) {
+                           ^
+../src/geekos/net/socket.c:42:39: warning: unused parameter ‘backlog’ [-Wunused-parameter]
+ int Socket_Listen(ulong_t id, ulong_t backlog) {
+                                       ^
+../src/geekos/net/socket.c: In function ‘Socket_Accept’:
+../src/geekos/net/socket.c:49:27: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Accept(ulong_t id, IP_Address * clientIpAddress,
+                           ^
+../src/geekos/net/socket.c:49:44: warning: unused parameter ‘clientIpAddress’ [-Wunused-parameter]
+ int Socket_Accept(ulong_t id, IP_Address * clientIpAddress,
+                                            ^
+../src/geekos/net/socket.c:50:30: warning: unused parameter ‘clientPort’ [-Wunused-parameter]
+                   ushort_t * clientPort) {
+                              ^
+../src/geekos/net/socket.c: In function ‘Socket_Receive’:
+../src/geekos/net/socket.c:56:28: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Receive(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                            ^
+../src/geekos/net/socket.c:56:42: warning: unused parameter ‘buffer’ [-Wunused-parameter]
+ int Socket_Receive(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                                          ^
+../src/geekos/net/socket.c:56:58: warning: unused parameter ‘bufferSize’ [-Wunused-parameter]
+ int Socket_Receive(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                                                          ^
+../src/geekos/net/socket.c: In function ‘Socket_Send’:
+../src/geekos/net/socket.c:61:25: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Send(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                         ^
+../src/geekos/net/socket.c:61:39: warning: unused parameter ‘buffer’ [-Wunused-parameter]
+ int Socket_Send(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                                       ^
+../src/geekos/net/socket.c:61:55: warning: unused parameter ‘bufferSize’ [-Wunused-parameter]
+ int Socket_Send(ulong_t id, uchar_t * buffer, ulong_t bufferSize) {
+                                                       ^
+../src/geekos/net/socket.c: In function ‘Socket_Send_To’:
+../src/geekos/net/socket.c:66:28: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Send_To(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                            ^
+../src/geekos/net/socket.c:66:42: warning: unused parameter ‘buffer’ [-Wunused-parameter]
+ int Socket_Send_To(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                                          ^
+../src/geekos/net/socket.c:66:58: warning: unused parameter ‘bufferSize’ [-Wunused-parameter]
+ int Socket_Send_To(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                                                          ^
+../src/geekos/net/socket.c:67:29: warning: unused parameter ‘port’ [-Wunused-parameter]
+                    ushort_t port, IP_Address * ipAddress) {
+                             ^
+../src/geekos/net/socket.c:67:48: warning: unused parameter ‘ipAddress’ [-Wunused-parameter]
+                    ushort_t port, IP_Address * ipAddress) {
+                                                ^
+../src/geekos/net/socket.c: In function ‘Socket_Receive_From’:
+../src/geekos/net/socket.c:72:33: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Receive_From(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                                 ^
+../src/geekos/net/socket.c:72:47: warning: unused parameter ‘buffer’ [-Wunused-parameter]
+ int Socket_Receive_From(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                                               ^
+../src/geekos/net/socket.c:72:63: warning: unused parameter ‘bufferSize’ [-Wunused-parameter]
+ int Socket_Receive_From(ulong_t id, uchar_t * buffer, ulong_t bufferSize,
+                                                               ^
+../src/geekos/net/socket.c:73:36: warning: unused parameter ‘port’ [-Wunused-parameter]
+                         ushort_t * port, IP_Address * ipAddress) {
+                                    ^
+../src/geekos/net/socket.c:73:55: warning: unused parameter ‘ipAddress’ [-Wunused-parameter]
+                         ushort_t * port, IP_Address * ipAddress) {
+                                                       ^
+../src/geekos/net/socket.c: In function ‘Socket_Destroy’:
+../src/geekos/net/socket.c:78:28: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Destroy(ulong_t id) {
+                            ^
+../src/geekos/net/socket.c: In function ‘Socket_Close’:
+../src/geekos/net/socket.c:85:26: warning: unused parameter ‘id’ [-Wunused-parameter]
+ int Socket_Close(ulong_t id) {
+                          ^
+../src/geekos/net/socket.c: In function ‘Socket_Dispatch’:
+../src/geekos/net/socket.c:92:39: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int Socket_Dispatch(struct IP_Device *device, uchar_t type, ushort_t destPort,
+                                       ^
+../src/geekos/net/socket.c:92:55: warning: unused parameter ‘type’ [-Wunused-parameter]
+ int Socket_Dispatch(struct IP_Device *device, uchar_t type, ushort_t destPort,
+                                                       ^
+../src/geekos/net/socket.c:92:70: warning: unused parameter ‘destPort’ [-Wunused-parameter]
+ int Socket_Dispatch(struct IP_Device *device, uchar_t type, ushort_t destPort,
+                                                                      ^
+../src/geekos/net/socket.c:93:30: warning: unused parameter ‘srcPort’ [-Wunused-parameter]
+                     ushort_t srcPort, IP_Address * destAddress,
+                              ^
+../src/geekos/net/socket.c:93:52: warning: unused parameter ‘destAddress’ [-Wunused-parameter]
+                     ushort_t srcPort, IP_Address * destAddress,
+                                                    ^
+../src/geekos/net/socket.c:94:34: warning: unused parameter ‘srcAddress’ [-Wunused-parameter]
+                     IP_Address * srcAddress, struct Net_Buf *nBuf,
+                                  ^
+../src/geekos/net/socket.c:94:62: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+                     IP_Address * srcAddress, struct Net_Buf *nBuf,
+                                                              ^
+../src/geekos/net/socket.c:95:27: warning: unused parameter ‘data’ [-Wunused-parameter]
+                     void *data) {
+                           ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/sys_net.c -o geekos/net/sys_net.o
+../src/geekos/net/sys_net.c: In function ‘Sys_SendTo’:
+../src/geekos/net/sys_net.c:580:47: warning: unused parameter ‘state’ [-Wunused-parameter]
+ extern int Sys_SendTo(struct Interrupt_State *state) {
+                                               ^
+../src/geekos/net/sys_net.c: In function ‘Sys_ReceiveFrom’:
+../src/geekos/net/sys_net.c:594:52: warning: unused parameter ‘state’ [-Wunused-parameter]
+ extern int Sys_ReceiveFrom(struct Interrupt_State *state) {
+                                                    ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/tcp.c -o geekos/net/tcp.o
+../src/geekos/net/tcp.c: In function ‘TCP_Dispatch’:
+../src/geekos/net/tcp.c:17:36: warning: unused parameter ‘device’ [-Wunused-parameter]
+ int TCP_Dispatch(struct IP_Device *device, IP_Address * destAddress,
+                                    ^
+../src/geekos/net/tcp.c:17:57: warning: unused parameter ‘destAddress’ [-Wunused-parameter]
+ int TCP_Dispatch(struct IP_Device *device, IP_Address * destAddress,
+                                                         ^
+../src/geekos/net/tcp.c:18:31: warning: unused parameter ‘srcAddress’ [-Wunused-parameter]
+                  IP_Address * srcAddress, struct Net_Buf *nBuf) {
+                               ^
+../src/geekos/net/tcp.c:18:59: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+                  IP_Address * srcAddress, struct Net_Buf *nBuf) {
+                                                           ^
+../src/geekos/net/tcp.c: In function ‘TCP_Transmit’:
+../src/geekos/net/tcp.c:26:31: warning: unused parameter ‘srcAddress’ [-Wunused-parameter]
+ int TCP_Transmit(IP_Address * srcAddress, IP_Address * destAddress,
+                               ^
+../src/geekos/net/tcp.c:26:56: warning: unused parameter ‘destAddress’ [-Wunused-parameter]
+ int TCP_Transmit(IP_Address * srcAddress, IP_Address * destAddress,
+                                                        ^
+../src/geekos/net/tcp.c:27:27: warning: unused parameter ‘srcPort’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, uchar_t flags,
+                           ^
+../src/geekos/net/tcp.c:27:45: warning: unused parameter ‘destPort’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, uchar_t flags,
+                                             ^
+../src/geekos/net/tcp.c:27:63: warning: unused parameter ‘flags’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, uchar_t flags,
+                                                               ^
+../src/geekos/net/tcp.c:28:26: warning: unused parameter ‘seqNum’ [-Wunused-parameter]
+                  ulong_t seqNum, ulong_t ackNum, ulong_t advertisedWindow,
+                          ^
+../src/geekos/net/tcp.c:28:42: warning: unused parameter ‘ackNum’ [-Wunused-parameter]
+                  ulong_t seqNum, ulong_t ackNum, ulong_t advertisedWindow,
+                                          ^
+../src/geekos/net/tcp.c:28:58: warning: unused parameter ‘advertisedWindow’ [-Wunused-parameter]
+                  ulong_t seqNum, ulong_t ackNum, ulong_t advertisedWindow,
+                                                          ^
+../src/geekos/net/tcp.c:29:34: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+                  struct Net_Buf *nBuf) {
+                                  ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/net/udp.c -o geekos/net/udp.o
+../src/geekos/net/udp.c: In function ‘UDP_Transmit’:
+../src/geekos/net/udp.c:16:31: warning: unused parameter ‘src’ [-Wunused-parameter]
+ int UDP_Transmit(IP_Address * src,
+                               ^
+../src/geekos/net/udp.c:17:31: warning: unused parameter ‘destination’ [-Wunused-parameter]
+                  IP_Address * destination,
+                               ^
+../src/geekos/net/udp.c:18:27: warning: unused parameter ‘srcPort’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, struct Net_Buf *nBuf) {
+                           ^
+../src/geekos/net/udp.c:18:45: warning: unused parameter ‘destPort’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, struct Net_Buf *nBuf) {
+                                             ^
+../src/geekos/net/udp.c:18:71: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+                  ushort_t srcPort, ushort_t destPort, struct Net_Buf *nBuf) {
+                                                                       ^
+../src/geekos/net/udp.c: In function ‘UDP_Dispatch’:
+../src/geekos/net/udp.c:25:43: warning: unused parameter ‘device’ [-Wunused-parameter]
+ extern int UDP_Dispatch(struct IP_Device *device, IP_Address * destAddress,
+                                           ^
+../src/geekos/net/udp.c:25:64: warning: unused parameter ‘destAddress’ [-Wunused-parameter]
+ extern int UDP_Dispatch(struct IP_Device *device, IP_Address * destAddress,
+                                                                ^
+../src/geekos/net/udp.c:26:38: warning: unused parameter ‘srcAddress’ [-Wunused-parameter]
+                         IP_Address * srcAddress, struct Net_Buf *nBuf) {
+                                      ^
+../src/geekos/net/udp.c:26:66: warning: unused parameter ‘nBuf’ [-Wunused-parameter]
+                         IP_Address * srcAddress, struct Net_Buf *nBuf) {
+                                                                  ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/sound/sound.c -o geekos/sound/sound.o
+../src/geekos/sound/sound.c: In function ‘SB16_Play_File’:
+../src/geekos/sound/sound.c:24:33: warning: unused parameter ‘filename’ [-Wunused-parameter]
+ void SB16_Play_File(const char *filename) {
+                                 ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/alarm.c -o geekos/alarm.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/pipe.c -o geekos/pipe.o
+../src/geekos/pipe.c: In function ‘Pipe_Create’:
+../src/geekos/pipe.c:26:31: warning: unused parameter ‘read_file’ [-Wunused-parameter]
+ int Pipe_Create(struct File **read_file, struct File **write_file) {
+                               ^
+../src/geekos/pipe.c:26:56: warning: unused parameter ‘write_file’ [-Wunused-parameter]
+ int Pipe_Create(struct File **read_file, struct File **write_file) {
+                                                        ^
+../src/geekos/pipe.c: In function ‘Pipe_Read’:
+../src/geekos/pipe.c:30:28: warning: unused parameter ‘f’ [-Wunused-parameter]
+ int Pipe_Read(struct File *f, void *buf, ulong_t numBytes) {
+                            ^
+../src/geekos/pipe.c:30:37: warning: unused parameter ‘buf’ [-Wunused-parameter]
+ int Pipe_Read(struct File *f, void *buf, ulong_t numBytes) {
+                                     ^
+../src/geekos/pipe.c:30:50: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int Pipe_Read(struct File *f, void *buf, ulong_t numBytes) {
+                                                  ^
+../src/geekos/pipe.c: In function ‘Pipe_Write’:
+../src/geekos/pipe.c:34:29: warning: unused parameter ‘f’ [-Wunused-parameter]
+ int Pipe_Write(struct File *f, void *buf, ulong_t numBytes) {
+                             ^
+../src/geekos/pipe.c:34:38: warning: unused parameter ‘buf’ [-Wunused-parameter]
+ int Pipe_Write(struct File *f, void *buf, ulong_t numBytes) {
+                                      ^
+../src/geekos/pipe.c:34:51: warning: unused parameter ‘numBytes’ [-Wunused-parameter]
+ int Pipe_Write(struct File *f, void *buf, ulong_t numBytes) {
+                                                   ^
+../src/geekos/pipe.c: In function ‘Pipe_Close’:
+../src/geekos/pipe.c:38:29: warning: unused parameter ‘f’ [-Wunused-parameter]
+ int Pipe_Close(struct File *f) {
+                             ^
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include ../src/geekos/main.c -o geekos/main.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include -I../include/libc ../src/common/fmtout.c -o geekos/fmtout.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include -I../include/libc ../src/common/string.c -o geekos/string.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include -I../include/libc ../src/common/memmove.c -o geekos/memmove.o
+gcc -m32 -Wno-error=unused-parameter -c -Werror -Wall   -W -Wwrite-strings -fno-stack-protector -Wno-unused -g -DGEEKOS -I../include -I../include/libc ../src/common/bget.c -o geekos/bget.o
+ld -m elf_i386 -o geekos/kernel.exe -Ttext 0x00010000 -e Main \
+		geekos/lowlevel.o geekos/idt.o geekos/int.o geekos/trap.o geekos/irq.o geekos/io.o geekos/keyboard.o geekos/screen.o geekos/timer.o geekos/mem.o geekos/crc32.o geekos/gdt.o geekos/tss.o geekos/smp.o geekos/segment.o geekos/malloc.o geekos/synch.o geekos/kthread.o geekos/user.o geekos/userseg.o geekos/argblock.o geekos/syscall.o geekos/dma.o geekos/floppy.o geekos/elf.o geekos/blockdev.o geekos/ide.o geekos/vfs.o geekos/pfat.o geekos/bitset.o geekos/bufcache.o geekos/signal.o geekos/paging.o geekos/sem.o geekos/gosfs.o geekos/gfs2.o geekos/cfs.o geekos/net/arp.o geekos/net/ethernet.o geekos/net/ip.o geekos/net/ne2000.o geekos/net/netbuf.o geekos/net/net.o geekos/net/rip.o geekos/net/routing.o geekos/net/socket.o geekos/net/sys_net.o geekos/net/tcp.o geekos/net/udp.o geekos/sound/sound.o geekos/alarm.o geekos/pipe.o geekos/main.o  geekos/fmtout.o geekos/string.o geekos/memmove.o geekos/bget.o
+nm geekos/kernel.exe > geekos/kernel.syms
+nasm -f bin \
+		-I../src/geekos/ \
+		-DENTRY_POINT=0x`egrep 'Main' geekos/kernel.syms |awk '{print $1}'` \
+		-DSECONDARY_ENTRY_POINT=0x`egrep 'Secondary_Start' geekos/kernel.syms |awk '{print $1}'` \
+		-DSECONDARY_STACK=0x`egrep 'Secondary_Stack' geekos/kernel.syms |awk '{print $1}'` \
+		../src/geekos/setup.asm \
+		-o geekos/setup.bin
+perl ../scripts/pad geekos/setup.bin 512
+objcopy -R .dynamic -R .note -R .comment -S -O binary geekos/kernel.exe geekos/kernel.bin
+perl ../scripts/pad geekos/kernel.bin 512
+perl ../scripts/zerofile diskc.img 30720
+perl ../scripts/zerofile pagefile.bin 10240
+tools/builtFat.exe -b geekos/hdbootsect diskc.img geekos/setup.bin geekos/kernel.bin pagefile.bin  ../sound/applause.wav ../sound/curve.wav ../sound/force1.wav ../sound/pe2e.wav ../sound/space.wav ../sound/startup.wav ../sound/untie.wav user/arp.exe user/b.exe user/cat.exe user/c.exe user/cp.exe user/echoclnt.exe user/echoserv.exe user/ethrecv.exe user/ethsend.exe user/ethsendx.exe user/example.exe user/execr1.exe user/execr2.exe user/execr3.exe user/forkexec.exe user/fork-p1.exe user/forkpipe.exe user/gfs2f.exe user/halt.exe user/ifconfig.exe user/ipsend.exe user/kill.exe user/long.exe user/ls.exe user/mkdir.exe user/mount.exe user/nsp5test.exe user/null.exe user/pipe-p1.exe user/pipe-p2.exe user/ps.exe user/rec.exe user/recvbyte.exe user/rm.exe user/route.exe user/sched1.exe user/sched2.exe user/sched3.exe user/schedtst.exe user/sem-p1.exe user/sem-p2.exe user/sem-p3.exe user/sem-ping.exe user/sem-pong.exe user/semtest1.exe user/semtest2.exe user/semtest.exe user/sendbyte.exe user/setacl.exe user/setuid.exe user/shell.exe user/spin.exe user/sum.exe user/sync.exe user/test.exe user/time.exe user/touch.exe user/type.exe user/whoami.exe user/workload.exe user/write.exe geekos/hdbootsect -d dirTest -d dirTest/sub1
+writing boot block
+image file = diskc.img
+first data blocks is 252
+setup file starts at 252, 24 sectors long
+kernel file starts at 276, 356 sectors long
+putting the directory with 73 files at sector 241
+perl ../scripts/zerofile diskd.img 20480

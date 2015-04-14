@@ -9,7 +9,7 @@ LD_GENERAL_OPTS := -m elf_i386
 QEMU_VGA_OPT := -vga std
 
 # -no-kqemu not required.
-QEMU ?= $(shell which qemu-system-i386 || which qemu) -soundhw sb16 -k en-us 
+QEMU ?= $(shell which qemu-system-i386 || which qemu) -soundhw sb16 -k en-us
 
 include Makefile.linux
 
