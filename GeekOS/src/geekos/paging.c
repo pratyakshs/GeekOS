@@ -32,6 +32,7 @@
 #include <geekos/errno.h>
 #include <geekos/projects.h>
 #include <geekos/smp.h>
+#include <geekos/uservm.h>
 
 #include <libc/mmap.h>
 /* ----------------------------------------------------------------------
@@ -106,13 +107,12 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
      if(faultCode.writeFault)
     /* Get the fault code */
     faultCode = *((faultcode_t *) & (state->errorCode));
-
     
     /* rest of your handling code here */
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "handle page faults");
 
-    //mycode
-    struct User_Context* userContext = g_currentThread->userContext;
+    // mycode
+    struct User_Context* userContext = CURRENT_THREAD->userContext;
     
     //in case of a write fault, allocate a new page
     if(faultCode.writeFault)
