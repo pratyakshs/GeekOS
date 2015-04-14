@@ -347,6 +347,7 @@ void Free_Space_On_Paging_File(int pagefileIndex) {
     int index1 = pagefileIndex >> 5, index2 = pagefileIndex & 0x1F;
     Free_BitMap[index1] |= (1 << (31 - index2));
 
+
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Free page in paging file");
 }
 
@@ -370,6 +371,9 @@ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
     extern struct Page *g_pageList;
     ulong_t index = page - g_pageList;
     PF_Map[index] = pagefileIndex;
+
+    // do something with virtual address ?!
+    
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Write page data to paging file");
 }
 
@@ -385,6 +389,15 @@ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
 void Read_From_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
     struct Page *page = Get_Page((ulong_t) paddr);
     KASSERT(!(page->flags & PAGE_PAGEABLE));    /* Page must be locked! */
+
+    int i;
+    for(i = 0; i < 8; i++) {
+        Block_Read(pdev, 8 * pagefileIndex + i, (void*)page + 512 * i);
+    }
+
+    page->flags |= PAGE_ALLOCATED;
+
+    // do virtual address remapping ?!
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Read page data from paging file");
 }
 

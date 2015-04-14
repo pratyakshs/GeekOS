@@ -203,6 +203,16 @@ void Init_Mem(struct Boot_Info *bootInfo) {
     Print
         ("%uKB memory detected, %u pages in freelist, %d bytes in kernel heap\n",
          bootInfo->memSizeKB, g_freePageCount, KERNEL_HEAP_SIZE);
+
+    Init_Clock();
+}
+
+/*
+ * Initialize the clock hand pointers
+ */
+void Init_Clock(void) {
+    hand1 = HANDS_DIST;
+    hand2 = 0;
 }
 
 /*
@@ -244,23 +254,19 @@ static void *Alloc_Page_Frame(void) {
  * Returns null if no pages are available.
  */
 static struct Page *Find_Page_To_Page_Out() {
-    unsigned int i;
-    struct Page *curr, *best;
-    best = NULL;
-    for (i = 0; i < s_numPages; i++) {
-        if ((g_pageList[i].flags & PAGE_PAGEABLE) &&
-            (g_pageList[i].flags & PAGE_ALLOCATED)) {
-            if (!best)
-                best = &g_pageList[i];
-            curr = &g_pageList[i];
-            if ((curr->clock < best->clock) && (curr->flags & PAGE_PAGEABLE)) {
-                best = curr;
-            }
+    struct Page *best;
+    bool found = false;
+    while(!found) {
+        struct Page *p1 = &g_pageList[hand1], *p2 = &g_pageList[hand2];
+        if (p1->clock == 0) {
+            best = p1;
+            found = true;
         }
+        p2->clock = 0;
+        hand1 = (hand1 + 1) % QUEUE_SIZE;
+        hand2 = (hand2 + 1) % QUEUE_SIZE;
     }
     return best;
-
-
 }
 
 /**

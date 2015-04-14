@@ -77,6 +77,7 @@ struct Page {
 IMPLEMENT_LIST(Page_List, Page);
 
 void Init_Mem(struct Boot_Info *bootInfo);
+void Init_Clock(void);
 void Init_BSS(void);
 void *Alloc_Page(void);
 void *Alloc_Pageable_Page(pte_t * entry, ulong_t vaddr);
@@ -131,5 +132,13 @@ static __inline__ ulong_t Get_Page_Address(struct Page *page) {
     ulong_t index = page - g_pageList;
     return index << PAGE_POWER;
 }
+
+// void * circular_page_queue[33504];
+
+#define HANDS_DIST 200
+int hand1, hand2;
+
+#define QUEUE_SIZE 33504
+
 
 #endif /* GEEKOS_MEM_H */
