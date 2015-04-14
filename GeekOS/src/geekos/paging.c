@@ -123,6 +123,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
         if(result==-1)
         {
             Print("cannot Allocate a page in page fault handler");
+            Print("-----here1\n");
             goto error;
         }
         return;
@@ -142,6 +143,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
         }
         else
         {
+            Print("-----here2\n");
             goto error;
         }
 
@@ -149,6 +151,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
         if(page_entry->kernelInfo!=KINFO_PAGE_ON_DISK)
         {
             //Illegal address access to the missing page case
+            Print("-----here3\n");
             goto error;
         }
 
@@ -157,6 +160,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
         if(paddr==NULL)
         {
             Print("no more page/n");
+            Print("-----here4\n");
             goto error;
         }
 

@@ -20,5 +20,9 @@ int main(int argc, char **argv) {
     for (i = 0; i < argc; ++i) {
         Print("Arg %d is %s\n", i, argv[i]);
     }
+
+    int arr[33000000];
+    for(i = 0; i < 33000000; i++) 
+    	arr[i] = 323;
     return 1;
 }
