@@ -195,7 +195,6 @@ void Init_Mem(struct Boot_Info *bootInfo) {
          bootInfo->memSizeKB, g_freePageCount, KERNEL_HEAP_SIZE);
 
     Init_Clock();
-    // Start_Kernel_Thread(Free_Frames_Manager, 0, PRIORITY_NORMAL, true, "{Free Frames Manager}");
 
 }
 
@@ -231,6 +230,7 @@ static void *Alloc_Page_Frame(void) {
         /* Mark page as having been allocated. */
         page->flags |= PAGE_ALLOCATED;
         g_freePageCount--;
+        Wake_Up(&g_ffmWaitQueue);
         result = (void *)Get_Page_Address(page);
     }
 

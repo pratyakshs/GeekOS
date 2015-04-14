@@ -1004,7 +1004,7 @@ void Wake_Up_Locked(struct Thread_Queue *waitQueue) {
             int pagefileIndex;
 
             struct Page *p1 = &g_pageList[hand1], *p2 = &g_pageList[hand2];
-            if (! p1->entry->accessed && 
+            if ((! p1->entry->accessed) && 
                 (p1->flags & PAGE_PAGEABLE) &&
                 (p1->flags & PAGE_ALLOCATED)) {
 

@@ -276,6 +276,7 @@ void Init_VM(struct Boot_Info *bootInfo) {
     Install_Interrupt_Handler(14, Page_Fault_Handler);
     Install_Interrupt_Handler(46, Page_Fault_Handler);
     
+    Start_Kernel_Thread(Free_Frames_Manager, 0, PRIORITY_NORMAL, true, "{Free Frames Manager}");
     
 }
 
@@ -372,8 +373,12 @@ void Write_To_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
     ulong_t index = page - g_pageList;
     PF_Map[index] = pagefileIndex;
 
-    // do something with virtual address ?!
+    page->flags = 0;    
+    page->flags |= PAGE_PAGEABLE;
     
+    page->entry->present = 0;
+    page->entry->pageBaseAddr = pagefileIndex;
+
     // TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Write page data to paging file");
 }
 
@@ -395,9 +400,13 @@ void Read_From_Paging_File(void *paddr, ulong_t vaddr, int pagefileIndex) {
         Block_Read(pdev, 8 * pagefileIndex + i, (void*)page + 512 * i);
     }
 
+    page->flags = 0;    
     page->flags |= PAGE_ALLOCATED;
+    page->flags |= PAGE_PAGEABLE;
 
-    // do virtual address remapping ?!
+    page->entry->present = 1;
+    page->entry->pageBaseAddr = ((ulong_t) paddr) >> 12;
+
     TODO_P(PROJECT_VIRTUAL_MEMORY_B, "Read page data from paging file");
 }
 
