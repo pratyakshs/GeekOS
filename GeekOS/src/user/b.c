@@ -14,6 +14,8 @@
 
 #include <conio.h>
 
+int arr[33000000];
+
 int main(int argc, char **argv) {
     int i;
     Print_String("I am the b program\n");
@@ -21,8 +23,7 @@ int main(int argc, char **argv) {
         Print("Arg %d is %s\n", i, argv[i]);
     }
 
-    int arr[33000000];
-    for(i = 0; i < 33000000; i++) 
-    	arr[i] = 323;
+    // for(i = 0; i < 33000000; i++) 
+    	// arr[i] = 323;
     return 1;
 }

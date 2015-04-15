@@ -104,7 +104,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
     if (address < 0xfec01000 && address > 0xf0000000) {
         KASSERT0(0, "page fault address in APIC/IOAPIC range\n");
     }
-     if(faultCode.writeFault)
+
     /* Get the fault code */
     faultCode = *((faultcode_t *) & (state->errorCode));
     
