@@ -104,7 +104,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
     if (address < 0xfec01000 && address > 0xf0000000) {
         KASSERT0(0, "page fault address in APIC/IOAPIC range\n");
     }
-
+   
     /* Get the fault code */
     faultCode = *((faultcode_t *) & (state->errorCode));
     
@@ -118,6 +118,41 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
     if(faultCode.writeFault)
     {
         Print("write fault/n");
+        ulong_t page_dir_addr=address >> 22;
+        ulong_t page_addr=(address << 10) >> 22;
+        pde_t * page_dir_entry=(pde_t*)userContext->pageDir+page_dir_addr;
+        pte_t * page_entry= NULL;
+
+        if(page_dir_entry->present)
+        {
+            page_entry=(pte_t*)((page_dir_entry->pageTableBaseAddr) << 12);
+            page_entry+=page_addr;
+            if(page_entry->kernelInfo & KINFO_PAGE_ON_DISK)
+            {
+                int pagefile_index = page_entry->pageBaseAddr;
+                void * paddr=Alloc_Pageable_Page(page_entry,Round_Down_To_Page(address));
+                if(paddr==NULL)
+                {
+                    Print("no more page/n");
+                    Print("-----here4\n");
+                    goto error;
+                }
+
+                *((uint_t*)page_entry)=0;
+                page_entry->present=1;
+                //do we need to set these flags ????
+                page_entry->kernelInfo &= ~(KINFO_PAGE_ON_DISK);
+                page_entry->flags=VM_WRITE | VM_READ | VM_USER;
+                page_entry->globalPage = 0;
+                page_entry->pageBaseAddr = (ulong_t)paddr>>12;
+                Enable_Interrupts();
+                Read_From_Paging_File(paddr,Round_Down_To_Page(address), pagefile_index);
+                Disable_Interrupts();
+                Free_Space_On_Paging_File(pagefile_index);
+                return ;
+            }
+        }    
+        //if no page directory present 
         int result;
         result = Alloc_Pages_User(userContext->pageDir,Round_Down_To_Page(address),PAGE_SIZE);
         if(result==-1)
@@ -167,6 +202,7 @@ static void Print_Fault_Info(uint_t address, faultcode_t faultCode) {
         *((uint_t*)page_entry)=0;
         page_entry->present=1;
         //do we need to set these flags ????
+        page_entry->kernelInfo &= ~(KINFO_PAGE_ON_DISK);
         page_entry->flags=VM_WRITE | VM_READ | VM_USER;
         page_entry->globalPage = 0;
         page_entry->pageBaseAddr = (ulong_t)paddr>>12;
